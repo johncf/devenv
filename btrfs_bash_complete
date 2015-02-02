@@ -1,5 +1,8 @@
-# original by Joseph Wang <joequant at gmail.com>
-# edited by John C F <john.ch.fr at gmail.com>
+# original by Alfredo Esteban <aedelatorre at xxxxxxxxx>
+# (http://www.spinics.net/lists/linux-btrfs/msg15899.html)
+# edited by Joseph Wang <joequant at gmail.com>
+# (http://lists.alioth.debian.org/pipermail/bash-completion-devel/2013-June/004868.html)
+# edited by John C F <john.ch.fr at gmail.com> on 2015-02-02
 
 _btrfs_devs()
 {
