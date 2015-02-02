@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Name=Inkview
+GenericName=Vector Graphics Viewer
+X-GNOME-FullName=Inkscape Vector Graphics Editor
+Comment=View Scalable Vector Graphics images
+Type=Application
+Categories=Graphics;VectorGraphics;GTK;
+MimeType=image/svg+xml;image/svg+xml-compressed;application/vnd.corel-draw;application/pdf;application/postscript;image/x-eps;application/illustrator;
+Exec=inkview %F
+TryExec=inkview
+Terminal=false
+StartupNotify=true
+Icon=inkscape

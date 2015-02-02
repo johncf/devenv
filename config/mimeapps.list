@@ -1,0 +1,12 @@
+[Added Associations]
+text/plain=nVim.desktop;
+application/octet-stream=nVim-bin.desktop;
+image/svg+xml=inkview.desktop;
+
+[Default Applications]
+text/plain=nVim.desktop
+image/svg+xml=inkview.desktop
+image/jpeg=feh.desktop
+image/png=feh.desktop
+application/pdf=zathura.desktop;
+audio/mpeg=vlc.desktop
