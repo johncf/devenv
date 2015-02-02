@@ -1,0 +1,101 @@
+! urxvt
+URxvt*buffered: true
+URxvt*font: xft:inconsolata:size=11:antialias=true
+URxvt*depth: 32
+!URxvt*borderLess: true
+URxvt*scrollBar: false
+URxvt*loginShell: true
+! Enable Shift-PageUp/Down in screen
+Urxvt*secondaryScroll: true
+URxvt*saveLines: 4096
+!URxvt*termName: rxvt-unicode-256color
+! scroll-to-bottom on keypress
+!URxvt*scrollTtyKeypress: true
+! scroll-to-bottom on TTY output
+URxvt*scrollTtyOutput: false
+! scrolling with the scrollback buffer as new lines appear (try to show
+! the same lines), but only if scrollTtyOutput = false
+URxvt*scrollWithBuffer: true
+
+URxvt.perl-ext-common: default,matcher,keyboard-select,clipboard
+URxvt.perl-lib: /home/shared/urxvt/perl/
+URxvt.urlLauncher: firefox
+!URxvt.matcher.button: 1
+URxvt.keysym.M-Escape: keyboard-select:activate
+URxvt.keysym.M-c:   clipboard:copy
+URxvt.keysym.M-v:   clipboard:paste
+URxvt.keysym.M-C-v: clipboard:paste_escaped
+
+!! euphrasia v2 by bohoomil (https://gist.github.com/bohoomil/5253661)
+
+! euphrasia fg/bg
+URxvt*background:  #1A1C1D
+URxvt*foreground:  #E6E6E6
+*cursorColor:      #D6D6D6
+
+! X.org apps bg/fg
+*background: #D0CECB
+*foreground: #090C19
+
+! black
+*color0:  #222946
+! dark grey
+*color8:  #8C8B89
+
+! red
+*color1:  #B32323
+! bright red
+*color9:  #DC2C2C
+
+! green
+*color2:  #1AAA13
+! bright green
+*color10: #5DCE33
+
+! yellow
+*color3:  #FF9F3E
+! bright yellow
+*color11: #E6CB29
+
+! blue
+*color4:  #4957F3
+! bright blue
+*color12: #4D79FF
+
+! magenta
+*color5:	#BF3E94
+! bright magenta
+*color13:	#B641CC
+
+! cyan
+*color6:  #09A5B3
+! bright cyan
+*color14: #4CCCF9
+
+! light grey
+*color7:  #AEAEAE
+! white
+*color15: #DBDDE4
+
+!! or in .profile/.bash_profile/.bashrc, etc.:
+!
+!if [ "$TERM" = "linux" ]; then
+!    echo -en "\e]P0000000" #black
+!    echo -en "\e]P88C8B89" #darkgrey
+!    echo -en "\e]P1B32323" #darkred
+!    echo -en "\e]P9DC2C2C" #red
+!    echo -en "\e]P21AAA13" #darkgreen
+!    echo -en "\e]PA5DCE33" #green
+!    echo -en "\e]P3FF9F3E" #brown
+!    echo -en "\e]PBE6CB29" #yellow
+!    echo -en "\e]P44957F3" #darkblue
+!    echo -en "\e]PC4D79FF" #blue
+!    echo -en "\e]P5BF3E94" #darkmagenta
+!    echo -en "\e]PDB641CC" #magenta
+!    echo -en "\e]P609A5B3" #darkcyan
+!    echo -en "\e]PE3CB6F3" #cyan
+!    echo -en "\e]P7AEAEAE" #lightgrey
+!    echo -en "\e]PFDBDDE4" #white
+!    clear # default input colours
+!fi
+! vim:ft=xdefaults
