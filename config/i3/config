@@ -6,18 +6,23 @@
 set $mod Mod1
 set $mod4 Mod4
 
-bindsym $mod4+f exec dbus-launch pcmanfm
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q sset Master toggle
+bindsym $mod4+f exec dbus-launch thunar
 
-bindsym $mod4+i workspace "2:wot"; exec firefox
+bindsym $mod4+i exec firefox
+for_window [class="^Firefox$" instance="^Navigator$"] move container to workspace 2:wot, workspace number 2
 # Enable floating mode for all windows that Firefox spawns
 for_window [class="^Firefox$" instance="^(?!Navigator)"] floating enable, border normal
+
+# Enable floating mode for File Progress windows of Thunar
+for_window [instance="^thunar$" title="^File\ Operation\ Progress$"] floating enable, border normal
 
 # [class="Vlc" window_role="vlc\\-main"] # Run i3-save-tree to know more attributes!
 bindsym $mod4+v [instance="vlc"] focus
 bindsym $mod4+Shift+v exec vlc
 for_window [instance="vlc"] move container to workspace 5:V, workspace number 5
-
-bindsym $mod+Shift+Return exec urxvtc -e nvim
 
 bindsym --release Print exec --no-startup-id import /tmp/latest-screenshot.png
 
@@ -29,35 +34,34 @@ bindsym $mod+minus scratchpad show
 
 focus_follows_mouse no
 hide_edge_borders both
-new_window 1pixel
+new_window pixel 2
+
+# class                 border  backgr. text    indicator
+client.focused          #4c7899 #407196 #ffffff #2e9ef4
+client.focused_inactive #333333 #40474a #ffffff #484e50
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-# This font is widely installed, provides lots of unicode glyphs, right-to-left
-# text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:Ubuntu Mono 8
-# Before i3 v4.8, we used to recommend this one as the default:
-# font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# The font above is very space-efficient, that is, it looks good, sharp and
-# clear in small sizes. However, its unicode glyph coverage is limited, the old
-# X core fonts rendering does not support right-to-left and this being a bitmap
-# font, it doesn’t scale on retina/hidpi displays.
+font pango:FontAwesome 7.5
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $mod
+floating_modifier $mod4
 
 # start a terminal
+bindsym $mod4+Return exec urxvtc #i3-sensible-terminal
 bindsym $mod+Return exec urxvtc #i3-sensible-terminal
 
-# kill focused window
-bindsym $mod+q kill
+bindsym $mod4+Shift+Return exec urxvtc -e nvim
+bindsym $mod+Shift+Return exec urxvtc -e nvim
 
-# start dmenu (a program launcher)
-bindsym $mod4+x exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-#bindsym $mod4+x exec --no-startup-id i3-dmenu-desktop
+# kill focused window
+bindsym $mod4+q kill
+bindsym $mod+q border normal
+bindsym $mod+Shift+q border pixel 2
+
+# start a program launcher
+bindsym $mod4+x exec rofi -now -show run
+#bindsym $mod4+x exec $(dmenu_path|dmenu)
 
 # change focus
 bindsym $mod4+h focus left
@@ -82,21 +86,20 @@ bindsym $mod4+Shift+Left focus output left
 bindsym $mod4+Shift+Right focus output right
 
 # change tiling layout (vertical, toggle)
-bindsym $mod+w split v
-bindsym $mod+e layout toggle split
+bindsym $mod4+w split v
+bindsym $mod4+e layout toggle split
 
 # enter fullscreen mode for the focused container
-bindsym $mod+s fullscreen
+bindsym $mod4+s fullscreen
 
-# change container layout (tabbed, toggle)
+# change container layout tabbed
 bindsym $mod4+t layout tabbed
-bindsym $mod4+e layout toggle
 
 # toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
+bindsym $mod4+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+bindsym $mod4+space focus mode_toggle
 
 # focus the parent container
 bindsym $mod4+a focus parent
@@ -105,32 +108,32 @@ bindsym $mod4+a focus parent
 bindsym $mod4+z focus child
 
 # switch to workspace
-bindsym $mod+1 workspace 1:neo
-bindsym $mod+2 workspace 2:wot
-bindsym $mod+3 workspace 3:III
-bindsym $mod+4 workspace 4:IV
-bindsym $mod+5 workspace 5:V
-bindsym $mod+6 workspace 6:VI
-bindsym $mod+7 workspace 7:VII
-bindsym $mod+8 workspace 8:ate
-bindsym $mod+9 workspace 9:IX
-bindsym $mod+0 workspace 10:X
+bindsym $mod4+1 workspace 1:neo
+bindsym $mod4+2 workspace 2:wot
+bindsym $mod4+3 workspace 3:III
+bindsym $mod4+4 workspace 4:IV
+bindsym $mod4+5 workspace 5:V
+bindsym $mod4+6 workspace 6:VI
+bindsym $mod4+7 workspace 7:VII
+bindsym $mod4+8 workspace 8:ate
+bindsym $mod4+9 workspace 9:IX
+bindsym $mod4+0 workspace 10:X
 
 # cycle workspaces
-bindsym $mod+Tab workspace next
-bindsym $mod+Shift+Tab workspace prev
+bindsym $mod4+Tab workspace next
+bindsym $mod4+Shift+Tab workspace prev
 
 # move focused container to workspace 
-bindsym $mod+Shift+1 move container to workspace 1:neo; workspace number 1
-bindsym $mod+Shift+2 move container to workspace 2:wot; workspace number 2
-bindsym $mod+Shift+3 move container to workspace 3:III; workspace number 3
-bindsym $mod+Shift+4 move container to workspace 4:IV; workspace number 4
-bindsym $mod+Shift+5 move container to workspace 5:V; workspace number 5
-bindsym $mod+Shift+6 move container to workspace 6:VI; workspace number 6
-bindsym $mod+Shift+7 move container to workspace 7:VII; workspace number 7
-bindsym $mod+Shift+8 move container to workspace 8:ate; workspace number 8
-bindsym $mod+Shift+9 move container to workspace 9:IX; workspace number 9
-bindsym $mod+Shift+0 move container to workspace 10:X; workspace number 10
+bindsym $mod4+Shift+1 move container to workspace 1:neo; workspace number 1
+bindsym $mod4+Shift+2 move container to workspace 2:wot; workspace number 2
+bindsym $mod4+Shift+3 move container to workspace 3:III; workspace number 3
+bindsym $mod4+Shift+4 move container to workspace 4:IV; workspace number 4
+bindsym $mod4+Shift+5 move container to workspace 5:V; workspace number 5
+bindsym $mod4+Shift+6 move container to workspace 6:VI; workspace number 6
+bindsym $mod4+Shift+7 move container to workspace 7:VII; workspace number 7
+bindsym $mod4+Shift+8 move container to workspace 8:ate; workspace number 8
+bindsym $mod4+Shift+9 move container to workspace 9:IX; workspace number 9
+bindsym $mod4+Shift+0 move container to workspace 10:X; workspace number 10
 
 # reload the configuration file
 bindsym $mod+Shift+r reload
@@ -140,7 +143,7 @@ bindsym $mod4+Shift+r restart
 # exit i3
 set $exit_mod "(l)ock (E)xit i3 (S)uspend (P)ower off (R)estart"
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e mode $exit_mod
+bindsym $mod4+Shift+e mode $exit_mod
 
 mode $exit_mod {
 	bindsym l exec --no-startup-id i3lock -i /home/shared/walls/calvin_png/lock-01.png; mode "default"
@@ -180,7 +183,7 @@ mode "resize" {
         bindsym q mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod4+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -189,5 +192,5 @@ bar {
 		strip_workspace_numbers yes
 }
 
-exec --no-startup-id i3-msg "workspace 1:neo; exec urxvtd -o -q -f; exec sleep 1 && urxvtc"
+exec --no-startup-id i3-msg "workspace 1:neo; exec urxvtd -o -q -f; exec sleep 1 && urxvtc; exec setxkbmap -option caps:none"
 

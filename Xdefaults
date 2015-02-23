@@ -1,41 +1,56 @@
 ! urxvt
-URxvt*buffered: true
-URxvt*font: xft:inconsolata:size=11:antialias=true
-URxvt*depth: 32
-!URxvt*borderLess: true
-URxvt*scrollBar: false
-URxvt*loginShell: true
+URxvt*background:      #1A1C1D
+URxvt*foreground:      #E6E6E6
+URxvt*font:            xft:inconsolata:size=11:antialias=true
+URxvt*buffered:        true
+URxvt*depth:           32
+!URxvt*borderLess:      true
+URxvt*scrollBar:       false
+URxvt*loginShell:      true
 ! Enable Shift-PageUp/Down in screen
 Urxvt*secondaryScroll: true
-URxvt*saveLines: 4096
-!URxvt*termName: rxvt-unicode-256color
+URxvt*saveLines:       4096
 ! scroll-to-bottom on keypress
-!URxvt*scrollTtyKeypress: true
+URxvt*scrollTtyKeypress: true
 ! scroll-to-bottom on TTY output
 URxvt*scrollTtyOutput: false
 ! scrolling with the scrollback buffer as new lines appear (try to show
 ! the same lines), but only if scrollTtyOutput = false
 URxvt*scrollWithBuffer: true
+URxvt*iso14755:        false
 
 URxvt.perl-ext-common: default,matcher,keyboard-select,clipboard
-URxvt.perl-lib: /home/shared/urxvt/perl/
-URxvt.urlLauncher: firefox
-!URxvt.matcher.button: 1
+URxvt.perl-lib:        /home/shared/urxvt/perl/
+! middle click on a url to open in firefox
+URxvt.url-launcher:    /usr/bin/firefox
 URxvt.keysym.M-Escape: keyboard-select:activate
-URxvt.keysym.M-c:   clipboard:copy
-URxvt.keysym.M-v:   clipboard:paste
-URxvt.keysym.M-C-v: clipboard:paste_escaped
+URxvt.keysym.M-c:      clipboard:copy
+URxvt.keysym.M-v:      clipboard:paste
+URxvt.keysym.M-C-v:    clipboard:paste_escaped
 
-!! euphrasia v2 by bohoomil (https://gist.github.com/bohoomil/5253661)
+! rofi
+rofi.switchers:        run,window,ssh
+rofi.width:            1366
+rofi.lines:            10
+rofi.columns:          3
+rofi.font:             inconsolata 10
+rofi.fg:               #eeeeee
+rofi.bg:               #222222
+rofi.bc:               #333333
+rofi.location:         2
+rofi.padding:          1
+rofi.terminal:         urxvtc
+!rofi.ssh-command:      {terminal} -e {ssh-client} {host}
+rofi.levenshtein-sort: true
 
-! euphrasia fg/bg
-URxvt*background:  #1A1C1D
-URxvt*foreground:  #E6E6E6
-*cursorColor:      #D6D6D6
+
+!! euphrasia v2 by bohoomil
 
 ! X.org apps bg/fg
 *background: #D0CECB
 *foreground: #090C19
+
+*cursorColor:     #D6D6D6
 
 ! black
 *color0:  #222946

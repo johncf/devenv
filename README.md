@@ -10,10 +10,10 @@ Here's a collection of cripts and configuration files that I use.
 * **File system**: [btrfs](https://btrfs.wiki.kernel.org/index.php/UseCases)
 
 ## My filesystem layout
-There is only a single "Linux" parition which is formatted with btrfs. This contains the following subvolumes and the corresponding mount points:
+There is only a single "Linux" partition which is formatted with btrfs. This contains the following subvolumes and the corresponding mount points:
 ```
 Subvolume       Mount point         Description
-<0>              --                 The root subvolume of a btrfs partion
+<0>              --                 The root subvolume of a btrfs partition
  |- boot        /boot
  |- root        /
  |- home        /home               Note: All the child subvolumes will appear as directories in /home
