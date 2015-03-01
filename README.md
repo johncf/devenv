@@ -6,7 +6,7 @@ Here's a collection of cripts and configuration files that I use.
 * **Window Manager**: [i3](https://i3wm.org) + X
 * **Terminal Emulator**: [urxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode)
 * **Text editor**: [neovim](http://neovim.org/)
-* **Shell**: bash + bash-completion
+* **Shell**: bash
 * **File system**: [btrfs](https://btrfs.wiki.kernel.org/index.php/UseCases)
 
 ## My filesystem layout
@@ -20,7 +20,7 @@ Subvolume       Mount point         Description
  |  |- shared    --                 Shared files between users
  |  |- user1     --
  |  |- user2     --
- |  `- snaps     --                 Used to keep read-only snapshots of user's home subvolumes.
- `- snaps        --                 Used to keep read-only snapshots of root and boot subvolumes.
+ |  `- snaps     --                 Used to keep snapshots of user's home subvolumes.
+ `- snaps        --                 Used to keep snapshots of root and boot subvolumes.
     |...         --
 ```

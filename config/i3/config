@@ -123,7 +123,7 @@ bindsym $mod4+0 workspace 10:X
 bindsym $mod4+Tab workspace next
 bindsym $mod4+Shift+Tab workspace prev
 
-# move focused container to workspace 
+# move focused container to workspace
 bindsym $mod4+Shift+1 move container to workspace 1:neo; workspace number 1
 bindsym $mod4+Shift+2 move container to workspace 2:wot; workspace number 2
 bindsym $mod4+Shift+3 move container to workspace 3:III; workspace number 3
@@ -192,5 +192,8 @@ bar {
 		strip_workspace_numbers yes
 }
 
-exec --no-startup-id i3-msg "workspace 1:neo; exec urxvtd -o -q -f; exec sleep 1 && urxvtc; exec setxkbmap -option caps:none"
+exec_always --no-startup-id xrdb -load ~/.Xdefaults
+exec --no-startup-id i3-msg "workspace 1:neo"
+exec --no-startup-id setxkbmap -option caps:none
+exec urxvtd -o -q -f && sleep 1 && urxvtc
 
