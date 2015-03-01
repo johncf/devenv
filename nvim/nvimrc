@@ -1,74 +1,120 @@
-set nocompatible
+"set nocompatible " No longer relevant in neovim -- always nocompatible
 
-" pathogen: infect '.nvim/bundle' directory
-execute pathogen#infect()
+" NeoBundle Scripts --- BEGIN {{{
+if has('vim_starting')
+	set runtimepath+=/home/john/.nvim/bundle/neobundle.vim/
+endif
 
+call neobundle#begin(expand('/home/john/.nvim/bundle'))
+
+" Required: Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+" Add or remove your Bundles here:
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'vim-scripts/BufOnly.vim'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
+
+call neobundle#end()
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+" NeoBundle Scripts --- END }}}
+
+filetype plugin indent on
+syntax on
+colorscheme desertEx-v2
+
+" Global Options --- BEGIN {{{
+" -= UI =-
 set showcmd
-set hidden "buffers can be hidden keeping its changes
+set hidden " Buffers can be hidden keeping its changes
 set number
-set relativenumber "relative line numbering
+set relativenumber " Relative line numbering
 set ruler "show line and column numbers
-set textwidth=78
-set backspace=indent,eol,start
-set timeoutlen=2000 ttimeoutlen=100 "<leader> will have 2000ms timeout but 
-									"<Esc> will have only 100ms timeout
+set foldmethod=marker
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline_theme = 'bubblegum'
+"let g:airline_theme = 'powerlineish'
+"hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
+"let g:airline_theme = 'zenburn'
+set laststatus=2
 
+" -= Usability =-
+set backspace=indent,eol,start
+set incsearch " Show results simultaneously while typing a search command
+" <leader> will have 2000ms timeout but <Esc> will have only 100ms timeout
+set timeoutlen=2000 ttimeoutlen=100
+
+" -= History management =-
 set directory=~/.nvim/swps
 set undofile
 set undodir=~/.nvim/undos
-set undolevels=512	"maximum number of changes that can be undone
-set undoreload=8192	"maximum number lines to save for undo on a buffer reload
+set undolevels=512	" Maximum number of changes that can be undone
+set undoreload=8192	" Maximum number lines to save for undo on a buffer reload
 
-set tabstop=4
+" -= Formatting =-
 set shiftwidth=4
-set incsearch " While typing a search command, show immediately where the
-              " so far typed pattern matches.et scrolloff=2
-set ssop-=options    " do not store global and local values in a session
-set ssop-=folds      " do not store folds
- 
-syntax on
-"set hlsearch " highlighting of last used search pattern
-filetype on " Enable filetype detection
-filetype indent on " Enable filetype-specific indenting
-filetype plugin on
-filetype plugin indent on
+set tabstop=4
+"set textwidth=78
 
+" -= Session-saves =- :help :mksession
+set ssop-=options " Do not store global and local values
+
+" -= Spellcheck =-
+set spellfile=~/.nvim/spell/en.utf-8.add
+set spelllang=en
+" Global Options --- END }}}
+
+" Keymaps --- BEGIN {{{
 " Don't go to Ex mode
-map Q gq
+map Q q:
+map Y y$
 
-" Use the damn hjkl keys
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+"inoremap <C-H> <S-Left>
+"inoremap <C-L> <S-Right>
 inoremap qj <Esc>
-inoremap <C-H> <S-Left>
-inoremap <C-L> <S-Right>
 
-" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-U> clear-back;
-" <C-C> C-exit; <C-D> list-opts; <C-W> del-word
+vnoremap qj <Esc>
+
+" C-mode: <C-E> End; <C-F> C-window; <C-U> clear-back;
+"		  <C-C> C-exit; <C-D> list-opts; <C-W> del-word
+cnoremap <C-A> <Home>
+cnoremap <C-B> <Left>
 cnoremap <C-J> <Down>
 cnoremap <C-K> <Up>
 cnoremap <C-H> <S-Left>
 cnoremap <C-L> <S-Right>
 
-" In many terminal emulators the mouse works just fine, thus enable it.
-"if has('mouse')
-"  set mouse=a " See :help mouse
-"endif
-
-noremap <S-Tab> :tab sp
-noremap <leader>q :bp <BAR> bd #<CR>
+map <leader>p "+p
+map <leader>P "+P
+map <leader>y "+y
+noremap <leader>bo :BufOnly<CR>
+noremap <leader>cd :cd %:p:h<CR>
+noremap <leader>do :DiffOrig<CR>
+noremap <leader>h :HLToggle<CR>
+noremap <leader>m :MouseToggle<CR>
 noremap <leader>n :NERDTreeToggle<CR>
-"let g:NERDTreeWinSize = 30 " Set NERDTree window width
+noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
+noremap <leader>q :bp<BAR>bw #<CR>
+noremap <leader>Q :qall<CR>
+noremap <leader>s :SpellToggle<CR>
+noremap <leader>wq :w<BAR>bp<BAR>bw #<CR>
+noremap <leader>wQ :w<BAR>qall<CR>
+noremap <leader>ww :w<CR>
+noremap <leader>wf :w <Right>
+" Keymaps --- END }}}
 
-colorscheme desertEx-v2
-
-"cscope stuff --begin--
+" CScope stuff --- BEGIN {{{
 function! LoadCscope()
 	let db = findfile("cscope.out", ".;")
 	if (!empty(db))
@@ -79,12 +125,45 @@ function! LoadCscope()
 	endif
 endfunction
 au BufEnter /*.{c,h} call LoadCscope()
-"cscope stuff --end--
+" CScope stuff --- END }}}
+
+" RecentFiles --- BEGIN {{{
+function! RecentFiles(max)
+	let i = 0
+	let n = len(v:oldfiles)
+	if a:max && n > a:max
+		let n = a:max
+	endif
+	while i < n
+		echo i ": " v:oldfiles[i]
+		let i = i+1
+	endw
+endfunction
+
+function! OpenRecentFile(i)
+	e `=expand(v:oldfiles[a:i])`
+endfunction
+" RecentFiles --- END }}}
+
+" Custom commands --- BEGIN {{{
+if !exists(":SpellToggle")
+	command SpellToggle if &spell | set nospell | else | set spell | endif
+endif
+
+if !exists(":HLToggle")
+	command HLToggle if &hlsearch | set nohlsearch | else | set hlsearch | endif
+endif
+
+if !exists(":MouseToggle")
+	command MouseToggle if has('mouse') | if &mouse=="" | set mouse=a
+				\ | else | set mouse= | endif | endif
+endif
 
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
 if !exists(":DiffOrig")
 	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 				 \ | wincmd p | diffthis
 endif
+" Custom commands --- END }}}
+
