@@ -1,7 +1,7 @@
 ! urxvt
 URxvt*background:      #1A1C1D
 URxvt*foreground:      #E6E6E6
-URxvt*font:            xft:inconsolata:size=11:antialias=true
+URxvt*font:            xft:Inconsolata for Powerline:size=11.4
 URxvt*buffered:        true
 URxvt*depth:           32
 !URxvt*borderLess:      true
@@ -113,4 +113,3 @@ rofi.levenshtein-sort: true
 !    echo -en "\e]PFDBDDE4" #white
 !    clear # default input colours
 !fi
-! vim:ft=xdefaults
