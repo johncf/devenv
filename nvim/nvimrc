@@ -1,42 +1,33 @@
-"set nocompatible " No longer relevant in neovim -- always nocompatible
+"set nocompatible " Always nocompatible in neovim
 
-" NeoBundle Scripts --- BEGIN {{{
-if has('vim_starting')
-	set runtimepath+=/home/john/.nvim/bundle/neobundle.vim/
-endif
+" Plug Scripts +++ {{{
+call plug#begin('~/.nvim/plugged')
 
-call neobundle#begin(expand('/home/john/.nvim/bundle'))
+Plug 'mileszs/ack.vim', {'on': 'Ack'}
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-fugitive'
+"Plug 'Shougo/vimshell', { 'tag' : 'ver.9.2' }
 
-" Required: Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Add or remove your Bundles here:
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'vim-scripts/BufOnly.vim'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'Shougo/vimshell', { 'rev' : '3787e5' }
-
-call neobundle#end()
-
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-" NeoBundle Scripts --- END }}}
+call plug#end()
+" Plug Scripts --- }}}
 
 filetype plugin indent on
-syntax on
 colorscheme desertEx-v2
+syntax enable
 
-" Global Options --- BEGIN {{{
+" Global Options +++ {{{
 " -= UI =-
-set showcmd
+set colorcolumn=79
+set display+=lastline " Show as much of last line as possible
+set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
+set laststatus=2
 set number
 set relativenumber " Relative line numbering
-set ruler "show line and column numbers
-set foldmethod=marker
+set ruler " Show line and column numbers
+set scrolloff=1
+set showcmd
+"set wildmenu " Enhanced command line suggestions
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
@@ -44,25 +35,27 @@ let g:airline_theme = 'bubblegum'
 "let g:airline_theme = 'powerlineish'
 "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 "let g:airline_theme = 'zenburn'
-set laststatus=2
 
 " -= Usability =-
+set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
-" <leader> will have 2000ms timeout but <Esc> will have only 100ms timeout
-set timeoutlen=2000 ttimeoutlen=100
+set nrformats-=octal " For use with <C-A> and <C-X>
+set timeoutlen=2000 " <leader> will have 2000ms timeout
+"set ttimeout
+"set ttimeoutlen=100 " <Esc> doesn't have a timeout in nvim
 
 " -= History management =-
 set directory=~/.nvim/swps
+set history=256
 set undofile
 set undodir=~/.nvim/undos
-set undolevels=512	" Maximum number of changes that can be undone
-set undoreload=8192	" Maximum number lines to save for undo on a buffer reload
+set undolevels=256	" Maximum number of changes that can be undone
+set undoreload=2048	" Maximum number lines to save for undo on a buffer reload
 
 " -= Formatting =-
 set shiftwidth=4
 set tabstop=4
-"set textwidth=78
 
 " -= Session-saves =- :help :mksession
 set ssop-=options " Do not store global and local values
@@ -70,9 +63,9 @@ set ssop-=options " Do not store global and local values
 " -= Spellcheck =-
 set spellfile=~/.nvim/spell/en.utf-8.add
 set spelllang=en
-" Global Options --- END }}}
+" Global Options --- }}}
 
-" Keymaps --- BEGIN {{{
+" Keymaps +++ {{{
 " Don't go to Ex mode
 map Q q:
 map Y y$
@@ -80,54 +73,58 @@ map Y y$
 " CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
-"inoremap <C-H> <S-Left>
-"inoremap <C-L> <S-Right>
+inoremap <C-B> <S-Left>
+inoremap <C-F> <S-Right>
 inoremap qj <Esc>
 
 vnoremap qj <Esc>
 
-" C-mode: <C-E> End; <C-F> C-window; <C-U> clear-back;
-"		  <C-C> C-exit; <C-D> list-opts; <C-W> del-word
+" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
+"		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
 cnoremap <C-A> <Home>
-cnoremap <C-B> <Left>
+cnoremap <C-B> <S-Left>
+cnoremap <C-F> <S-Right>
 cnoremap <C-J> <Down>
 cnoremap <C-K> <Up>
-cnoremap <C-H> <S-Left>
-cnoremap <C-L> <S-Right>
+cnoremap <C-H> <Left>
+cnoremap <C-L> <Right>
 
-map <leader>p "+p
-map <leader>P "+P
+map <leader>p o<Esc>"+p
+map <leader>P O<Esc>"+p
 map <leader>y "+y
-noremap <leader>bo :BufOnly<CR>
+map <leader>Y "+y$
+noremap <leader>vo :VisibleOnly<CR>
 noremap <leader>cd :cd %:p:h<CR>
 noremap <leader>do :DiffOrig<CR>
 noremap <leader>h :HLToggle<CR>
 noremap <leader>m :MouseToggle<CR>
-noremap <leader>n :NERDTreeToggle<CR>
+noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
+noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
 noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
 noremap <leader>q :bp<BAR>bw #<CR>
 noremap <leader>Q :qall<CR>
 noremap <leader>s :SpellToggle<CR>
-noremap <leader>wq :w<BAR>bp<BAR>bw #<CR>
-noremap <leader>wQ :w<BAR>qall<CR>
-noremap <leader>ww :w<CR>
-noremap <leader>wf :w <Right>
-" Keymaps --- END }}}
+noremap <leader>w :w<CR>
+" Keymaps --- }}}
 
-" CScope stuff --- BEGIN {{{
-function! LoadCscope()
-	let db = findfile("cscope.out", ".;")
-	if (!empty(db))
-		let path = strpart(db, 0, match(db, "/cscope.out$"))
-		set nocscopeverbose " suppress 'duplicate connection' error
-		exe "cs add " . db . " " . path
-		set cscopeverbose
-	endif
-endfunction
-au BufEnter /*.{c,h} call LoadCscope()
-" CScope stuff --- END }}}
+" Custom commands +++ {{{
+command! SpellToggle if &spell | set nospell | else | set spell | endif
 
-" RecentFiles --- BEGIN {{{
+command! HLToggle if &hlsearch | set nohlsearch | else | set hlsearch | endif
+
+if has('mouse')
+	command! MouseToggle if &mouse=="" | set mouse=a
+				\ | else | set mouse= | endif
+endif
+
+" See the diff between the current buffer and the file on disk.
+command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
+				\ | wincmd p | diffthis
+
+command! -nargs=* VisibleOnly call CloseHiddenBuffers()
+" Custom commands --- }}}
+
+" RecentFiles +++ {{{
 function! RecentFiles(max)
 	let i = 0
 	let n = len(v:oldfiles)
@@ -143,27 +140,40 @@ endfunction
 function! OpenRecentFile(i)
 	e `=expand(v:oldfiles[a:i])`
 endfunction
-" RecentFiles --- END }}}
+" RecentFiles --- }}}
 
-" Custom commands --- BEGIN {{{
-if !exists(":SpellToggle")
-	command SpellToggle if &spell | set nospell | else | set spell | endif
-endif
+" CloseHiddenBuffers +++ {{{
+" src: http://stackoverflow.com/questions/2974192/
+function! CloseHiddenBuffers()
+	" figure out which buffers are visible in any tab
+	let visible = {}
+	for t in range(1, tabpagenr('$'))
+		for b in tabpagebuflist(t)
+			let visible[b] = 1
+		endfor
+	endfor
+	" close any buffer that are loaded and not visible
+	let l:tally = 0
+	for b in range(1, bufnr('$'))
+		if bufloaded(b) && !has_key(visible, b)
+			let l:tally += 1
+			exe 'bw ' . b
+		endif
+	endfor
+	echon "Deleted " . l:tally . " buffers"
+endfun
+" CloseHiddenBuffers --- }}}
 
-if !exists(":HLToggle")
-	command HLToggle if &hlsearch | set nohlsearch | else | set hlsearch | endif
-endif
-
-if !exists(":MouseToggle")
-	command MouseToggle if has('mouse') | if &mouse=="" | set mouse=a
-				\ | else | set mouse= | endif | endif
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-if !exists(":DiffOrig")
-	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-				 \ | wincmd p | diffthis
-endif
-" Custom commands --- END }}}
+" CScope stuff +++ {{{
+function! LoadCscope()
+	let db = findfile("cscope.out", ".;")
+	if (!empty(db))
+		let path = strpart(db, 0, match(db, "/cscope.out$"))
+		set nocscopeverbose " suppress 'duplicate connection' error
+		exe "cs add " . db . " " . path
+		set cscopeverbose
+	endif
+endfunction
+au BufEnter /*.{c,h} call LoadCscope()
+" CScope stuff --- }}}
 
