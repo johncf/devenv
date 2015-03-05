@@ -39,14 +39,14 @@ hi PmenuSel		ctermfg=61 ctermbg=250
 hi Question		ctermfg=48 cterm=NONE
 hi Search		ctermfg=252 ctermbg=61 cterm=NONE
 hi SpecialKey	ctermfg=240 cterm=NONE
-hi StatusLine	ctermfg=16 ctermbg=144 cterm=bold
+hi StatusLine	ctermfg=252 ctermbg=238 cterm=NONE
 hi StatusLineNC	ctermfg=250 ctermbg=241 cterm=NONE
 hi Title		ctermfg=167 cterm=NONE
 hi VertSplit	ctermfg=238 ctermbg=238 cterm=NONE
 hi Visual		ctermfg=235 ctermbg=215 cterm=NONE
 hi WarningMsg	ctermfg=210 cterm=NONE
 hi WildMenu		ctermfg=250 ctermbg=235 cterm=NONE
-hi colorcolumn	ctermbg=240
+hi ColorColumn	ctermbg=233
 
 " syntax highlighting groups
 hi Comment		ctermfg=114 cterm=NONE
@@ -59,6 +59,4 @@ hi Type			ctermfg=215 cterm=bold
 hi Special		ctermfg=122 cterm=NONE
 hi Ignore		ctermfg=241 cterm=NONE
 hi Todo			ctermfg=202 ctermbg=226 cterm=NONE
-
-
 
