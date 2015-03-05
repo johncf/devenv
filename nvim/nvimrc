@@ -3,10 +3,13 @@
 " Plug Scripts +++ {{{
 call plug#begin('~/.nvim/plugged')
 
-Plug 'mileszs/ack.vim', {'on': 'Ack'}
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-eunuch'
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'rking/ag.vim'
 "Plug 'Shougo/vimshell', { 'tag' : 'ver.9.2' }
+"Plug 'junegunn/vim-easy-align'
 
 call plug#end()
 " Plug Scripts --- }}}
@@ -27,7 +30,9 @@ set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
 set scrolloff=1
 set showcmd
-"set wildmenu " Enhanced command line suggestions
+set wildmenu " Enhanced command line suggestions
+set wildmode=longest,full
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
@@ -35,6 +40,7 @@ let g:airline_theme = 'bubblegum'
 "let g:airline_theme = 'powerlineish'
 "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 "let g:airline_theme = 'zenburn'
+let g:viewdoc_openempty = 0
 
 " -= Usability =-
 set autoindent
@@ -42,8 +48,6 @@ set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set nrformats-=octal " For use with <C-A> and <C-X>
 set timeoutlen=2000 " <leader> will have 2000ms timeout
-"set ttimeout
-"set ttimeoutlen=100 " <Esc> doesn't have a timeout in nvim
 
 " -= History management =-
 set directory=~/.nvim/swps
@@ -69,12 +73,15 @@ set spelllang=en
 " Don't go to Ex mode
 map Q q:
 map Y y$
+noremap <A-n> :cn<CR>
+noremap <A-p> :cp<CR>
 
-" CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
+inoremap <C-A> <C-O>^
+inoremap <C-E> <C-O>$
 inoremap <C-B> <S-Left>
 inoremap <C-F> <S-Right>
+" Make <C-U> undoable
+inoremap <C-U> <C-G>u<C-U>
 inoremap qj <Esc>
 
 vnoremap qj <Esc>
@@ -82,12 +89,14 @@ vnoremap qj <Esc>
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
 cnoremap <C-A> <Home>
+" idea from tpope/vim-rsi
+cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
 cnoremap <C-B> <S-Left>
 cnoremap <C-F> <S-Right>
+cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline())? "<UP>": "<C-\>egetcmdline()[0 : getcmdpos()-2]<CR>"
 cnoremap <C-J> <Down>
-cnoremap <C-K> <Up>
-cnoremap <C-H> <Left>
-cnoremap <C-L> <Right>
+cnoremap <C-H> <Space><BS><Left>
+cnoremap <C-L> <Space><BS><Right>
 
 map <leader>p o<Esc>"+p
 map <leader>P O<Esc>"+p
@@ -101,7 +110,7 @@ noremap <leader>m :MouseToggle<CR>
 noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
 noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
 noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
-noremap <leader>q :bp<BAR>bw #<CR>
+noremap <leader>q :bp<BAR>bd #<CR>
 noremap <leader>Q :qall<CR>
 noremap <leader>s :SpellToggle<CR>
 noremap <leader>w :w<CR>
@@ -177,3 +186,4 @@ endfunction
 au BufEnter /*.{c,h} call LoadCscope()
 " CScope stuff --- }}}
 
+"do patch /usr/share/nvim/runtime/autoload/provider/python.vim
