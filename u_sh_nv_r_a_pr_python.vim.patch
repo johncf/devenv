@@ -1,0 +1,12 @@
+16,22d15
+< " Ensure that we can load the python host before bootstrapping
+< try
+<   let s:host = remote#host#Require('legacy-python-provider')
+< catch
+<   echomsg v:exception
+<   finish
+< endtry
+26a20,22
+>   if !exists('s:host')
+>     let s:host = remote#host#Require('legacy-python-provider')
+>   endif
