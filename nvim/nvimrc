@@ -5,10 +5,10 @@ call plug#begin('~/.nvim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-eunuch'
 Plug 'powerman/vim-plugin-viewdoc'
-Plug 'rking/ag.vim'
-"Plug 'Shougo/vimshell', { 'tag' : 'ver.9.2' }
+Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+"Plug 'Shougo/vimshell'
 "Plug 'junegunn/vim-easy-align'
 
 call plug#end()
@@ -113,6 +113,7 @@ noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
 noremap <leader>q :bp<BAR>bd #<CR>
 noremap <leader>Q :qall<CR>
 noremap <leader>s :SpellToggle<CR>
+noremap <leader>u :UndotreeToggle<CR>
 noremap <leader>w :w<CR>
 " Keymaps --- }}}
 
