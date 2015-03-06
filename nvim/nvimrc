@@ -20,7 +20,6 @@ syntax enable
 
 " Global Options +++ {{{
 " -= UI =-
-set colorcolumn=79
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
@@ -104,8 +103,9 @@ map <leader>y "+y
 map <leader>Y "+y$
 noremap <leader>vo :VisibleOnly<CR>
 noremap <leader>cd :cd %:p:h<CR>
+noremap <leader>cc :CCToggle<CR>
 noremap <leader>do :DiffOrig<CR>
-noremap <leader>h :HLToggle<CR>
+noremap <leader>h :HLSToggle<CR>
 noremap <leader>m :MouseToggle<CR>
 noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
 noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
@@ -120,7 +120,9 @@ noremap <leader>w :w<CR>
 " Custom commands +++ {{{
 command! SpellToggle if &spell | set nospell | else | set spell | endif
 
-command! HLToggle if &hlsearch | set nohlsearch | else | set hlsearch | endif
+command! HLSToggle if &hls | set nohls | else | set hls | endif "HLSearch
+
+command! CCToggle if &cc | set cc=0 | else | set cc=79 | endif "ColorColumn
 
 if has('mouse')
 	command! MouseToggle if &mouse=="" | set mouse=a
