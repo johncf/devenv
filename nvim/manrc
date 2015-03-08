@@ -1,0 +1,144 @@
+" --- vimrc for viewing man pages ---
+
+"set nocompatible " Always nocompatible in neovim
+
+" Plug Scripts +++ {{{
+call plug#begin('~/.nvim/plugged')
+
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-vinegar' "for improved file browsing
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+
+call plug#end()
+" Plug Scripts --- }}}
+
+filetype plugin indent on
+colorscheme desertEx-v2
+syntax enable
+
+au VimEnter * tabonly | VisibleOnly
+
+" Global Options +++ {{{
+" -= UI =-
+set display+=lastline " Show as much of last line as possible
+set foldmethod=marker
+set hidden " Buffers can be hidden keeping its changes
+set hlsearch
+set ignorecase
+set ruler " Show line and column numbers
+set scrolloff=1
+set showcmd
+set wildmenu " Enhanced command line suggestions
+set wildmode=longest,full
+
+let g:airline_powerline_fonts = 1
+let g:airline_theme = 'bubblegum'
+let g:viewdoc_openempty = 0
+let g:airline#extensions#tabline#enabled = 1
+
+" -= Usability =-
+set incsearch " Show results simultaneously while typing a search command
+set timeoutlen=2000 " <leader> will have 2000ms timeout
+
+" -= History management =-
+set directory=~/.nvim/swps
+set history=256
+set undofile
+set undodir=~/.nvim/undos
+set undolevels=256	" Maximum number of changes that can be undone
+set undoreload=2048	" Maximum number lines to save for undo on a buffer reload
+
+" -= Formatting =-
+set shiftwidth=4
+set tabstop=4
+
+" -= Session-saves =- :help :mksession
+set ssop-=options " Do not store global and local values
+
+" -= Spellcheck =-
+set spellfile=~/.nvim/spell/en.utf-8.add
+set spelllang=en
+" Global Options --- }}}
+
+" Keymaps +++ {{{
+" Don't go to Ex mode, open cmd-line window instead.
+noremap Q q:
+noremap Y y$
+
+vnoremap qj <Esc>
+
+" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
+"		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
+cnoremap <C-A> <Home>
+" idea from tpope/vim-rsi
+cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
+cnoremap <C-B> <S-Left>
+cnoremap <C-F> <S-Right>
+cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline())? "<UP>": "<C-\>egetcmdline()[0 : getcmdpos()-2]<CR>"
+cnoremap <C-J> <Down>
+cnoremap <C-H> <Space><BS><Left>
+cnoremap <C-L> <Space><BS><Right>
+
+map <leader>y "+y
+noremap <leader>Y "+y$
+noremap <leader>p o<Esc>"+p
+noremap <leader>P O<Esc>"+p
+noremap <leader>vo :VisibleOnly<CR>
+noremap <leader>hl :noh<CR>
+noremap <leader>m :MouseToggle<CR>
+noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
+noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
+noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
+noremap <leader>Q :qall<CR>
+
+autocmd FileType man noremap <buffer> d <C-D>
+autocmd FileType man noremap <buffer> u <C-U>
+" Keymaps --- }}}
+
+" Custom commands +++ {{{
+command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
+command! -nargs=* VisibleOnly call CloseHiddenBuffers()
+" Custom commands --- }}}
+
+" RecentFiles +++ {{{
+function! RecentFiles(max)
+	let i = 0
+	let n = len(v:oldfiles)
+	if a:max && n > a:max
+		let n = a:max
+	endif
+	while i < n
+		echo i ": " v:oldfiles[i]
+		let i = i+1
+	endw
+endfunction
+
+function! OpenRecentFile(i)
+	e `=expand(v:oldfiles[a:i])`
+endfunction
+" RecentFiles --- }}}
+
+" CloseHiddenBuffers +++ {{{
+" src: http://stackoverflow.com/questions/2974192/
+function! CloseHiddenBuffers()
+	" figure out which buffers are visible in any tab
+	let visible = {}
+	for t in range(1, tabpagenr('$'))
+		for b in tabpagebuflist(t)
+			let visible[b] = 1
+		endfor
+	endfor
+	" close any buffer that are loaded and not visible
+	let l:tally = 0
+	for b in range(1, bufnr('$'))
+		if bufloaded(b) && !has_key(visible, b)
+			let l:tally += 1
+			exe 'bd ' . b
+		endif
+	endfor
+	echon "Deleted " . l:tally . " buffers"
+endfun
+" CloseHiddenBuffers --- }}}
+
+" vim:ft=vim:
