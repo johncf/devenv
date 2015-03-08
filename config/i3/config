@@ -60,8 +60,8 @@ bindsym $mod+q border normal
 bindsym $mod+Shift+q border pixel 2
 
 # start a program launcher
-bindsym $mod4+x exec rofi -now -show run
-#bindsym $mod4+x exec $(dmenu_path|dmenu)
+bindsym $mod4+x exec rofi -show run
+bindsym $mod4+m exec --no-startup-id ~/hacks/man_prompt.sh
 
 # change focus
 bindsym $mod4+h focus left
@@ -152,35 +152,35 @@ mode $exit_mod {
 	bindsym Shift+p exec systemctl poweroff; mode "default"
 	bindsym Shift+r exec systemctl reboot; mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym q mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym q mode "default"
 }
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+	# These bindings trigger as soon as you enter the resize mode
 
-        bindsym h resize shrink width 250 px or 12 ppt
-        bindsym j resize grow height 250 px or 12 ppt
-        bindsym k resize shrink height 250 px or 12 ppt
-        bindsym l resize grow width 250 px or 12 ppt
+	bindsym h resize shrink width 250 px or 12 ppt
+	bindsym j resize grow height 250 px or 12 ppt
+	bindsym k resize shrink height 250 px or 12 ppt
+	bindsym l resize grow width 250 px or 12 ppt
 
-        bindsym Left resize shrink width 20 px or 6 ppt
-        bindsym Down resize grow height 20 px or 6 ppt
-        bindsym Up resize shrink height 20 px or 6 ppt
-        bindsym Right resize grow width 20 px or 6 ppt
+	bindsym Left resize shrink width 20 px or 6 ppt
+	bindsym Down resize grow height 20 px or 6 ppt
+	bindsym Up resize shrink height 20 px or 6 ppt
+	bindsym Right resize grow width 20 px or 6 ppt
 
-        bindsym Shift+Left resize shrink width 10 px or 2 ppt
-        bindsym Shift+Down resize grow height 10 px or 2 ppt
-        bindsym Shift+Up resize shrink height 10 px or 2 ppt
-        bindsym Shift+Right resize grow width 10 px or 2 ppt
+	bindsym Shift+Left resize shrink width 10 px or 2 ppt
+	bindsym Shift+Down resize grow height 10 px or 2 ppt
+	bindsym Shift+Up resize shrink height 10 px or 2 ppt
+	bindsym Shift+Right resize grow width 10 px or 2 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-        bindsym q mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym q mode "default"
 }
 
 bindsym $mod4+r mode "resize"
@@ -188,8 +188,8 @@ bindsym $mod4+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status -c ~/.config/i3/status.conf
-		strip_workspace_numbers yes
+	status_command i3status -c ~/.config/i3/status.conf
+	strip_workspace_numbers yes
 }
 
 exec_always --no-startup-id xrdb -load ~/.Xdefaults
