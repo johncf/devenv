@@ -5,11 +5,16 @@ call plug#begin('~/.nvim/plugged')
 
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar' "for improved file browsing
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 "Plug 'Shougo/vimshell'
 "Plug 'junegunn/vim-easy-align'
+
+Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
+Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
+Plug 'tpope/vim-repeat' "tpope plugin repeat
 
 call plug#end()
 " Plug Scripts --- }}}
@@ -69,9 +74,12 @@ set spelllang=en
 " Global Options --- }}}
 
 " Keymaps +++ {{{
-" Don't go to Ex mode
-map Q q:
-map Y y$
+" URL/XML/CString En/Decode: [u ]u [x ]x [y ]y
+source ~/.nvim/xcode.vim
+
+" Don't go to Ex mode, open cmd-line window instead.
+noremap Q q:
+noremap Y y$
 noremap <A-n> :cn<CR>
 noremap <A-p> :cp<CR>
 
@@ -97,32 +105,34 @@ cnoremap <C-J> <Down>
 cnoremap <C-H> <Space><BS><Left>
 cnoremap <C-L> <Space><BS><Right>
 
-map <leader>p o<Esc>"+p
-map <leader>P O<Esc>"+p
 map <leader>y "+y
-map <leader>Y "+y$
-noremap <leader>vo :VisibleOnly<CR>
+noremap <leader>Y "+y$
+noremap <leader>p o<Esc>"+p
+noremap <leader>P O<Esc>"+p
+noremap <leader>b :e %:p:h<CR>
+noremap <leader>cc :set <C-R>=ToggleOpt("colorcolumn")<CR><CR>
 noremap <leader>cd :cd %:p:h<CR>
-noremap <leader>cc :CCToggle<CR>
 noremap <leader>do :DiffOrig<CR>
-noremap <leader>h :HLSToggle<CR>
+noremap <leader>hl :set <C-R>=ToggleOpt("hlsearch")<CR><CR>
 noremap <leader>m :MouseToggle<CR>
 noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
 noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
 noremap <leader>o :call RecentFiles(25)<CR>:<C-U>call OpenRecentFile()<left>
 noremap <leader>q :bp<BAR>bd #<CR>
 noremap <leader>Q :qall<CR>
-noremap <leader>s :SpellToggle<CR>
+noremap <leader>s :set <C-R>=ToggleOpt("spell")<CR><CR>
 noremap <leader>u :UndotreeToggle<CR>
+noremap <leader>vo :VisibleOnly<CR>
 noremap <leader>w :w<CR>
+
+autocmd FileType man noremap <buffer> d <C-D>
+autocmd FileType man noremap <buffer> u <C-U>
 " Keymaps --- }}}
 
 " Custom commands +++ {{{
-command! SpellToggle if &spell | set nospell | else | set spell | endif
-
-command! HLSToggle if &hls | set nohls | else | set hls | endif "HLSearch
-
-command! CCToggle if &cc | set cc=0 | else | set cc=79 | endif "ColorColumn
+function! ToggleOpt(op)
+	return eval('&'.a:op) ? 'no'.a:op : a:op
+endfun
 
 if has('mouse')
 	command! MouseToggle if &mouse=="" | set mouse=a
@@ -169,7 +179,7 @@ function! CloseHiddenBuffers()
 	for b in range(1, bufnr('$'))
 		if bufloaded(b) && !has_key(visible, b)
 			let l:tally += 1
-			exe 'bw ' . b
+			exe 'bd ' . b
 		endif
 	endfor
 	echon "Deleted " . l:tally . " buffers"
@@ -189,4 +199,3 @@ endfunction
 au BufEnter /*.{c,h} call LoadCscope()
 " CScope stuff --- }}}
 
-"do patch /usr/share/nvim/runtime/autoload/provider/python.vim
