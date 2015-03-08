@@ -1,0 +1,53 @@
+75d74
+<     int  restart       = FALSE;
+77,106c76,94
+<     do {
+<         int shift = 0;
+<         int mretv = menu ( list, length, input, dmenu_prompt, NULL, &shift,
+<                            token_match, NULL, &selected_line, FALSE );
+< 
+<         // We normally do not want to restart the loop.
+<         restart = FALSE;
+<         if ( mretv == MENU_OK && list[selected_line] != NULL ) {
+<             fputs ( list[selected_line], stdout );
+<             fputc ( '\n', stdout );
+<             fflush ( stdout );
+<             if ( shift ) {
+<                 restart = TRUE;
+<                 // Move to next line.
+<                 selected_line = MIN ( selected_line + 1, length - 1 );
+<             }
+<             retv = TRUE;
+<         }
+<         else if ( mretv == MENU_CUSTOM_INPUT && *input != NULL && *input[0] != '\0' ) {
+<             fputs ( *input, stdout );
+<             fputc ( '\n', stdout );
+<             fflush ( stdout );
+<             if ( shift ) {
+<                 restart = TRUE;
+<                 // Move to next line.
+<                 selected_line = MIN ( selected_line + 1, length - 1 );
+<             }
+<             retv = TRUE;
+<         }
+<     } while ( restart );
+---
+> 	int shift = 0;
+> 	int mretv = menu ( list, length, input, dmenu_prompt, NULL, &shift,
+> 					   token_match, NULL, &selected_line, FALSE );
+> 	if ( mretv == MENU_OK && list[selected_line] != NULL ) {
+> 		if ( shift ) {
+> 			fputs ( *input, stdout );
+> 		} else {
+> 			fputs ( list[selected_line], stdout );
+> 		}
+> 		fputc ( '\n', stdout );
+> 		fflush ( stdout );
+> 		retv = TRUE;
+> 	}
+> 	else if ( mretv == MENU_CUSTOM_INPUT && *input != NULL && *input[0] != '\0' ) {
+> 		fputs ( *input, stdout );
+> 		fputc ( '\n', stdout );
+> 		fflush ( stdout );
+> 		retv = TRUE;
+> 	}

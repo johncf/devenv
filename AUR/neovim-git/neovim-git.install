@@ -1,0 +1,11 @@
+post_install() {
+    echo ">>> The neovim executable was renamed to 'nvim'"
+	echo ">>> Try to update gtk icon cache..."
+	command -v gtk-update-icon-cache 2>&1 >/dev/null && \
+		gtk-update-icon-cache /usr/share/icons/hicolor || \
+		echo ">>> Please update your icon cache manually!"
+}
+
+post_upgrade() {
+    post_install
+}
