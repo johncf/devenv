@@ -20,6 +20,8 @@ let g:colors_name="desertEx-v2"
 hi Normal		ctermfg=250 ctermbg=234 cterm=NONE
 
 " highlight groups
+hi ColorColumn	ctermbg=235
+"hi CursorLine	ctermbg=235 cterm=NONE
 hi Cursor		ctermfg=16 ctermbg=226 cterm=NONE
 hi DiffAdd		ctermfg=16 ctermbg=223
 hi DiffChange	ctermfg=16 ctermbg=117
@@ -46,7 +48,6 @@ hi VertSplit	ctermfg=238 ctermbg=238 cterm=NONE
 hi Visual		ctermfg=235 ctermbg=215 cterm=NONE
 hi WarningMsg	ctermfg=210 cterm=NONE
 hi WildMenu		ctermfg=250 ctermbg=235 cterm=NONE
-hi ColorColumn	ctermbg=233
 
 " syntax highlighting groups
 hi Comment		ctermfg=114 cterm=NONE
@@ -60,3 +61,7 @@ hi Special		ctermfg=122 cterm=NONE
 hi Ignore		ctermfg=241 cterm=NONE
 hi Todo			ctermfg=202 ctermbg=226 cterm=NONE
 
+" Startify groups
+hi StartifySlash	ctermfg=102
+hi StartifyPath		ctermfg=67
+hi StartifyBracket	ctermfg=246
