@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Name=neoVim (Binary mode)
-Exec=urxvtc -e nvim -b %F
-Categories=Other;
-MimeType=application/octet-stream;
-Terminal=false
-Icon=nvim
