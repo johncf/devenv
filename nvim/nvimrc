@@ -2,22 +2,23 @@
 
 " Plug Scripts +++ {{{
 " Installation:
-"   mkdir -p ~/.vim/autoload
-"   curl -fLo ~/.vim/autoload/plug.vim \
+"   mkdir -p ~/.nvim/autoload
+"   curl -fLo ~/.nvim/autoload/plug.vim \
 "     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.nvim/plugged')
 
-Plug 'mhinz/vim-startify'
-Plug 'bling/vim-airline'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-vinegar' "for improved file browsing
-Plug 'powerman/vim-plugin-viewdoc'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+Plug 'rust-lang/rust.vim'
+Plug 'bling/vim-airline'
+Plug 'mhinz/vim-startify'
+Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 "Plug 'Shougo/vimshell'
 "Plug 'junegunn/vim-easy-align'
 "Plug 'vim-scripts/Conque-GDB'
 
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-vinegar' "for improved file browsing
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
@@ -43,21 +44,12 @@ set showcmd
 set wildmenu " Enhanced command line suggestions
 set wildmode=longest,full
 
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
-let g:airline_theme = 'bubblegum'
-"let g:airline_theme = 'powerlineish'
-"hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
-"let g:airline_theme = 'zenburn'
-let g:viewdoc_openempty = 0
-
 " -= Usability =-
 set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set nrformats-=octal " For use with <C-A> and <C-X>
-set timeoutlen=2000 " <leader> will have 2000ms timeout
+set timeoutlen=1200 " <leader> will have 2000ms timeout
 
 " -= History management =-
 set directory=~/.nvim/swps
@@ -78,6 +70,20 @@ set ssop-=options " Do not store global and local values
 set spellfile=~/.nvim/spell/en.utf-8.add
 set spelllang=en
 " Global Options --- }}}
+
+" Plugin Options +++ {{{
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline_theme = 'bubblegum'
+"alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
+
+let g:surround_no_insert_mappings = 1
+let g:viewdoc_openempty = 0
+
+" Prevent vinegar from mapping 'minus'
+noremap - -
+" Plugin Options --- }}}
 
 " Keymaps +++ {{{
 " URL/XML/CString En/Decode maps: [u ]u [x ]x [y ]y
@@ -106,7 +112,8 @@ cnoremap <C-A> <Home>
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
 cnoremap <C-B> <S-Left>
 cnoremap <C-F> <S-Right>
-cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline())? "<UP>": "<C-\>egetcmdline()[0 : getcmdpos()-2]<CR>"
+cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<UP>" :
+		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 cnoremap <C-J> <Down>
 cnoremap <C-H> <Space><BS><Left>
 cnoremap <C-L> <Space><BS><Right>
@@ -132,6 +139,7 @@ noremap <leader>w :w<CR>
 
 autocmd FileType man\|help noremap <buffer> d <C-D>
 autocmd FileType man\|help noremap <buffer> u <C-U>
+autocmd FileType netrw nmap <buffer> <Space> mf
 " Keymaps --- }}}
 
 " Custom commands +++ {{{
@@ -164,7 +172,7 @@ function! CloseHiddenBuffers()
 	" close any buffer that are loaded and not visible
 	let l:tally = 0
 	for b in range(1, bufnr('$'))
-		if bufloaded(b) && !has_key(visible, b)
+		if buflisted(b) && bufwinnr(b)<1
 			let l:tally += 1
 			exe 'bd ' . b
 		endif
