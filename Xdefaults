@@ -1,7 +1,17 @@
-! urxvt
+!! urxvt
 URxvt*background:      #1A1C1D
 URxvt*foreground:      #E6E6E6
-URxvt*font:            xft:Inconsolata for Powerline:size=11.4
+URxvt*font:            xft:MonacoB:size=9.7,xft:Inconsolata for Powerline:size=11.4
+! # Fonts installation: {{{
+! mkdir -p ~/.local/share/fonts
+! curl -fLo ~/.local/share/fonts/Inconsolata\ for\ Powerline.otf \
+!   https://raw.githubusercontent.com/powerline/fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
+! curl -fLo ~/.local/share/fonts/MonacoB.otf \
+!   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
+! curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
+!   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
+! fc-cache -f
+! # }}}
 URxvt*buffered:        true
 URxvt*depth:           32
 !URxvt*borderLess:      true
@@ -17,6 +27,7 @@ URxvt*scrollTtyOutput: false
 ! scrolling with the scrollback buffer as new lines appear (try to show
 ! the same lines), but only if scrollTtyOutput = false
 URxvt*scrollWithBuffer: true
+! disable Ctrl+Shift input of extended characters
 URxvt*iso14755:        false
 
 URxvt.perl-ext-common: default,matcher,keyboard-select,clipboard
@@ -28,11 +39,11 @@ URxvt.keysym.M-c:      clipboard:copy
 URxvt.keysym.M-v:      clipboard:paste
 URxvt.keysym.M-C-v:    clipboard:paste_escaped
 
-! rofi
+!! rofi
 rofi.switchers:        run,window,ssh
 rofi.width:            1366
 rofi.lines:            10
-rofi.columns:          3
+rofi.columns:          4
 rofi.font:             inconsolata 10
 rofi.fg:               #eeeeee
 rofi.bg:               #222222
@@ -50,46 +61,38 @@ rofi.levenshtein-sort: true
 *background: #D0CECB
 *foreground: #090C19
 
-*cursorColor:     #D6D6D6
+*cursorColor: #D6D6D6
 
-! black
+! black & dark grey
 *color0:  #222946
-! dark grey
 *color8:  #8C8B89
 
-! red
+! red & bright red
 *color1:  #B32323
-! bright red
 *color9:  #DC2C2C
 
-! green
+! green & bright green
 *color2:  #1AAA13
-! bright green
 *color10: #5DCE33
 
-! yellow
+! yellow & bright yellow
 *color3:  #FF9F3E
-! bright yellow
 *color11: #E6CB29
 
-! blue
+! blue & bright blue
 *color4:  #4957F3
-! bright blue
 *color12: #4D79FF
 
-! magenta
+! magenta & bright magenta
 *color5:	#BF3E94
-! bright magenta
 *color13:	#B641CC
 
-! cyan
+! cyan & bright cyan
 *color6:  #09A5B3
-! bright cyan
 *color14: #4CCCF9
 
-! light grey
+! light grey & white
 *color7:  #AEAEAE
-! white
 *color15: #DBDDE4
 
 !! or in .profile/.bash_profile/.bashrc, etc.:
