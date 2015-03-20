@@ -1,4 +1,4 @@
 #!/bin/bash
 #sudo mandb
-apropos . | sed 's/ (.*//' | sort -u > ~/.volatile/man_list
+apropos . | sed 's/ (.*//' | sort -u > ~/.cache/man_list
 
