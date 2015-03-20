@@ -193,7 +193,5 @@ bar {
 }
 
 exec_always --no-startup-id xrdb -load ~/.Xdefaults
-exec --no-startup-id i3-msg "workspace 1:neo"
-exec --no-startup-id setxkbmap -option caps:none
-exec urxvtd -o -q -f && sleep 1 && urxvtc
+exec --no-startup-id bash ~/.config/i3/initrc 2>/tmp/${USER}_i3initlog
 
