@@ -127,8 +127,8 @@ noremap <leader>cd :cd %:p:h<CR>
 noremap <leader>do :DiffOrig<CR>
 noremap <leader>hl :set invhlsearch<CR>
 noremap <leader>m :MouseToggle<CR>
-noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
-noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
+noremap <leader>n :<C-U>exe 'b ' . GetModifiableBuffer(v:count, 1)<CR>
+noremap <leader>N :<C-U>exe 'b ' . GetModifiableBuffer(v:count, -1)<CR>
 noremap <leader>o :Startify<CR>
 noremap <leader>q :bp<BAR>bd #<CR>
 noremap <leader>Q :qall<CR>
@@ -155,6 +155,45 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 
 command! -nargs=* VisibleOnly call CloseHiddenBuffers()
 " Custom commands --- }}}
+
+" GetModifiableBuffer +++ {{{
+" Get the nth modifiable buffer, relative to the current one if direction=±1,
+" or relative to the first modiable buffer
+function! GetModifiableBuffer(n, direction)
+	let dir = a:direction
+	let n = a:n
+	let curbufnr = bufnr('%')
+	if n == 0 && dir != 0 && &modifiable
+		let n = 1
+	endif
+	let endbufnr = bufnr('$')
+	if dir == 0
+		let curbufnr = 0
+		let dir = 1
+	endif
+	if dir == -1
+		let bufrange = [0] + reverse(range(1, endbufnr - 1))
+	else
+		let bufrange = range(0, endbufnr - 1)
+	endif
+	let total = 0
+	let mbufs = []
+	for bi in bufrange
+		let buf = (curbufnr - 1 + bi)%endbufnr + 1
+		if buflisted(buf) && getbufvar(buf, "&modifiable")
+			if n == len(mbufs)
+				return buf
+			endif
+			let mbufs += [buf]
+		endif
+	endfor
+	if len(mbufs) == 0
+		return curbufnr
+	else
+		return mbufs[n%len(mbufs)
+	endif
+endfun
+" GetModifiableBuffer --- }}}
 
 " CloseHiddenBuffers +++ {{{
 " src: http://stackoverflow.com/questions/2974192/
