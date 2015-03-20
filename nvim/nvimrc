@@ -125,14 +125,14 @@ noremap <leader>P O<Esc>"+p
 noremap <leader>b :e %:p:h<CR>
 noremap <leader>cd :cd %:p:h<CR>
 noremap <leader>do :DiffOrig<CR>
-noremap <leader>hl :set <C-R>=ToggleOpt("hlsearch")<CR><CR>
+noremap <leader>hl :set invhlsearch<CR>
 noremap <leader>m :MouseToggle<CR>
 noremap <leader>n :<C-U>exe 'bn ' . max([1,v:count])<CR>
 noremap <leader>N :<C-U>exe 'bp ' . max([1,v:count])<CR>
 noremap <leader>o :Startify<CR>
 noremap <leader>q :bp<BAR>bd #<CR>
 noremap <leader>Q :qall<CR>
-noremap <leader>s :set <C-R>=ToggleOpt("spell")<CR><CR>
+noremap <leader>s :set invspell<CR>
 noremap <leader>u :UndotreeToggle<CR>
 noremap <leader>vo :VisibleOnly<CR>
 noremap <leader>w :w<CR>
@@ -144,10 +144,6 @@ autocmd FileType rust setlocal makeprg=cargo\ run
 " Keymaps --- }}}
 
 " Custom commands +++ {{{
-function! ToggleOpt(op)
-	return eval('&'.a:op) ? 'no'.a:op : a:op
-endfun
-
 if has('mouse')
 	command! MouseToggle if &mouse=="" | set mouse=a
 				\ | else | set mouse= | endif
