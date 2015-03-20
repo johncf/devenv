@@ -139,6 +139,7 @@ noremap <leader>w :w<CR>
 
 autocmd FileType man\|help noremap <buffer> d <C-D>
 autocmd FileType man\|help noremap <buffer> u <C-U>
+autocmd FileType netrw noremap <buffer> qq <C-^>
 autocmd FileType netrw nmap <buffer> <Space> mf
 autocmd FileType rust setlocal makeprg=cargo\ run
 " Keymaps --- }}}
