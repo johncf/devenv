@@ -41,6 +41,7 @@ set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
 set scrolloff=1
 set showcmd
+set noshowmode
 set wildmenu " Enhanced command line suggestions
 set wildmode=longest,full
 
@@ -138,6 +139,7 @@ nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
 nnoremap <leader>b :e %:p:h<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
+nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
 nnoremap <leader>m :MouseToggle<CR>
@@ -149,7 +151,7 @@ nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :VisibleOnly<CR>
-nnoremap <leader>w :w<CR>
+nnoremap <leader>w :update<CR>
 
 autocmd FileType man\|help nnoremap <buffer> d <C-D>
 autocmd FileType man\|help nnoremap <buffer> u <C-U>
