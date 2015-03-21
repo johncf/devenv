@@ -90,10 +90,10 @@ noremap - -
 " CScope maps: <C-\>X <C-@>X <C-@><C-@>X
 
 " Don't go to Ex mode, open cmd-line window instead.
-noremap Q q:
-noremap Y y$
-noremap <A-n> :cn<CR>
-noremap <A-p> :cp<CR>
+nnoremap Q q:
+nnoremap Y y$
+nnoremap ]c :cn<CR>
+nnoremap [c :cp<CR>
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -119,27 +119,27 @@ cnoremap <C-H> <Space><BS><Left>
 cnoremap <C-L> <Space><BS><Right>
 
 map <leader>y "+y
-noremap <leader>Y "+y$
-noremap <leader>p o<Esc>"+p
-noremap <leader>P O<Esc>"+p
-noremap <leader>b :e %:p:h<CR>
-noremap <leader>cd :cd %:p:h<CR>
-noremap <leader>do :DiffOrig<CR>
-noremap <leader>hl :set invhlsearch<CR>
-noremap <leader>m :MouseToggle<CR>
-noremap <leader>n :<C-U>exe 'b ' . GetModifiableBuffer(v:count, 1)<CR>
-noremap <leader>N :<C-U>exe 'b ' . GetModifiableBuffer(v:count, -1)<CR>
-noremap <leader>o :Startify<CR>
-noremap <leader>q :bp<BAR>bd #<CR>
-noremap <leader>Q :qall<CR>
-noremap <leader>s :set invspell<CR>
-noremap <leader>u :UndotreeToggle<CR>
-noremap <leader>vo :VisibleOnly<CR>
-noremap <leader>w :w<CR>
+nnoremap <leader>Y "+y$
+nnoremap <leader>p o<Esc>"+p
+nnoremap <leader>P O<Esc>"+p
+nnoremap <leader>b :e %:p:h<CR>
+nnoremap <leader>cd :cd %:p:h<CR>
+nnoremap <leader>do :DiffOrig<CR>
+nnoremap <leader>hl :set invhlsearch<CR>
+nnoremap <leader>m :MouseToggle<CR>
+nnoremap <leader>n :<C-U>exe 'b ' . GetModifiableBuffer(v:count, 1)<CR>
+nnoremap <leader>N :<C-U>exe 'b ' . GetModifiableBuffer(v:count, -1)<CR>
+nnoremap <leader>o :Startify<CR>
+nnoremap <leader>q :bp<BAR>bd #<CR>
+nnoremap <leader>Q :qall<CR>
+nnoremap <leader>s :set invspell<CR>
+nnoremap <leader>u :UndotreeToggle<CR>
+nnoremap <leader>vo :VisibleOnly<CR>
+nnoremap <leader>w :w<CR>
 
-autocmd FileType man\|help noremap <buffer> d <C-D>
-autocmd FileType man\|help noremap <buffer> u <C-U>
-autocmd FileType netrw noremap <buffer> qq <C-^>
+autocmd FileType man\|help nnoremap <buffer> d <C-D>
+autocmd FileType man\|help nnoremap <buffer> u <C-U>
+autocmd FileType netrw nnoremap <buffer> qq <C-^>
 autocmd FileType netrw nmap <buffer> <Space> mf
 autocmd FileType rust setlocal makeprg=cargo\ run
 " Keymaps --- }}}
