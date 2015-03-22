@@ -32,6 +32,7 @@ syntax enable
 
 " Global Options +++ {{{
 " -= UI =-
+set diffopt+=vertical
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
@@ -102,16 +103,18 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " Alt maps in insert and command mode (only for nvim)
-noremap! å <C-O>e<Right>
-noremap! Å <C-O>E<Right>
-noremap! â <C-O>b
-noremap! Â <C-O>B
-noremap! è <C-O>h
-noremap! ê <C-O>j
-noremap! ë <C-O>k
-noremap! ì <C-O>l
-noremap! ï <C-O>o
-noremap! Ï <C-O>O
+noremap! ÷ <S-Right>
+inoremap × <C-O>W
+inoremap å <C-O>e<Right>
+inoremap Å <C-O>E<Right>
+noremap! â <S-Left>
+inoremap Â <C-O>B
+inoremap è <Left>
+inoremap ê <Down>
+inoremap ë <Up>
+inoremap ì <Right>
+inoremap ï <Esc>o
+inoremap Ï <Esc>O
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -207,7 +210,7 @@ function! GetModifiableBuffer(n, direction)
 	if len(mbufs) == 0
 		return curbufnr
 	else
-		return mbufs[n%len(mbufs)
+		return mbufs[n%len(mbufs)]
 	endif
 endfun
 " GetModifiableBuffer --- }}}
