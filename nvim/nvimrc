@@ -37,6 +37,7 @@ set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
 set laststatus=2
+set lazyredraw " Faster <C-O> mappings in insert mode with airline
 set number
 set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
@@ -51,7 +52,7 @@ set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set nrformats-=octal " For use with <C-A> and <C-X>
-set timeoutlen=1200 " <leader> will have 2000ms timeout
+set timeoutlen=1200 " <leader> timeout
 
 " -= History management =-
 set directory=~/.nvim/swps
