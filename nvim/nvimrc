@@ -117,6 +117,18 @@ inoremap ì <Right>
 inoremap ï <Esc>o
 inoremap Ï <Esc>O
 
+" Terminal mode maps (only for nvim)
+tnoremap <C-W> <Esc><BS>
+tnoremap ä <Esc>d
+tnoremap è <Left>
+tnoremap È <Esc><Left>
+tnoremap ê <Down>
+tnoremap Ê <PageDown>
+tnoremap ë <Up>
+tnoremap Ë <PageUp>
+tnoremap ì <Right>
+tnoremap Ì <Esc><Right>
+
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
 " Make <C-U> undoable
