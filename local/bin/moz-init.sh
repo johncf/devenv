@@ -16,5 +16,5 @@ cache_dir=$SCRATCH/.cache
 [[ -L ~/.cache ]] || ln -s $cache_dir ~/
 
 export SCRATCH
-bash ~/.local/bin/moz_sync.sh # for syncing the $HOME/.mozilla
+bash ~/.local/bin/moz-sync.sh # for syncing the $HOME/.mozilla
 

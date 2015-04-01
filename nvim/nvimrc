@@ -173,7 +173,7 @@ autocmd FileType man\|help nnoremap <buffer> d <C-D>
 autocmd FileType man\|help nnoremap <buffer> u <C-U>
 autocmd FileType netrw nnoremap <buffer> qq <C-^>
 autocmd FileType netrw nmap <buffer> <Space> mf
-autocmd FileType rust setlocal makeprg=cargo\ run
+autocmd FileType rust setlocal makeprg=cargo\ build
 " Keymaps --- }}}
 
 " Custom commands +++ {{{

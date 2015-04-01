@@ -61,7 +61,7 @@ bindsym $mod+Shift+q border pixel 2
 
 # start a program launcher
 bindsym $mod4+x exec rofi -show run
-bindsym $mod4+m exec --no-startup-id ~/.local/bin/man_prompt.sh
+bindsym $mod4+m exec --no-startup-id ~/.local/bin/man-prompt.sh
 
 # change focus
 bindsym $mod4+h focus left
