@@ -13,7 +13,6 @@ Plug 'bling/vim-airline'
 Plug 'mhinz/vim-startify'
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-"Plug 'Shougo/vimshell'
 "Plug 'junegunn/vim-easy-align'
 "Plug 'vim-scripts/Conque-GDB'
 
@@ -104,30 +103,36 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 " Alt maps in insert and command mode (only for nvim)
-noremap! ÷ <S-Right>
+inoremap ÷ <C-O>w
 inoremap × <C-O>W
 inoremap å <C-O>e<Right>
 inoremap Å <C-O>E<Right>
-noremap! â <S-Left>
+inoremap â <C-O>b
 inoremap Â <C-O>B
-inoremap è <Left>
-inoremap ê <Down>
-inoremap ë <Up>
-inoremap ì <Right>
+noremap! è <Left>
+noremap! ê <Down>
+noremap! ë <Up>
+noremap! ì <Right>
 inoremap ï <Esc>o
 inoremap Ï <Esc>O
+"<M-d>
+inoremap ä <C-O>de
+"<M-f>
+cnoremap æ <S-Right>
+"<M-b>
+cnoremap â <S-Left>
 
 " Terminal mode maps (only for nvim)
 tnoremap <C-W> <Esc><BS>
 tnoremap ä <Esc>d
 tnoremap è <Left>
-tnoremap È <Esc><Left>
+tnoremap â <Esc><Left>
 tnoremap ê <Down>
 tnoremap Ê <PageDown>
 tnoremap ë <Up>
 tnoremap Ë <PageUp>
 tnoremap ì <Right>
-tnoremap Ì <Esc><Right>
+tnoremap æ <Esc><Right>
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -143,11 +148,8 @@ cnoremap <C-A> <Home>
 " idea from tpope/vim-rsi
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
 " mimic line kill, or if at the end of line -- up
-cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<UP>" :
+cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
 		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
-cnoremap <C-J> <Down>
-cnoremap <C-H> <Space><BS><Left>
-cnoremap <C-L> <Space><BS><Right>
 
 map <leader>y "+y
 nnoremap <leader>Y "+y$
@@ -249,4 +251,10 @@ function! CloseHiddenBuffers()
 	echon "Deleted " . l:tally . " buffers"
 endfun
 " CloseHiddenBuffers --- }}}
+
+" LeaveTMode -- for use with RPC {{{
+function LeaveTMode()
+	call feedkeys("\<C-\>\<C-N>", "t")
+endfun
+" }}}
 
