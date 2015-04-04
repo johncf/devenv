@@ -133,6 +133,7 @@ tnoremap ë <Up>
 tnoremap Ë <PageUp>
 tnoremap ì <Right>
 tnoremap æ <Esc><Right>
+tnoremap qj <C-\><C-N>
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -251,10 +252,4 @@ function! CloseHiddenBuffers()
 	echon "Deleted " . l:tally . " buffers"
 endfun
 " CloseHiddenBuffers --- }}}
-
-" LeaveTMode -- for use with RPC {{{
-function LeaveTMode()
-	call feedkeys("\<C-\>\<C-N>", "t")
-endfun
-" }}}
 

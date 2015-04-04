@@ -5,13 +5,11 @@ def showhelp():
 Installation
 ============
 1.  Make sure you have Neovim's python-client installed.
-2.  Place this file somewhere convenient. Optionally alias ':' to it.
-    Example .bashrc:
+2.  Place this script somewhere convenient. Optionally alias ':' to it.
+    For instance, add this line to ~/.bashrc:
       [ -z "$NVIM_LISTEN_ADDRESS" ] || alias :='~/nvimex.py'
-3.  Put this function in your nvimrc:
-      function LeaveTMode()
-        call feedkeys("\<C-\>\<C-N>", 't')
-      endfun
+    Example invocation from bash:
+      $ : @e file1
 
 =====
 Usage
@@ -54,39 +52,44 @@ Open manpage of bash in new tab (with 'powerman/vim-plugin-viewdoc' plugin):
 $ ~/nvimex.py ViewDocMan bash
 '''
 
-import os
 def main(nvim_listen_addr, cmd, *args):
     from neovim import attach
+    from os.path import abspath
+    from neovim.api.nvim import NvimError
+
     nvim = attach('socket', path=nvim_listen_addr)
     if cmd[0] == '@':
-        nvim.command('cd ' + os.path.abspath('.'))
+        nvim.command('cd ' + abspath('.'))
         cmd = cmd[1:]
     if cmd == 'badd':
         if len(args) == 0:
             exit("Expects at least one argument. See --help.")
         for f in args:
-            nvim.command('badd ' + os.path.abspath(f))
+            nvim.command('badd ' + abspath(f))
     elif cmd == 'cd':
         if len(args) != 1:
             exit("Expects exactly one argument. See --help.")
-        nvim.command('cd ' + os.path.abspath(args[0]))
+        nvim.command('cd ' + abspath(args[0]))
     elif cmd != '':
-        nvim.command('call LeaveTMode()')
-        nvim.command(' '.join([cmd] + args))
-    else:
-        showhelp()
+        try:
+            nvim.command(r'call feedkeys("\<C-\>\<C-N>", "t")')
+            nvim.command(' '.join((cmd,) + args))
+        except NvimError as e:
+            print e
 
 if __name__ == '__main__':
-    import sys
-    if len(sys.argv) > 1 and sys.argv[1] == '--help':
+    from sys import argv
+    from os import environ
+
+    if len(argv) > 1 and argv[1] == '--help':
         showhelp()
         exit()
-    if 'NVIM_LISTEN_ADDRESS' not in os.environ:
+    if 'NVIM_LISTEN_ADDRESS' not in environ:
         print '$NVIM_LISTEN_ADDRESS not set!'
         exit()
-    if len(sys.argv) < 2:
-        print 'Usage: ' + sys.argv[0] + ' {cmd} [{args} [...]]'
+    if len(argv) < 2:
+        print 'Usage: ' + argv[0] + ' {cmd} [{args} [...]]'
         print 'See --help for detailed help.'
         exit()
-    main(os.environ['NVIM_LISTEN_ADDRESS'], *sys.argv[1:])
+    main(environ['NVIM_LISTEN_ADDRESS'], *argv[1:])
 
