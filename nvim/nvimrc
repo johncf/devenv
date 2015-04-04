@@ -13,11 +13,12 @@ Plug 'bling/vim-airline'
 Plug 'mhinz/vim-startify'
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'Shougo/unite.vim'
 "Plug 'junegunn/vim-easy-align'
-"Plug 'vim-scripts/Conque-GDB'
+"Plug 'benekastah/neomake'
 
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-vinegar' "for improved file browsing
+"Plug 'tpope/vim-vinegar' "for improved file browsing
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
@@ -133,15 +134,15 @@ tnoremap ë <Up>
 tnoremap Ë <PageUp>
 tnoremap ì <Right>
 tnoremap æ <Esc><Right>
-tnoremap qj <C-\><C-N>
+tnoremap zj <C-\><C-N>
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
 " Make <C-U> undoable
 inoremap <C-U> <C-G>u<C-U>
-inoremap qj <Esc>
+inoremap zj <Esc>
 
-vnoremap qj <Esc>
+vnoremap zj <Esc>
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
@@ -158,6 +159,7 @@ nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
 nnoremap <leader>b :e %:p:h<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
+nnoremap <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
