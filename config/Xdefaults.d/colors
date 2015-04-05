@@ -1,0 +1,41 @@
+!! euphrasia v2 by bohoomil
+
+! X.org apps bg/fg
+*background:  #1A1C1D
+*foreground:  #E6E6E6
+
+*cursorColor: #D6D6D6
+
+! black & dark grey
+*color0:  #222946
+*color8:  #8C8B89
+
+! red & bright red
+*color1:  #B32323
+*color9:  #DC2C2C
+
+! green & bright green
+*color2:  #1AAA13
+*color10: #5DCE33
+
+! yellow & bright yellow
+*color3:  #FF9F3E
+*color11: #E6CB29
+
+! blue & bright blue
+*color4:  #4957F3
+*color12: #4D79FF
+
+! magenta & bright magenta
+*color5:  #BF3E94
+*color13: #B641CC
+
+! cyan & bright cyan
+*color6:  #09A5B3
+*color14: #4CCCF9
+
+! light grey & white
+*color7:  #AEAEAE
+*color15: #DBDDE4
+
+! vim:ft=xdefaults:
