@@ -92,57 +92,63 @@ noremap - -
 " URL/XML/CString En/Decode maps: [u ]u [x ]x [y ]y
 " CScope maps: <C-\>X <C-@>X <C-@><C-@>X
 
+" Meta keymap definitions:
+for i in range(0, 25)
+	exe 'set <M-'.nr2char(char2nr('a')+i).'>='.nr2char(char2nr('á')+i)
+endfor
+for i in range(0, 25)
+	exe 'set <M-'.nr2char(char2nr('A')+i).'>='.nr2char(char2nr('Á')+i)
+endfor
+
+" Switch to normal mode
+inoremap zj <Esc>
+vnoremap zj <Esc>
+tnoremap zj <C-\><C-N>
+
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
 nnoremap Y y$
 nnoremap ]c :cn<CR>
 nnoremap [c :cp<CR>
 
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-k> <C-w>k
-nnoremap <A-l> <C-w>l
-
-" Alt maps in insert and command mode (only for nvim)
-inoremap ÷ <C-O>w
-inoremap × <C-O>W
-inoremap å <C-O>e<Right>
-inoremap Å <C-O>E<Right>
-inoremap â <C-O>b
-inoremap Â <C-O>B
-noremap! è <Left>
-noremap! ê <Down>
-noremap! ë <Up>
-noremap! ì <Right>
-inoremap ï <Esc>o
-inoremap Ï <Esc>O
-"<M-d>
-inoremap ä <C-O>de
-"<M-f>
-cnoremap æ <S-Right>
-"<M-b>
-cnoremap â <S-Left>
-
-" Terminal mode maps (only for nvim)
-tnoremap <C-W> <Esc><BS>
-tnoremap ä <Esc>d
-tnoremap è <Left>
-tnoremap â <Esc><Left>
-tnoremap ê <Down>
-tnoremap Ê <PageDown>
-tnoremap ë <Up>
-tnoremap Ë <PageUp>
-tnoremap ì <Right>
-tnoremap æ <Esc><Right>
-tnoremap zj <C-\><C-N>
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
 " Make <C-U> undoable
 inoremap <C-U> <C-G>u<C-U>
-inoremap zj <Esc>
 
-vnoremap zj <Esc>
+" Alt maps in insert and command mode
+inoremap <M-w> <C-O>w
+inoremap <M-W> <C-O>W
+inoremap <M-e> <C-O>e<Right>
+inoremap <M-E> <C-O>E<Right>
+inoremap <M-b> <C-O>b
+inoremap <M-B> <C-O>B
+inoremap <M-d> <C-O>d
+inoremap <M-o> <Esc>o
+inoremap <M-O> <Esc>O
+noremap! <M-h> <Left>
+noremap! <M-j> <Down>
+noremap! <M-k> <Up>
+noremap! <M-l> <Right>
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
+
+" Terminal mode maps (only for nvim)
+tnoremap <C-W> <Esc><BS>
+tnoremap <M-d> <Esc>d
+tnoremap <M-h> <Left>
+tnoremap <M-b> <Esc><Left>
+tnoremap <M-j> <Down>
+tnoremap <M-J> <PageDown>
+tnoremap <M-k> <Up>
+tnoremap <M-K> <PageUp>
+tnoremap <M-l> <Right>
+tnoremap <M-f> <Esc><Right>
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
@@ -153,7 +159,7 @@ cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
 cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
 		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
-map <leader>y "+y
+nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
@@ -196,7 +202,7 @@ command! -nargs=* VisibleOnly call CloseHiddenBuffers()
 
 " GetModifiableBuffer +++ {{{
 " Get the nth modifiable buffer, relative to the current one if direction=±1,
-" or relative to the first modiable buffer
+" or relative to the first modiable buffer if direction=0
 function! GetModifiableBuffer(n, direction)
 	let dir = a:direction
 	let n = a:n
