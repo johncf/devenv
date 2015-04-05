@@ -1,3 +1,5 @@
+! emulate XTerm for proper recognition of key combinations in Vim
+! original source: https://github.com/sunaku/home/
 URxvt.keysym.S-F1             : \033[1;2P
 URxvt.keysym.S-F2             : \033[1;2Q
 URxvt.keysym.S-F3             : \033[1;2R

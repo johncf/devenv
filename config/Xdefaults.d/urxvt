@@ -1,3 +1,4 @@
+! appearance
 URxvt*font:            xft:MonacoB:size=9.7,xft:Inconsolata for Powerline:size=11.4
 ! # Fonts installation: {{{
 ! mkdir -p ~/.local/share/fonts
@@ -9,24 +10,24 @@ URxvt*font:            xft:MonacoB:size=9.7,xft:Inconsolata for Powerline:size=1
 !   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
 ! fc-cache -f
 ! # }}}
-URxvt*buffered:        true
-URxvt*depth:           32
-!URxvt*borderLess:      true
-URxvt*scrollBar:       false
-URxvt*loginShell:      true
-! Enable Shift-PageUp/Down in screen
-Urxvt*secondaryScroll: true
-URxvt*saveLines:       4096
-! scroll-to-bottom on keypress
-URxvt*scrollTtyKeypress: true
-! scroll-to-bottom on TTY output
-URxvt*scrollTtyOutput: false
-! scrolling with the scrollback buffer as new lines appear (try to show
-! the same lines), but only if scrollTtyOutput = false
-URxvt*scrollWithBuffer: true
-! disable Ctrl+Shift input of extended characters
-URxvt*iso14755:        false
+URxvt.depth:           32
+URxvt.scrollBar:       false
 
+! interaction
+URxvt.saveLines:       4096
+! scroll-to-bottom on keypress
+URxvt.scrollTtyKeypress: true
+! do not scroll-to-bottom on TTY output
+URxvt.scrollTtyOutput: false
+! scroll with the scrollback buffer as new lines appear (try to show
+! the same lines), when scrollTtyOutput = false
+URxvt.scrollWithBuffer: true
+! disable Ctrl+Shift input of extended characters
+URxvt.iso14755:        false
+
+URxvt.loginShell:      true
+
+! extensions
 URxvt.perl-ext-common: default,matcher,keyboard-select,clipboard
 URxvt.perl-lib:        /home/shared/urxvt/perl/
 ! middle click on a url to open in firefox
