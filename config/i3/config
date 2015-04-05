@@ -37,8 +37,10 @@ hide_edge_borders both
 new_window pixel 2
 
 # class                 border  backgr. text    indicator
-client.focused          #4c7899 #407196 #ffffff #2e9ef4
-client.focused_inactive #333333 #40474a #ffffff #484e50
+client.focused          #0088BB #0088BB #ffffff #dddddd
+client.focused_inactive #333333 #333333 #888888 #292d2e
+client.unfocused        #333333 #333333 #888888 #292d2e
+client.urgent           #2f343a #900000 #ffffff #900000
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -49,10 +51,8 @@ floating_modifier $mod4
 
 # start a terminal
 bindsym $mod4+Return exec urxvtc #i3-sensible-terminal
-bindsym $mod+Return exec urxvtc #i3-sensible-terminal
 
 bindsym $mod4+Shift+Return exec urxvtc -e nvim
-bindsym $mod+Shift+Return exec urxvtc -e nvim
 
 # kill focused window
 bindsym $mod4+q kill
@@ -185,11 +185,20 @@ mode "resize" {
 
 bindsym $mod4+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
+	font pango:FontAwesome 7.5
 	status_command i3status -c ~/.config/i3/status.conf
 	strip_workspace_numbers yes
+	colors {
+		# source: github.com/okraits/j4-make-config
+		background #111111
+		statusline #dddddd
+		separator #666666
+		focused_workspace #0088BB #0088BB #ffffff
+		active_workspace #333333 #333333 #888888
+		inactive_workspace #333333 #333333 #888888
+		urgent_workspace #2f343a #900000 #ffffff
+	}
 }
 
 exec_always --no-startup-id xrdb -load ~/.Xdefaults

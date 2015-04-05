@@ -1,7 +1,7 @@
 #!/bin/bash
 
 bash ~/.local/bin/rand-wall.sh
-bash ~/.local/bin/moz-init.sh
+#bash ~/.local/bin/moz-init.sh
 setxkbmap -option caps:none
 i3-msg "workspace 1:neo; exec urxvtd -o -q -f && sleep 0.5 && urxvtc"
 
