@@ -251,15 +251,15 @@ command! -range GdbWatchRange call s:Watch(s:GetExpression(<f-args>))
 
 
 nnoremap <silent> <f6> :GdbDebugStart<cr>
-nnoremap <silent> <esc><f6> :GdbDebugStop<cr>
+nnoremap <silent> <m-f6> :GdbDebugStop<cr>
 nnoremap <silent> <f8> :GdbContinue<cr>
 nnoremap <silent> <f10> :GdbNext<cr>
 nnoremap <silent> <f11> :GdbStep<cr>
 nnoremap <silent> <f12> :GdbFinish<cr>
 nnoremap <silent> <c-b> :GdbToggleBreakpoint<cr>
-nnoremap <silent> <esc><pageup> :GdbFrameUp<cr>
-nnoremap <silent> <esc><pagedown> :GdbFrameDown<cr>
+nnoremap <silent> <m-pageup> :GdbFrameUp<cr>
+nnoremap <silent> <m-pagedown> :GdbFrameDown<cr>
 nnoremap <silent> <f9> :GdbEvalWord<cr>
 vnoremap <silent> <f9> :GdbEvalRange<cr>
-nnoremap <silent> <esc><f9> :GdbWatchWord<cr>
-vnoremap <silent> <esc><f9> :GdbWatchRange<cr>
+nnoremap <silent> <m-f9> :GdbWatchWord<cr>
+vnoremap <silent> <m-f9> :GdbWatchRange<cr>
