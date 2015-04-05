@@ -7,21 +7,24 @@
 "     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.nvim/plugged')
 
-Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
-Plug 'rust-lang/rust.vim'
-Plug 'bling/vim-airline'
 Plug 'mhinz/vim-startify'
-Plug 'powerman/vim-plugin-viewdoc'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'Shougo/unite.vim'
-"Plug 'junegunn/vim-easy-align'
-"Plug 'benekastah/neomake'
+Plug 'bling/vim-airline'
 
 Plug 'tpope/vim-fugitive'
 "Plug 'tpope/vim-vinegar' "for improved file browsing
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
-Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
+"Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
+
+Plug 'Shougo/unite.vim' , { 'on': ['Unite'] } "has many more commands
+Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+"Plug 'benekastah/neomake'
+
+Plug 'rust-lang/rust.vim'
+Plug 'PotatoesMaster/i3-vim-syntax'
 
 call plug#end()
 " Plug Scripts --- }}}
@@ -173,11 +176,11 @@ nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-U>exe 'b ' . GetModifiableBuffer(v:count, 1)<CR>
 nnoremap <leader>N :<C-U>exe 'b ' . GetModifiableBuffer(v:count, -1)<CR>
 nnoremap <leader>o :Startify<CR>
-nnoremap <leader>q :bp<BAR>bd #<CR>
+nnoremap <leader>q :call SwitchAndClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <leader>vo :VisibleOnly<CR>
+nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
 nnoremap <leader>w :update<CR>
 
 autocmd FileType man\|help nnoremap <buffer> d <C-D>
@@ -188,76 +191,10 @@ autocmd FileType rust setlocal makeprg=cargo\ build
 " Keymaps --- }}}
 
 " Custom commands +++ {{{
-if has('mouse')
-	command! MouseToggle if &mouse=="" | set mouse=a
-				\ | else | set mouse= | endif
-endif
+command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 				\ | wincmd p | diffthis
-
-command! -nargs=* VisibleOnly call CloseHiddenBuffers()
 " Custom commands --- }}}
-
-" GetModifiableBuffer +++ {{{
-" Get the nth modifiable buffer, relative to the current one if direction=±1,
-" or relative to the first modiable buffer if direction=0
-function! GetModifiableBuffer(n, direction)
-	let dir = a:direction
-	let n = a:n
-	let curbufnr = bufnr('%')
-	if n == 0 && dir != 0 && &modifiable
-		let n = 1
-	endif
-	let endbufnr = bufnr('$')
-	if dir == 0
-		let curbufnr = 0
-		let dir = 1
-	endif
-	if dir == -1
-		let bufrange = [0] + reverse(range(1, endbufnr - 1))
-	else
-		let bufrange = range(0, endbufnr - 1)
-	endif
-	let total = 0
-	let mbufs = []
-	for bi in bufrange
-		let buf = (curbufnr - 1 + bi)%endbufnr + 1
-		if buflisted(buf) && getbufvar(buf, "&modifiable")
-			if n == len(mbufs)
-				return buf
-			endif
-			let mbufs += [buf]
-		endif
-	endfor
-	if len(mbufs) == 0
-		return curbufnr
-	else
-		return mbufs[n%len(mbufs)]
-	endif
-endfun
-" GetModifiableBuffer --- }}}
-
-" CloseHiddenBuffers +++ {{{
-" src: http://stackoverflow.com/questions/2974192/
-function! CloseHiddenBuffers()
-	" figure out which buffers are visible in any tab
-	let visible = {}
-	for t in range(1, tabpagenr('$'))
-		for b in tabpagebuflist(t)
-			let visible[b] = 1
-		endfor
-	endfor
-	" close any buffer that are loaded and not visible
-	let l:tally = 0
-	for b in range(1, bufnr('$'))
-		if buflisted(b) && bufwinnr(b)<1
-			let l:tally += 1
-			exe 'bd ' . b
-		endif
-	endfor
-	echon "Deleted " . l:tally . " buffers"
-endfun
-" CloseHiddenBuffers --- }}}
 
