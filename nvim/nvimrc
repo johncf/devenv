@@ -95,14 +95,6 @@ noremap - -
 " URL/XML/CString En/Decode maps: [u ]u [x ]x [y ]y
 " CScope maps: <C-\>X <C-@>X <C-@><C-@>X
 
-" Meta keymap definitions:
-for i in range(0, 25)
-	exe 'set <M-'.nr2char(char2nr('a')+i).'>='.nr2char(char2nr('á')+i)
-endfor
-for i in range(0, 25)
-	exe 'set <M-'.nr2char(char2nr('A')+i).'>='.nr2char(char2nr('Á')+i)
-endfor
-
 " Switch to normal mode
 inoremap zj <Esc>
 vnoremap zj <Esc>
