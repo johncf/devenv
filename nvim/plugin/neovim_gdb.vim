@@ -1,9 +1,8 @@
-" Original by: Thiago de Arruda (https://github.com/tarruda)
+" Stripped down version of the original by Thiago de Arruda (https://github.com/tarruda)
 " Source: https://raw.githubusercontent.com/neovim/neovim/617878f7473a9f2980df2627601c38fd9f5029ca/contrib/neovim_gdb/neovim_gdb.vim
 
-
-if !exists('g:Gdb_exe')
-  let g:Gdb_exe = ''
+if !exists('g:gdb_runcmd')
+  let g:gdb_runcmd = 'r'
 endif
 
 
@@ -11,7 +10,8 @@ sign define GdbBreakpoint text=●
 sign define GdbCurrentLine text=⇒
 
 
-let s:gdb_prefix = "gdb -q -f "
+let s:ex_file = ''
+let s:gdb_prefix = 'gdb -q -f '
 let s:breakpoints = {}
 let s:max_breakpoint_sign_id = 0
 
@@ -94,6 +94,12 @@ function! s:Gdb.update_current_line_sign(add)
 endfunction
 
 
+function s:Exited()
+  if exists('g:gdb')
+    call g:gdb.kill()
+  endif
+endfun
+
 function! s:Spawn(client_cmd)
   if exists('g:gdb')
     throw 'Gdb already running'
@@ -108,6 +114,7 @@ function! s:Spawn(client_cmd)
   " Create new tab for the debugging view
   tab sp
   let gdb._tab = tabpagenr()
+  let gdb.on_exit = function('s:Exited')
   " create horizontal split to display the current file
   sp
   " go to the bottom window and spawn gdb client
@@ -233,16 +240,18 @@ function! s:Kill()
 endfunction
 
 
-command! GdbDebugStart call s:Spawn(s:gdb_prefix . g:Gdb_exe)
+command! -nargs=1 -complete=file GdbSetExFile let s:ex_file=<q-args>
+command! GdbDebugStart call s:Spawn(s:gdb_prefix . s:ex_file)
+command! GdbDebugRun call s:Send(g:gdb_runcmd)
 command! GdbDebugStop call s:Kill()
 command! GdbToggleBreakpoint call s:ToggleBreak()
 command! GdbClearBreakpoints call s:ClearBreak()
-command! GdbContinue call s:Send("c")
-command! GdbNext call s:Send("n")
-command! GdbStep call s:Send("s")
-command! GdbFinish call s:Send("finish")
-command! GdbFrameUp call s:Send("up")
-command! GdbFrameDown call s:Send("down")
+command! GdbContinue call s:Send('c')
+command! GdbNext call s:Send('n')
+command! GdbStep call s:Send('s')
+command! GdbFinish call s:Send('finish')
+command! GdbFrameUp call s:Send('up')
+command! GdbFrameDown call s:Send('down')
 command! GdbInterrupt call s:Interrupt()
 command! GdbEvalWord call s:Eval(expand('<cword>'))
 command! -range GdbEvalRange call s:Eval(s:GetExpression(<f-args>))
@@ -252,6 +261,7 @@ command! -range GdbWatchRange call s:Watch(s:GetExpression(<f-args>))
 
 nnoremap <silent> <f6> :GdbDebugStart<cr>
 nnoremap <silent> <m-f6> :GdbDebugStop<cr>
+nnoremap <silent> <f7> :GdbDebugRun<cr>
 nnoremap <silent> <f8> :GdbContinue<cr>
 nnoremap <silent> <f10> :GdbNext<cr>
 nnoremap <silent> <f11> :GdbStep<cr>
