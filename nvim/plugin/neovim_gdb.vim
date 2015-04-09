@@ -240,8 +240,14 @@ function! s:Kill()
 endfunction
 
 
-command! -nargs=1 -complete=file GdbSetExFile let s:ex_file=<q-args>
-command! GdbDebugStart call s:Spawn(s:gdb_prefix . s:ex_file)
+function! s:SetExFile(file)
+  if a:file != ''
+    let s:ex_file = a:file
+  endif
+endfun
+
+command! -nargs=1 -complete=file GdbSetExFile call s:SetExFile(<q-args>)
+command! -nargs=? -complete=file GdbDebugStart call s:SetExFile(<q-args>) | call s:Spawn(s:gdb_prefix . s:ex_file)
 command! GdbDebugRun call s:Send(g:gdb_runcmd)
 command! GdbDebugStop call s:Kill()
 command! GdbToggleBreakpoint call s:ToggleBreak()
