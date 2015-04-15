@@ -137,13 +137,13 @@ cnoremap <M-b> <S-Left>
 tnoremap <C-W> <Esc><BS>
 tnoremap <M-d> <Esc>d
 tnoremap <M-h> <Left>
-tnoremap <M-b> <Esc><Left>
+tnoremap <M-b> <Esc>b
 tnoremap <M-j> <Down>
 tnoremap <M-J> <PageDown>
 tnoremap <M-k> <Up>
 tnoremap <M-K> <PageUp>
 tnoremap <M-l> <Right>
-tnoremap <M-f> <Esc><Right>
+tnoremap <M-f> <Esc>f
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word

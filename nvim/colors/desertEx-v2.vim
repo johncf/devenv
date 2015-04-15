@@ -17,7 +17,7 @@ if version > 580
 endif
 let g:colors_name="desertEx-v2"
 
-hi Normal		ctermfg=250 ctermbg=234 cterm=NONE
+hi Normal		ctermfg=253 ctermbg=234 cterm=NONE
 
 " highlight groups
 hi ColorColumn	ctermbg=235
