@@ -10,7 +10,7 @@ if exists("syntax_on")
 endif
 let g:colors_name="desertEx-v2"
 
-hi Normal       ctermfg=250 ctermbg=234 cterm=NONE
+hi Normal       ctermfg=253 ctermbg=234 cterm=NONE
 
 hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
