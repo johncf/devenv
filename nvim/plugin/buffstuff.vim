@@ -1,13 +1,20 @@
 " Try returning to the previously visited buffer before closing
 function! SwitchAndClose()
-	let curb = bufnr('%')
-	let swch = bufnr('#')
-	if swch != curb && buflisted(swch)
+	let toclose = bufnr('%')
+	let switch = bufnr('#')
+	if switch != toclose && buflisted(switch)
 		b #
 	else
 		bp
 	endif
-	bd #
+	if bufnr('%') != toclose
+		bd #
+	else
+		bd
+		if exists(':Startify')
+			Startify
+		endif
+	endif
 endfun
 
 " Get the nth modifiable buffer, relative to the current one if direction=±1,
