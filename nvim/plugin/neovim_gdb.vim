@@ -261,7 +261,7 @@ command! GdbFrameDown call s:Send('down')
 command! GdbInterrupt call s:Interrupt()
 command! GdbEvalWord call s:Eval(expand('<cword>'))
 command! -range GdbEvalRange call s:Eval(s:GetExpression(<f-args>))
-command! GdbWatchWord call s:Watch(expand('<cword>')
+command! GdbWatchWord call s:Watch(expand('<cword>'))
 command! -range GdbWatchRange call s:Watch(s:GetExpression(<f-args>))
 
 

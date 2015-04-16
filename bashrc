@@ -21,6 +21,7 @@ export HISTSIZE=768
 export HISTFILESIZE=2048
 shopt -s histappend
 
+[ -z "$NVIM_LISTEN_ADDRESS" ] || alias :="${HOME}/.local/bin/nvimex.py"
 alias uhist='nl ${HISTFILE} | sort -k2 -k1nr | uniq -f1 | sort -n | cut -f2'
 alias uhist_w='uhist > /tmp/${USER}_uhist; mv /tmp/${USER}_uhist ${HISTFILE}'
 
