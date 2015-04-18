@@ -10,6 +10,7 @@ Installation
       [ -z "$NVIM_LISTEN_ADDRESS" ] || alias :='~/nvimex.py'
     Example invocation from bash:
       $ : e file1
+      $ : diff file1 file2
 
 =====
 Usage
