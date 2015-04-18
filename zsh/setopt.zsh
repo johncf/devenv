@@ -5,7 +5,7 @@
 # Avoid typing 'cd'
 setopt AUTO_CD
 
-# Allow comments even in interactive shells
+# Allow comments in interactive shells
 setopt INTERACTIVE_COMMENTS
 
 # ===== History
@@ -22,7 +22,10 @@ setopt HIST_IGNORE_DUPS
 # When searching history don't display results already cycled through twice
 setopt HIST_FIND_NO_DUPS
 
-# Remove extra blanks from each command line being added to history
+# Ignore commands starting with a space
+setopt HIST_IGNORE_SPACE
+
+# Trim blanks off commands
 setopt HIST_REDUCE_BLANKS
 
 # Include more information about when the command was executed, etc

@@ -134,16 +134,15 @@ cnoremap <M-f> <S-Right>
 cnoremap <M-b> <S-Left>
 
 " Terminal mode maps (only for nvim)
-tnoremap <C-W> <Esc><BS>
 tnoremap <M-d> <Esc>d
 tnoremap <M-h> <Left>
 tnoremap <M-b> <Esc>b
-tnoremap <M-j> <Down>
-tnoremap <M-J> <PageDown>
-tnoremap <M-k> <Up>
-tnoremap <M-K> <PageUp>
-tnoremap <M-l> <Right>
 tnoremap <M-f> <Esc>f
+tnoremap <M-j> <Esc>j
+tnoremap <M-k> <Esc>k
+tnoremap <M-l> <Right>
+tnoremap <M-n> <PageDown>
+tnoremap <M-p> <PageUp>
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
@@ -158,15 +157,14 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
-nnoremap <leader>b :e %:p:h<CR>
 nnoremap <leader>cd :cd %:p:h<CR>
 nnoremap <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
 nnoremap <leader>m :MouseToggle<CR>
-nnoremap <leader>n :<C-U>exe 'b ' . GetModifiableBuffer(v:count, 1)<CR>
-nnoremap <leader>N :<C-U>exe 'b ' . GetModifiableBuffer(v:count, -1)<CR>
+nnoremap <leader>n :<C-U>b <C-R>=GetModifiableBuffer(v:count, 1)<CR><CR>
+nnoremap <leader>N :<C-U>b <C-R>=GetModifiableBuffer(v:count, -1)<CR><CR>
 nnoremap <leader>o :Startify<CR>
 nnoremap <leader>q :call SwitchAndClose()<CR>
 nnoremap <leader>Q :qall<CR>

@@ -191,12 +191,15 @@ function precmd() {
 
 function TRAPUSR1() {
     # read from temp file
-    PROMPT="$(cat /tmp/${USER}_zsh_prompt)"
+    local pr_tmp="$(cat /tmp/${USER}_zsh_prompt)"
 
     # reset proc number
     ASYNC_PROC=0
 
     # redisplay
-    zle && zle reset-prompt
+	if [[ "$pr_tmp" != "$PROMPT" ]]; then
+		PROMPT="$pr_tmp"
+		zle && zle reset-prompt
+	fi
 }
 
