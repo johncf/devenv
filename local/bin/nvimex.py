@@ -32,13 +32,13 @@ Equivalent to executing (3), followed by (1).
 
 Note: The following commands can handle relative addresses w.r.t terminal.
       These commands won't change neovim's current directory as a side effect.
-      badd, cd, diff, e, edit, sp, split, vs, vsp, vsplit
+      badd, cd, diff, dr, drop, e, edit, sp, split, vs, vsp, vsplit
 
 Commands that accept multiple file arguments:
 badd, e, edit, sp, split, vs, vsp, vsplit
 bad[d]     : Add all arguments to the neovim's buffer list.
 diff       : Open a new tab and diffsplit the given 2 files.
-e[dit]     : The first file will be opened, the rest will be added with badd.
+e[dit]     : Invokes the drop command.
 vs[plit],  : If only one argument is provided, split it with terminal window.
 sp[lit]      If more are provided, terminal window is replaced with the split
              windows.
@@ -95,12 +95,10 @@ def main(nvim_listen_addr, cmd, *args):
             if len(args) != 1:
                 _exit("1")
             nvim.command(cmd + abspath_esc(args[0]))
-        elif cmd in [ 'e', 'edit' ]:
+        elif cmd in [ 'dr', 'drop', 'e', 'edit' ]:
             if len(args) == 0:
                 _exit("1+")
-            nvim.command('e ' + abspath_esc(args[0]))
-            for f in args[1:]:
-                nvim.command('badd ' + abspath_esc(f))
+            nvim.command(' '.join(['drop'] + [abspath_esc(f) for f in args]))
         elif cmd in [ 'sp', 'split', 'vs', 'vsp', 'vsplit' ]:
             if len(args) == 0:
                 _exit("1+")
