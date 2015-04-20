@@ -17,6 +17,9 @@ Here's a collection of scripts and configuration files that I use.
 * **nvim**: neovim configuration files. After copying it as `$HOME/.nvim`, follow the instructions in `nvimrc` file.
   * **plugin**: short scripts, mostly borrowed from various sources (see respective files).
   * **colors/desertEx-v2.vim**: Modified version of [desertEx.vim](https://github.com/mbbill/desertEx) colorscheme.
+* **zsh**: zsh config files, contains code borrowed from:
+  * [spicycode](https://github.com/spicycode/ze-best-zsh-config/blob/master/.zsh) for the base config
+  * [anishathalye](https://github.com/anishathalye/dotfiles/blob/master/zsh) for asynchronously updating prompt with git info
 
 ## My filesystem layout
 There is only a single "Linux" partition which is formatted with btrfs. This contains the following subvolumes and the corresponding mount points:
@@ -33,3 +36,7 @@ Subvolume       Mount point         Description
  `- snaps        --                 Used to keep snapshots of root and boot subvolumes.
     |...         --
 ```
+
+## License
+Many files in this repo were originally written by various authors, whose names are provided in those respective files.
+The rest of the files, authored by me, are released under [MIT License](http://opensource.org/licenses/MIT).

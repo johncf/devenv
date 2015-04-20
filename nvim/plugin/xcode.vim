@@ -1,4 +1,5 @@
-" src: tpope/vim-unimpaired
+" author: Tim Pope
+" source: https://github.com/tpope/vim-unimpaired/
 
 " Encoding and decoding
 
