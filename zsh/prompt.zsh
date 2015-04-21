@@ -54,7 +54,7 @@ function PR_AT() {
 
 # Build the rhs prompt
 function PR_INFO() {
-	echo "$(PR_USER)$(PR_AT)$(PR_HOST)$(PR_COLON)$(PR_DIR)"
+    echo "$(PR_USER)$(PR_AT)$(PR_HOST)$(PR_COLON)$(PR_DIR)"
 }
 
 # Set RHS prompt for git repositories
@@ -144,7 +144,7 @@ PROMPT_MODE=0
 function prompt_mode_toggle() {
     if [[ "${PROMPT_MODE}" == 0 ]]; then
         PROMPT_MODE=1
-		PROMPT='$(PCMD)'
+        PROMPT='$(PCMD)'
     else
         PROMPT_MODE=0
     fi
@@ -163,7 +163,7 @@ PROMPT='$(PCMD)' # single quotes to prevent immediate execution
 RPROMPT='$(PR_ERROR)' # set asynchronously and dynamically
 
 function ACMD() {
-	echo '$(PR_INFO)'"$(git_prompt_string)"$'\n'"$(PR_LINE2) "
+    echo '$(PR_INFO)'"$(git_prompt_string)"$'\n'"$(PR_LINE2) "
 }
 
 ASYNC_PROC=0
@@ -183,22 +183,20 @@ function precmd() {
 
     # start background computation
     if [[ "${PROMPT_MODE}" == 0 ]]; then
-		async &!
-		ASYNC_PROC=$!
-	fi
+        async &!
+        ASYNC_PROC=$!
+    fi
 }
 
 function TRAPUSR1() {
     # read from temp file
-    local pr_tmp="$(cat /tmp/${USER}_zsh_prompt)"
+    local PREV_PROMPT="$PROMPT"
+    PROMPT="$(cat /tmp/${USER}_zsh_prompt)"
 
     # reset proc number
     ASYNC_PROC=0
 
     # redisplay
-	if [[ "$pr_tmp" != "$PROMPT" ]]; then
-		PROMPT="$pr_tmp"
-		zle && zle reset-prompt
-	fi
+    [[ "$PROMPT" != "$PREV_PROMPT" ]] && zle && zle reset-prompt
 }
 
