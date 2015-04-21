@@ -3,7 +3,7 @@ bindkey -v
 export KEYTIMEOUT=5 #0.05 seconds
 
 function zle-line-init zle-keymap-select {
-	local VIM_STAT VIM_NORMAL PREV_RPROMPT
+    local VIM_STAT VIM_NORMAL PREV_RPROMPT
     VIM_STAT="${KEYMAP/main/}"
     VIM_NORMAL="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%} "
     PREV_RPROMPT="$RPROMPT"

@@ -88,7 +88,7 @@ function parse_git_state() {
 
     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_AHEAD" -gt 0 ]; then
-    GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
+        GIT_STATE=$GIT_STATE${GIT_PROMPT_AHEAD//NUM/$NUM_AHEAD}
     fi
 
     local NUM_BEHIND="$(git log --oneline ..@{u} 2> /dev/null | wc -l | tr -d ' ')"
@@ -96,7 +96,7 @@ function parse_git_state() {
         if [[ -n $GIT_STATE ]]; then
             GIT_STATE="$GIT_STATE "
         fi
-    GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
+        GIT_STATE=$GIT_STATE${GIT_PROMPT_BEHIND//NUM/$NUM_BEHIND}
     fi
 
     local GIT_DIR="$(git rev-parse --git-dir 2> /dev/null)"
@@ -104,19 +104,19 @@ function parse_git_state() {
         if [[ -n $GIT_STATE ]]; then
             GIT_STATE="$GIT_STATE "
         fi
-    GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
+        GIT_STATE=$GIT_STATE$GIT_PROMPT_MERGING
     fi
 
     if [[ -n $(git ls-files --other --exclude-standard :/ 2> /dev/null) ]]; then
-    GIT_DIFF=$GIT_PROMPT_UNTRACKED
+        GIT_DIFF=$GIT_PROMPT_UNTRACKED
     fi
 
     if ! git diff --quiet 2> /dev/null; then
-    GIT_DIFF=$GIT_DIFF$GIT_PROMPT_MODIFIED
+        GIT_DIFF=$GIT_DIFF$GIT_PROMPT_MODIFIED
     fi
 
     if ! git diff --cached --quiet 2> /dev/null; then
-    GIT_DIFF=$GIT_DIFF$GIT_PROMPT_STAGED
+        GIT_DIFF=$GIT_DIFF$GIT_PROMPT_STAGED
     fi
 
     if [[ -n $GIT_STATE && -n $GIT_DIFF ]]; then
@@ -125,7 +125,7 @@ function parse_git_state() {
     GIT_STATE="$GIT_STATE$GIT_DIFF"
 
     if [[ -n $GIT_STATE ]]; then
-    echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
+        echo "$GIT_PROMPT_PREFIX$GIT_STATE$GIT_PROMPT_SUFFIX"
     fi
 }
 
@@ -178,7 +178,7 @@ function precmd() {
 
     # kill child if necessary
     if [[ "${ASYNC_PROC}" != 0 ]]; then
-        kill -s HUP $ASYNC_PROC >/dev/null 2>&1 || :
+        kill -s HUP $ASYNC_PROC >/dev/null 2>&1 || true
     fi
 
     # start background computation
