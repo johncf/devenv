@@ -12,7 +12,7 @@ function PR_DIR() {
     local head="$(print -P "%1~")"
     local tail="${relfull%$head}"
 
-    echo "%{$fg[yellow]%}${tail}%{$FG[011]%}${head}%{$reset_color%}"
+    echo "%{$fg[darkyellow]%}${tail}%{$fg[yellow]%}${head}%{$reset_color%}"
 }
 
 # An exclamation point if the previous command did not complete successfully
@@ -22,7 +22,7 @@ function PR_ERROR() {
 
 # The arrow in red (for root) or violet (for regular user)
 function PR_LINE2() {
-    echo "%{$FG[003]%}%t %(!.%{$fg[red]%}.%{$FG[245]%})${PR_ARROW_CHAR}%{$reset_color%}"
+    echo "%{$fg[orange]%}%t %(!.%{$fg[red]%}.%{$fg[grey]%})${PR_ARROW_CHAR}%{$reset_color%}"
 }
 
 # Set custom rhs prompt
@@ -32,10 +32,9 @@ function PR_USER() {
     fi
 }
 
-# Host in yellow
 function PR_HOST() {
     if [[ "${PR_SHOW_HOST}" == "true" ]]; then
-        echo "%{$FG[039]%}%m%{$reset_color%}"
+        echo "%{$fg[cyan]%}%m%{$reset_color%}"
     fi
 }
 
@@ -64,10 +63,10 @@ GIT_PROMPT_SYMBOL=""
 GIT_PROMPT_PREFIX="%{$fg[violet]%}%B(%b%{$reset_color%}"
 GIT_PROMPT_SUFFIX="%{$fg[violet]%}%B)%b%{$reset_color%}"
 GIT_PROMPT_AHEAD="%{$fg[teal]%}%B+NUM%b%{$reset_color%}"
-GIT_PROMPT_BEHIND="%{$fg[orange]%}%B-NUM%b%{$reset_color%}"
+GIT_PROMPT_BEHIND="%{$fg[brown]%}%B-NUM%b%{$reset_color%}"
 GIT_PROMPT_MERGING="%{$fg[cyan]%}%Bx%b%{$reset_color%}"
 GIT_PROMPT_UNTRACKED="%{$fg[red]%}%B$DIFF_SYMBOL%b%{$reset_color%}"
-GIT_PROMPT_MODIFIED="%{$fg[yellow]%}%B$DIFF_SYMBOL%b%{$reset_color%}"
+GIT_PROMPT_MODIFIED="%{$fg[darkyellow]%}%B$DIFF_SYMBOL%b%{$reset_color%}"
 GIT_PROMPT_STAGED="%{$fg[green]%}%B$DIFF_SYMBOL%b%{$reset_color%}"
 GIT_PROMPT_DETACHED="%{$fg[neon]%}%B!%b%{$reset_color%}"
 
@@ -135,7 +134,7 @@ function git_prompt_string() {
     if [[ "${PR_SHOW_GIT}" == "true" ]]; then
         local git_where="$(parse_git_branch)"
         local git_detached="$(parse_git_detached)"
-        [ -n "$git_where" ] && echo " $GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$FG[209]%}%B${git_where#(refs/heads/|tags/)}%b$git_detached$GIT_PROMPT_SUFFIX"
+        [ -n "$git_where" ] && echo " $GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[lightred]%}%B${git_where#(refs/heads/|tags/)}%b$git_detached$GIT_PROMPT_SUFFIX"
     fi
 }
 
