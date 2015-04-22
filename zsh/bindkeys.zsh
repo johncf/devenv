@@ -31,7 +31,7 @@ bindkey '^K' kill-line
 bindkey "^M" magic-enter
 bindkey '^N' history-search-forward
 bindkey '^P' history-search-backward
-bindkey '^R' zaw-history
+bindkey '^R' history-incremental-search-backward
 bindkey '^W' backward-kill-word
 
 bindkey -a 'u' undo
