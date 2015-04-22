@@ -21,9 +21,11 @@ Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 "Plug 'benekastah/neomake'
+Plug 'kassio/neoterm'
 
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'spf13/vim-autoclose'
 
 call plug#end()
 " Plug Scripts --- }}}
@@ -91,6 +93,12 @@ let g:airline_theme = 'bubblegum'
 
 let g:surround_no_insert_mappings = 1
 let g:viewdoc_openempty = 0
+let g:autoclose_vim_commentmode = 1
+let g:autoclose_rust_lifemode = 1
+
+let g:neoterm_position = 'vertical'
+let g:neoterm_automap_keys = '<leader>tt'
+nnoremap <silent> <leader>tc :call neoterm#close_all()<cr>
 " Plugin Options --- }}}
 
 " Keymaps +++ {{{
@@ -184,7 +192,7 @@ autocmd FileType man\|help nnoremap <buffer> d <C-D>
 autocmd FileType man\|help nnoremap <buffer> u <C-U>
 autocmd FileType netrw nnoremap <buffer> qq <C-^>
 autocmd FileType netrw nmap <buffer> <Space> mf
-autocmd FileType rust setlocal makeprg=cargo\ build
+autocmd FileType rust setlocal makeprg=cargo\ build|Tmap cargo build
 " Keymaps --- }}}
 
 " Custom commands +++ {{{
