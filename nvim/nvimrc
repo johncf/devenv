@@ -29,7 +29,11 @@ call plug#end()
 " Plug Scripts --- }}}
 
 filetype plugin indent on
-colorscheme desertEx-v2
+if $TERM == 'linux'
+	colorscheme desert
+else
+	colorscheme desertEx-v2
+endif
 syntax enable
 
 " Global Options +++ {{{
@@ -77,7 +81,9 @@ set spelllang=en
 " Global Options --- }}}
 
 " Plugin Options +++ {{{
-let g:airline_powerline_fonts = 1
+if $TERM != 'linux'
+	let g:airline_powerline_fonts = 1
+endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_theme = 'bubblegum'
