@@ -2,9 +2,9 @@
 # Contributor: Florian Hahn <flo@fhahn.com>
 
 pkgname=neovim-git
-pkgver=0.r3036.657d274
+pkgver=0.r3284.84891f2
 pkgrel=1
-pkgdesc="Vim's rebirth for the 21st century"
+pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs.'
 arch=('i686' 'x86_64')
 url='https://neovim.org'
 license=('custom:neovim')
@@ -15,7 +15,8 @@ optdepends=('python2-neovim: for Python plugin support (see :help nvim-python)'
             'xsel: for clipboard support (or xclip) (see :help nvim-clipboard)'
            )
 source=("${pkgname}::git+https://github.com/neovim/neovim.git"
-        nvim.desktop nvim.svg r_a_pr_python.vim.patch)
+        nvim.desktop nvim.svg
+        r_a_pr_python.vim.patch)
 md5sums=('SKIP'
          '065e37e7d3b111850f8b683554fced97'
          'f3bbb62a08ae4f4fe1d253c23afffa75'
@@ -31,7 +32,8 @@ pkgver() {
 
 build() {
   cd "${pkgname}"
-  cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr
+  cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr \
+    -DUSE_JEMALLOC=false
   patch "runtime/autoload/provider/python.vim" "${startdir}/r_a_pr_python.vim.patch"
   make
 }
