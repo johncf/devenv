@@ -149,17 +149,17 @@ cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
 		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
 " Terminal mode maps (only for nvim)
-tnoremap <C-W> <Esc><BS>
+tnoremap <M-b> <Esc>b
 tnoremap <M-d> <Esc>d
-tnoremap <M-h> <Left>
-tnoremap <M-b> <Esc><Left>
-tnoremap <M-x> <Del>
-tnoremap <M-j> <PageDown>
-tnoremap <M-J> <Down>
-tnoremap <M-k> <PageUp>
-tnoremap <M-K> <Up>
-tnoremap <M-l> <Right>
-tnoremap <M-f> <Esc><Right>
+tnoremap <M-f> <Esc>f
+tnoremap <M-h> <Esc>h
+tnoremap <M-j> <Esc>j
+tnoremap <M-k> <Esc>k
+tnoremap <M-l> <Esc>l
+tnoremap <M-n> <Esc>n
+tnoremap <M-p> <Esc>p
+tnoremap <M-w> <Esc>w
+tnoremap <M-x> <Esc>x
 
 vnoremap <leader>y "+y
 
