@@ -2,7 +2,7 @@
 # Contributor: Florian Hahn <flo@fhahn.com>
 
 pkgname=neovim-git
-pkgver=0.r3284.84891f2
+pkgver=0.r3289.04e098f
 pkgrel=1
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs.'
 arch=('i686' 'x86_64')
@@ -15,12 +15,10 @@ optdepends=('python2-neovim: for Python plugin support (see :help nvim-python)'
             'xsel: for clipboard support (or xclip) (see :help nvim-clipboard)'
            )
 source=("${pkgname}::git+https://github.com/neovim/neovim.git"
-        nvim.desktop nvim.svg
-        r_a_pr_python.vim.patch)
+        nvim.desktop nvim.svg)
 md5sums=('SKIP'
          '065e37e7d3b111850f8b683554fced97'
-         'f3bbb62a08ae4f4fe1d253c23afffa75'
-         '2c491b0273b25fbebd5cf1bfcecc7a42')
+         'f3bbb62a08ae4f4fe1d253c23afffa75')
 provides=('neovim')
 conflicts=('neovim')
 install=neovim-git.install
@@ -34,7 +32,6 @@ build() {
   cd "${pkgname}"
   cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr \
     -DUSE_JEMALLOC=false
-  patch "runtime/autoload/provider/python.vim" "${startdir}/r_a_pr_python.vim.patch"
   make
 }
 
