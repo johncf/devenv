@@ -29,8 +29,8 @@ bindkey '^?' backward-delete-char
 bindkey '^H' backward-delete-char
 bindkey '^K' kill-line
 bindkey "^M" magic-enter
-bindkey '^N' history-search-forward
-bindkey '^P' history-search-backward
+bindkey '^N' history-beginning-search-forward
+bindkey '^P' history-beginning-search-backward
 bindkey '^R' history-incremental-search-backward
 bindkey '^W' backward-kill-word
 

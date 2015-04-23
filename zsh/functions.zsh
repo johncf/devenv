@@ -40,7 +40,7 @@ function extract {
 }
 
 # Detect empty enter, execute git status if in git dir
-magic-enter () {
+function magic-enter {
   if [[ -z $BUFFER ]]; then
     if git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
       echo -ne '\n'
@@ -52,3 +52,8 @@ magic-enter () {
   fi
 }
 zle -N magic-enter
+
+function mkdirc {
+  [[ "$#" != "1" ]] && echo "Needs exactly one argument" && return 1
+  mkdir "$1" && cd "$1"
+}
