@@ -1,5 +1,6 @@
 # Maintainer: Florian Walch <florian+aur@fwalch.com>
 # Contributor: Florian Hahn <flo@fhahn.com>
+# Neovim logo by Jason Long (see the svg file for links)
 
 pkgname=neovim-git
 pkgver=0.r3289.04e098f
