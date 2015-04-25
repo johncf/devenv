@@ -2,15 +2,19 @@
 function! SwitchAndClose()
 	let toclose = bufnr('%')
 	let switch = bufnr('#')
+	if &modified
+		echo "No write since last change!"
+		return
+	endif
 	if switch != toclose && buflisted(switch)
 		b #
 	else
 		bp
 	endif
 	if bufnr('%') != toclose
-		bd #
+		bd! #
 	else
-		bd
+		bd!
 		if exists(':Startify')
 			Startify
 		endif
