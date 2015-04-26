@@ -25,7 +25,7 @@ Plug 'kassio/neoterm'
 
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'spf13/vim-autoclose'
+Plug 'critiqjo/vim-autoclose'
 
 call plug#end()
 " Plug Scripts --- }}}
@@ -91,10 +91,10 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 
+let g:autoclose_no_squote = ['rust']
+let g:autoclose_no_dquote = ['vim']
 let g:surround_no_insert_mappings = 1
 let g:viewdoc_openempty = 0
-let g:autoclose_vim_commentmode = 1
-let g:autoclose_rust_lifemode = 1
 
 let g:neoterm_position = 'vertical'
 let g:neoterm_automap_keys = '<leader>tt'
