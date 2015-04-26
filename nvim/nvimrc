@@ -52,6 +52,7 @@ set ruler " Show line and column numbers
 set scrolloff=1
 set showcmd
 set noshowmode
+set splitright
 set wildmenu " Enhanced command line suggestions
 set wildmode=longest,full
 
@@ -115,6 +116,8 @@ nnoremap Q q:
 nnoremap Y y$
 nnoremap ]c :cn<CR>
 nnoremap [c :cp<CR>
+nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
+nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -136,8 +139,8 @@ noremap! <M-h> <Left>
 noremap! <M-j> <Down>
 noremap! <M-k> <Up>
 noremap! <M-l> <Right>
-cnoremap <M-f> <S-Right>
 cnoremap <M-b> <S-Left>
+cnoremap <M-e> <S-Right>
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
 "		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
