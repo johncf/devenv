@@ -50,7 +50,8 @@ hi PreProc      ctermfg=211             cterm=NONE
 hi Type         ctermfg=215             cterm=bold
 hi Special      ctermfg=122             cterm=NONE
 hi Ignore       ctermfg=241             cterm=NONE
-hi Todo         ctermfg=202 ctermbg=226 cterm=NONE
+hi Todo         ctermfg=130 ctermbg=220 cterm=NONE
+  "Todo         ctermfg=9
 
 " Startify groups
 hi StartifySlash   ctermfg=102

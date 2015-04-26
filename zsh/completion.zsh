@@ -44,9 +44,6 @@ zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:*:kill:*' force-list always
 zstyle ':completion:*:*:kill:*' insert-ids single
 
-# Case-insensitive
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-
 # Array completion element sorting
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 

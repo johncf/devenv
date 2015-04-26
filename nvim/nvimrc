@@ -184,7 +184,7 @@ nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-U>b <C-R>=GetModifiableBuffer(v:count, 1)<CR><CR>
 nnoremap <leader>N :<C-U>b <C-R>=GetModifiableBuffer(v:count, -1)<CR><CR>
 nnoremap <leader>o :Startify<CR>
-nnoremap <leader>q :call SwitchAndClose()<CR>
+nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>u :UndotreeToggle<CR>

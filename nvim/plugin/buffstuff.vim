@@ -1,5 +1,5 @@
-" Try returning to the previously visited buffer before closing
-function! SwitchAndClose()
+" Try returning to the previously visited buffer, then close
+function! SmartBufferClose()
 	let toclose = bufnr('%')
 	let switch = bufnr('#')
 	if &modified
