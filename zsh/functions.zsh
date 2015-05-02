@@ -47,6 +47,11 @@ function magic-enter {
       git status
     fi
     zle accept-line
+  elif [[ $BUFFER == "diff" ]]; then
+    echo -ne '\n'
+    git diff
+	BUFFER=""
+	zle accept-line
   else
     zle accept-line
   fi
