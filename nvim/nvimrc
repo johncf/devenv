@@ -121,24 +121,30 @@ nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
-" Make <C-U> undoable
+" Make <C-U> and <CR> undoable
 inoremap <C-U> <C-G>u<C-U>
+inoremap <CR> <C-G>u<CR>
 
-" Alt maps in insert and command mode
-inoremap <M-w> <C-O>w
-inoremap <M-W> <C-O>W
-inoremap <M-e> <C-O>e<Right>
-inoremap <M-E> <C-O>E<Right>
+" Meta-maps in insert and command mode
 inoremap <M-b> <C-O>b
 inoremap <M-B> <C-O>B
 inoremap <M-d> <C-O>d
+inoremap <M-e> <C-O>e<Right>
+inoremap <M-E> <C-O>E<Right>
+inoremap <M-f> <Esc>f
+inoremap <M-F> <Esc>F
 inoremap <M-o> <Esc>o
 inoremap <M-O> <Esc>O
-noremap! <M-x> <Del>
+inoremap <M-t> <Esc>t
+inoremap <M-T> <Esc>T
+inoremap <M-u> <C-O>u
+inoremap <M-w> <C-O>w
+inoremap <M-W> <C-O>W
 noremap! <M-h> <Left>
 noremap! <M-j> <Down>
 noremap! <M-k> <Up>
 noremap! <M-l> <Right>
+noremap! <M-x> <Del>
 cnoremap <M-b> <S-Left>
 cnoremap <M-e> <S-Right>
 
@@ -155,12 +161,14 @@ cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
 tnoremap <M-b> <Esc>b
 tnoremap <M-d> <Esc>d
 tnoremap <M-f> <Esc>f
+tnoremap <M-F> <Esc>F
 tnoremap <M-h> <Esc>h
 tnoremap <M-j> <Esc>j
 tnoremap <M-k> <Esc>k
 tnoremap <M-l> <Esc>l
 tnoremap <M-n> <Esc>n
 tnoremap <M-p> <Esc>p
+tnoremap <M-u> <Esc>u
 tnoremap <M-w> <Esc>w
 tnoremap <M-x> <Esc>x
 

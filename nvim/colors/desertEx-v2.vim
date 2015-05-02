@@ -14,6 +14,7 @@ hi Normal       ctermfg=253 ctermbg=234 cterm=NONE
 
 hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
+hi CursorLineNr ctermfg=11  ctermbg=233
 hi DiffAdd      ctermfg=16  ctermbg=223
 hi DiffChange   ctermfg=16  ctermbg=117
 hi DiffDelete   ctermfg=16  ctermbg=243 cterm=NONE
@@ -22,7 +23,8 @@ hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
 hi Folded       ctermfg=116 ctermbg=236 cterm=NONE
 hi IncSearch    ctermfg=159 ctermbg=26
-hi LineNr       ctermfg=180             cterm=NONE
+hi LineNr       ctermfg=144 ctermbg=233 cterm=NONE
+  "LineNr       ctermfg=180
 hi MatchParen   ctermfg=51              cterm=bold
 hi ModeMsg      ctermfg=117             cterm=NONE
 hi MoreMsg      ctermfg=29              cterm=NONE
@@ -43,7 +45,10 @@ hi WildMenu     ctermfg=250 ctermbg=235 cterm=NONE
 " syntax highlighting groups
 hi Comment      ctermfg=114             cterm=NONE
 hi Constant     ctermfg=210             cterm=NONE
-hi Identifier   ctermfg=117             cterm=NONE
+hi Delimiter    ctermfg=248
+  "Delimiter    ctermfg=72
+hi Directory    ctermfg=66
+hi Identifier   ctermfg=79              cterm=NONE
 hi Function     ctermfg=117             cterm=NONE
 hi Statement    ctermfg=186             cterm=bold
 hi PreProc      ctermfg=211             cterm=NONE
@@ -52,9 +57,4 @@ hi Special      ctermfg=122             cterm=NONE
 hi Ignore       ctermfg=241             cterm=NONE
 hi Todo         ctermfg=130 ctermbg=220 cterm=NONE
   "Todo         ctermfg=9
-
-" Startify groups
-hi StartifySlash   ctermfg=102
-hi StartifyPath    ctermfg=67
-hi StartifyBracket ctermfg=246
 
