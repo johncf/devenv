@@ -1,3 +1,12 @@
+" Update the undo-file, and quit without saving
+function! SmartForceQuit()
+	if &undofile && &modified && expand('%') != ''
+		earlier 1f
+		exe 'wundo ' . substitute(undofile(expand('%')),'%','\\%','g')
+	endif
+	q!
+endfun
+
 " Try returning to the previously visited buffer, then close
 function! SmartBufferClose()
 	let toclose = bufnr('%')
@@ -22,7 +31,7 @@ function! SmartBufferClose()
 endfun
 
 " Get the nth modifiable buffer, relative to the current one if direction=±1,
-" or relative to the first modiable buffer if direction=0
+" or relative to the first modifiable buffer if direction=0
 function! GetModifiableBuffer(n, direction)
 	let dir = a:direction
 	let n = a:n

@@ -118,6 +118,13 @@ nnoremap ]c :cn<CR>
 nnoremap [c :cp<CR>
 nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
 nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
+" Make ZQ redoable!
+nnoremap ZQ :call SmartForceQuit()<CR>
+
+nnoremap <M-h> <C-w>h
+nnoremap <M-j> <C-w>j
+nnoremap <M-k> <C-w>k
+nnoremap <M-l> <C-w>l
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -174,16 +181,11 @@ tnoremap <M-x> <Esc>x
 
 vnoremap <leader>y "+y
 
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
-
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
-nnoremap <leader>cd :cd %:p:h<CR>
+nnoremap <leader>cd :cd %:h<CR>
 nnoremap <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
