@@ -1,6 +1,6 @@
 "set nocompatible " Always nocompatible in neovim
 
-" Plug Scripts +++ {{{
+" --- Plug Scripts {{{
 " Installation:
 "   mkdir -p ~/.nvim/autoload
 "   curl -fLo ~/.nvim/autoload/plug.vim \
@@ -28,7 +28,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'critiqjo/vim-autoclose'
 
 call plug#end()
-" Plug Scripts --- }}}
+" --- Plug Scripts }}}
 
 filetype plugin indent on
 if $TERM == 'linux'
@@ -38,8 +38,8 @@ else
 endif
 syntax enable
 
-" Global Options +++ {{{
-" -= UI =-
+" --- Global Options {{{
+" -- UI
 set diffopt+=vertical
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
@@ -56,14 +56,14 @@ set splitright
 set wildmenu " Enhanced command line suggestions
 set wildmode=longest,full
 
-" -= Usability =-
+" -- Usability
 set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set nrformats-=octal " For use with <C-A> and <C-X>
 set timeoutlen=1200 " <leader> timeout
 
-" -= History management =-
+" -- History management
 set directory=~/.nvim/swps
 set history=256
 set undofile
@@ -71,19 +71,19 @@ set undodir=~/.nvim/undos
 set undolevels=256	" Maximum number of changes that can be undone
 set undoreload=2048	" Maximum number lines to save for undo on a buffer reload
 
-" -= Formatting =-
+" -- Formatting
 set shiftwidth=4
 set tabstop=4
 
-" -= Session-saves =- :help :mksession
-set ssop-=options " Do not store global and local values
+" -- Session-saves
+set ssop-=options " Do not store global and local options
 
-" -= Spellcheck =-
+" -- Spellcheck
 set spellfile=~/.nvim/spell/en.utf-8.add
 set spelllang=en
-" Global Options --- }}}
+" --- Global Options }}}
 
-" Plugin Options +++ {{{
+" --- Plugin Options {{{
 if $TERM != 'linux'
 	let g:airline_powerline_fonts = 1
 endif
@@ -99,12 +99,12 @@ let g:viewdoc_openempty = 0
 
 let g:neoterm_position = 'vertical'
 let g:neoterm_automap_keys = '<leader>tt'
-nnoremap <silent> <leader>tc :call neoterm#close_all()<cr>
-" Plugin Options --- }}}
+nnoremap <silent> <leader>tc :call neoterm#close_all()<CR>
+" --- Plugin Options }}}
 
-" Keymaps +++ {{{
-" URL/XML/CString En/Decode maps: [u ]u [x ]x [y ]y
-" CScope maps: <C-\>X <C-@>X <C-@><C-@>X
+" --- Keymaps {{{
+" URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
+" CScope maps: <C-\>X <C-@>X <C-@><C-@>X where X=[cdefgist]
 
 " Switch to normal mode
 inoremap zj <Esc>
@@ -132,7 +132,16 @@ inoremap <C-E> <C-O>$
 inoremap <C-U> <C-G>u<C-U>
 inoremap <CR> <C-G>u<CR>
 
-" Meta-maps in insert and command mode
+" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
+"		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
+cnoremap <C-A> <Home>
+" idea from tpope/vim-rsi
+cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline()) ? "<C-D>" : "<Del>"
+" mimic line kill, or if at the end of line -- up
+cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
+		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
+
+" --- Meta-keymaps mode-ict {{{
 inoremap <M-b> <C-O>b
 inoremap <M-B> <C-O>B
 inoremap <M-d> <C-O>d
@@ -154,17 +163,6 @@ noremap! <M-l> <Right>
 noremap! <M-x> <Del>
 cnoremap <M-b> <S-Left>
 cnoremap <M-e> <S-Right>
-
-" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
-"		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
-cnoremap <C-A> <Home>
-" idea from tpope/vim-rsi
-cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline())? "<C-D>": "<Del>"
-" mimic line kill, or if at the end of line -- up
-cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
-		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
-
-" Terminal mode maps (only for nvim)
 tnoremap <M-b> <Esc>b
 tnoremap <M-d> <Esc>d
 tnoremap <M-f> <Esc>f
@@ -178,13 +176,15 @@ tnoremap <M-p> <Esc>p
 tnoremap <M-u> <Esc>u
 tnoremap <M-w> <Esc>w
 tnoremap <M-x> <Esc>x
+" --- Meta-keymaps }}}
 
 vnoremap <leader>y "+y
-
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
+
+nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>
 nnoremap <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
@@ -197,6 +197,7 @@ nnoremap <leader>o :Startify<CR>
 nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
+"Neoterm maps: <leader>tt <leader>tc
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
 nnoremap <leader>w :update<CR>
@@ -206,13 +207,14 @@ autocmd FileType man\|help nnoremap <buffer> u <C-U>
 autocmd FileType netrw nnoremap <buffer> qq <C-^>
 autocmd FileType netrw nmap <buffer> <Space> mf
 autocmd FileType rust setlocal makeprg=cargo\ build|Tmap cargo build
-" Keymaps --- }}}
+" --- Keymaps }}}
 
-" Custom commands +++ {{{
+" --- Custom commands {{{
 command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
 				\ | wincmd p | diffthis
-" Custom commands --- }}}
+" --- Custom commands }}}
 
+" vim:fdm=marker
