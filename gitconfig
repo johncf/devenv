@@ -1,0 +1,14 @@
+[user]
+	email = john.ch.fr@gmail.com
+	name = critiqjo
+[url "https://"]
+	insteadOf = git://
+[push]
+	default = simple
+[alias]
+	co = checkout
+	d = diff
+	dh = diff HEAD
+	ds = diff --staged
+	lg = log --color --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset' --abbrev-commit
+	l = log --graph --decorate --pretty=oneline --abbrev-commit
