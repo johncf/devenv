@@ -26,6 +26,7 @@ bindkey '\ek' up-line-or-history
 bindkey '\el' forward-char
 
 bindkey '^?' backward-delete-char
+bindkey '^_' undo
 bindkey '^H' backward-delete-char
 bindkey '^K' kill-line
 bindkey "^M" magic-enter

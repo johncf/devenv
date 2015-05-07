@@ -46,6 +46,8 @@ set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
 set laststatus=2
 set lazyredraw " Faster <C-O> mappings in insert mode with airline
+set list
+set listchars=tab:»\ ,trail:·
 set number
 set relativenumber " Relative line numbering
 set ruler " Show line and column numbers

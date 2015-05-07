@@ -10,3 +10,4 @@ export SAVEHIST=2048
 export HISTFILE=~/.cache/zsh/history
 export PATH=$PATH:${HOME}/.local/bin
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
+export NVIM_TUI_ENABLE_CURSOR_SHAPE=1

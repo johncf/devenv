@@ -2,7 +2,7 @@
 function! SmartForceQuit()
 	if &undofile && &modified && expand('%') != ''
 		earlier 1f
-		exe 'wundo ' . substitute(undofile(expand('%')),'%','\\%','g')
+		exe 'wundo ' . escape(undofile(expand('%')), ' %')
 	endif
 	q!
 endfun
@@ -12,7 +12,7 @@ function! SmartBufferClose()
 	let toclose = bufnr('%')
 	let switch = bufnr('#')
 	if &modified
-		echo "No write since last change!"
+		echohl WarningMsg | echom "No write since last change!" | echohl None
 		return
 	endif
 	if switch != toclose && buflisted(switch)
