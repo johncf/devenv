@@ -21,8 +21,8 @@ bindkey '\e[8~' end-of-line
 
 # Meta+[hjkl]
 bindkey '\eh' backward-char
-bindkey '\ej' down-line-or-history
-bindkey '\ek' up-line-or-history
+bindkey '\ej' history-beginning-search-forward
+bindkey '\ek' history-beginning-search-backward
 bindkey '\el' forward-char
 
 bindkey '^?' backward-delete-char
@@ -30,8 +30,8 @@ bindkey '^_' undo
 bindkey '^H' backward-delete-char
 bindkey '^K' kill-line
 bindkey "^M" magic-enter
-bindkey '^N' history-beginning-search-forward
-bindkey '^P' history-beginning-search-backward
+bindkey '^N' down-line-or-history
+bindkey '^P' up-line-or-history
 bindkey '^R' history-incremental-search-backward
 bindkey '^W' backward-kill-word
 

@@ -36,6 +36,7 @@ hi Search       ctermfg=252 ctermbg=61  cterm=NONE
 hi SpecialKey   ctermfg=240             cterm=NONE
 hi StatusLine   ctermfg=252 ctermbg=238 cterm=NONE
 hi StatusLineNC ctermfg=250 ctermbg=241 cterm=NONE
+hi TermCursorNC                         cterm=underline
 hi Title        ctermfg=167             cterm=NONE
 hi VertSplit    ctermfg=238 ctermbg=238 cterm=NONE
 hi Visual       ctermfg=235 ctermbg=215 cterm=NONE

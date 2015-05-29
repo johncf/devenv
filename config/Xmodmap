@@ -1,0 +1,6 @@
+! For keyboards with no Super key on right side
+! Map CapsLock Key to Menu
+remove lock = Caps_Lock
+keycode 66 = Menu
+! Map menu key to Super
+keycode 135 = Super_R
