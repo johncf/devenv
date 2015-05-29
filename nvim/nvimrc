@@ -31,9 +31,9 @@ call plug#end()
 
 filetype plugin indent on
 if $TERM == 'linux'
-	colorscheme desert
+  colorscheme desert
 else
-	colorscheme desertEx-v2
+  colorscheme desertEx-v2
 endif
 syntax enable
 
@@ -69,8 +69,8 @@ set directory=~/.nvim/swps
 set history=256
 set undofile
 set undodir=~/.nvim/undos
-set undolevels=256	" Maximum number of changes that can be undone
-set undoreload=2048	" Maximum number lines to save for undo on a buffer reload
+set undolevels=256  " Maximum number of changes that can be undone
+set undoreload=2048 " Maximum number lines to save for undo on a buffer reload
 
 " -- Formatting
 set shiftwidth=4
@@ -86,7 +86,7 @@ set spelllang=en
 
 " --- Plugin Options {{{
 if $TERM != 'linux'
-	let g:airline_powerline_fonts = 1
+  let g:airline_powerline_fonts = 1
 endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
@@ -135,13 +135,13 @@ inoremap <C-U> <C-G>u<C-U>
 inoremap <CR> <C-G>u<CR>
 
 " C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
-"		  <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
+"         <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
 cnoremap <C-A> <Home>
 " idea from tpope/vim-rsi
 cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline()) ? "<C-D>" : "<Del>"
 " mimic line kill, or if at the end of line -- up
 cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
-		\ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
+        \ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
 " --- Meta-keymaps mode-ict {{{
 inoremap <M-b> <C-O>b
@@ -220,7 +220,7 @@ command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-				\ | wincmd p | diffthis
+                \ | wincmd p | diffthis
 " --- Custom commands }}}
 
 " vim:fdm=marker
