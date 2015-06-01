@@ -10,7 +10,8 @@ ln -s $SCR_DIR/Xdefaults .Xdefaults
 mkdir -p .config .nvim .cache/zsh
 cd .config
 ln -s $SCR_DIR/config/Xdefaults.d ./
-cp $SCR_DIR/config/mimeapps.list ./
+ln -s $SCR_DIR/config/pystartup ./
+#cp $SCR_DIR/config/mimeapps.list ./
 cd ../.nvim
 ln -s $SCR_DIR/nvim/colors ./
 ln -s $SCR_DIR/nvim/plugin ./
