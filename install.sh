@@ -7,6 +7,7 @@ cd $HOME
 ln -s $SCR_DIR/zshrc .zshrc
 ln -s $SCR_DIR/zsh .zsh
 ln -s $SCR_DIR/Xdefaults .Xdefaults
+ln -s $SCR_DIR/gitconfig .gitconfig
 mkdir -p .config .nvim .cache/zsh
 cd .config
 ln -s $SCR_DIR/config/Xdefaults.d ./

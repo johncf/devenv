@@ -27,14 +27,13 @@ URxvt.iso14755:        false
 
 URxvt.loginShell:      true
 
-! extensions
+! extensions: install package urxvt-perls
 URxvt.perl-ext-common: default,matcher,keyboard-select,clipboard
-URxvt.perl-lib:        /home/shared/urxvt/perl/
 ! middle click on a url to open in firefox
 URxvt.url-launcher:    /usr/bin/firefox
-URxvt.keysym.M-Escape: keyboard-select:activate
-URxvt.keysym.M-c:      clipboard:copy
-URxvt.keysym.M-v:      clipboard:paste
-URxvt.keysym.M-C-v:    clipboard:paste_escaped
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt.keysym.M-c:      perl:clipboard:copy
+URxvt.keysym.M-v:      perl:clipboard:paste
+URxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
 
 ! vim:ft=xdefaults:
