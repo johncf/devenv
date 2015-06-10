@@ -19,6 +19,9 @@ bindkey '\e[6~' history-search-forward
 bindkey '\e[7~' beginning-of-line
 bindkey '\e[8~' end-of-line
 
+bindkey '^A' beginning-of-line
+bindkey '^E' end-of-line
+
 # Meta+[hjkl]
 bindkey '\eh' backward-char
 bindkey '\ej' history-beginning-search-forward
