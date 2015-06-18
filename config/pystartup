@@ -24,6 +24,10 @@ if os.path.exists(historyPath):
 atexit.register(save_history)
 
 readline.parse_and_bind('tab: complete')
+readline.parse_and_bind('"\eh": backward-char')
+readline.parse_and_bind('"\ek": history-search-backward')
+readline.parse_and_bind('"\ej": history-search-forward')
+readline.parse_and_bind('"\el": forward-char')
 
 del os, atexit, readline, rlcompleter, save_history, historyPath
 
