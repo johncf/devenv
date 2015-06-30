@@ -12,6 +12,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 "Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
+Plug 'tpope/vim-obsession'
 
 Plug 'Shougo/unite.vim' , { 'on': ['Unite'] } "has many more commands
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
@@ -23,6 +24,8 @@ Plug 'kassio/neoterm'
 
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'zaiste/tmux.vim'
+
 Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/lldb.nvim'
 

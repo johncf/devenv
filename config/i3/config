@@ -29,6 +29,7 @@ bindsym $mod+v [instance="vlc"] focus
 for_window [instance="vlc"] move container to workspace 5:V
 
 bindsym --release Print exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym --release Shift+Print exec --no-startup-id import -window root /tmp/latest-screenshot.png
 
 # class                 border  backgr. text    indicator
 client.focused          #0088BB #0088BB #ffffff #dddddd
@@ -127,11 +128,13 @@ bindsym $mod+Shift+0 move container to workspace 10:X; workspace number 10
 bindsym $mod1+Shift+r reload
 bindsym $mod+Shift+r restart
 
-set $exit_mod "(l)ock (E)xit i3 (S)uspend (P)ower off (R)estart"
+set $exit_mod "(l)ock (u)ser switch (E)xit i3 (S)uspend (P)ower off (R)estart"
 bindsym $mod+Shift+e mode $exit_mod
 
 mode $exit_mod {
-	bindsym l exec --no-startup-id i3lock -i /home/shared/walls/calvin_png/lock-01.png; mode "default"
+	#bindsym l exec --no-startup-id i3lock -i /home/shared/walls/calvin_png/lock-01.png; mode "default"
+	bindsym l exec dm-tool lock; mode "default"
+	bindsym u exec dm-tool switch-to-greeter; mode "default"
 	bindsym Shift+s exec --no-startup-id systemctl suspend; mode "default"
 	bindsym Shift+e exec i3-msg exit; mode "default"
 	bindsym Shift+p exec systemctl poweroff; mode "default"
