@@ -3,13 +3,13 @@
 # Neovim logo by Jason Long (see the svg file for links)
 
 pkgname=neovim-git
-pkgver=0.r3499.dac8bcd
+pkgver=0.r3630.fa13cc6
 pkgrel=1
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs.'
 arch=('i686' 'x86_64')
 url='http://neovim.io'
 license=('custom:neovim')
-depends=('jemalloc' 'libtermkey-bzr' 'libuv' 'libvterm-git-neovim' 'msgpack-c' 'unibilium')
+depends=('jemalloc' 'libtermkey-bzr' 'libuv' 'libvterm-bzr' 'msgpack-c' 'unibilium')
 makedepends=('cmake' 'git' 'luajit' 'lua51-messagepack' 'lua51-lpeg')
 optdepends=('python2-neovim: for Python 2 plugin support (see :help nvim-python)'
             'python-neovim: for Python 3 plugin support (see :help nvim-python)'
@@ -20,7 +20,7 @@ source=("${pkgname}::git+https://github.com/neovim/neovim.git"
 sha256sums=('SKIP'
             '0230460a2107ccc1e6b48fcc38f6b4d80fc8403d56e485d9a2db6e9a7c05fd78'
             '53b37cd374338237ec051d702bf3f35473d448adfea66ee216f12fffaaf14391')
-provides=('neovim')
+provides=("neovim=${pkgver}")
 conflicts=('neovim')
 install=neovim-git.install
 
@@ -39,7 +39,7 @@ build() {
 check() {
   cd "${pkgname}/build"
   ./bin/nvim --version
-  VIMRUNTIME=./runtime ./bin/nvim -u NONE -c ':quit'
+  ./bin/nvim -u NONE -c ':quit'
 }
 
 package() {
@@ -47,9 +47,6 @@ package() {
   make DESTDIR="${pkgdir}" install
   cd ..
   install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
-  mkdir -p "${pkgdir}/usr/share/man/man1"
-  gzip -c man/nvim.1 > ${pkgdir}/usr/share/man/man1/nvim.1.gz
-  gzip -c man/nvimtutor.1 > ${pkgdir}/usr/share/man/man1/nvimtutor.1.gz
   install -Dm644 "${startdir}/nvim.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/nvim.svg"
   install -Dm644 "${startdir}/nvim.desktop" "${pkgdir}/usr/share/applications/nvim.desktop"
 }
