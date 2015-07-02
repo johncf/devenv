@@ -22,7 +22,7 @@ function PR_ERROR() {
 
 # The arrow in red (for root) or violet (for regular user)
 function PR_LINE2() {
-    echo "%{$fg[orange]%}%t %(!.%{$fg[red]%}.%{$fg[grey]%})${PR_ARROW_CHAR}%{$reset_color%}"
+    echo "%{$fg[orange]%}%D{%H:%M} %(!.%{$fg[red]%}.%{$fg[grey]%})${PR_ARROW_CHAR}%{$reset_color%}"
 }
 
 # Set custom rhs prompt

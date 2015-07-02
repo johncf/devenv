@@ -8,18 +8,18 @@
 # point to it:  "export PYTHONSTARTUP=~/.config/pystartup" in bash.
 
 import atexit
-import os
+import os, sys
 import readline
 import rlcompleter
 
-historyPath = os.path.expanduser("~/.cache/pyhistory")
+history_path = os.path.expanduser("~/.cache/pyhistory")
 
-def save_history(historyPath=historyPath):
-    import readline
-    readline.write_history_file(historyPath)
+def save_history(history_path=history_path):
+  import readline
+  readline.write_history_file(history_path)
 
-if os.path.exists(historyPath):
-    readline.read_history_file(historyPath)
+if os.path.exists(history_path):
+  readline.read_history_file(history_path)
 
 atexit.register(save_history)
 
@@ -29,6 +29,18 @@ readline.parse_and_bind('"\ek": history-search-backward')
 readline.parse_and_bind('"\ej": history-search-forward')
 readline.parse_and_bind('"\el": forward-char')
 
-del os, atexit, readline, rlcompleter, save_history, historyPath
+class MyPS1(object):
+  def __init__(self):
+    import datetime
+    self.dt = datetime.datetime
+  def __repr__(self):
+    return "\001\033[96m\002" + \
+           self.dt.now().strftime("%H:%M") + \
+           " \001\033[1;30m\002>>\001\033[m\002 "
+
+sys.ps1 = MyPS1()
+sys.ps2 = "      .. "
+
+del os, sys, atexit, readline, rlcompleter, save_history, history_path, MyPS1
 
 # vim:ft=python
