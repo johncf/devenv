@@ -22,7 +22,7 @@ hi DiffText     ctermfg=16  ctermbg=205 cterm=NONE
 hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
 hi Folded       ctermfg=116 ctermbg=236 cterm=NONE
-hi IncSearch    ctermfg=159 ctermbg=26
+hi IncSearch    ctermbg=26  ctermfg=159
 hi LineNr       ctermfg=144 ctermbg=233 cterm=NONE
   "LineNr       ctermfg=180
 hi MatchParen   ctermfg=51              cterm=bold
@@ -32,7 +32,7 @@ hi NonText      ctermfg=51  ctermbg=236 cterm=NONE
 hi Pmenu        ctermfg=231 ctermbg=61  cterm=NONE
 hi PmenuSel     ctermfg=61  ctermbg=250
 hi Question     ctermfg=48              cterm=NONE
-hi Search       ctermfg=252 ctermbg=61  cterm=NONE
+hi Search       ctermfg=252 ctermbg=234 cterm=underline
 hi SpecialKey   ctermfg=240             cterm=NONE
 hi StatusLine   ctermfg=252 ctermbg=238 cterm=NONE
 hi StatusLineNC ctermfg=250 ctermbg=241 cterm=NONE

@@ -51,7 +51,10 @@ function magic-enter {
 }
 zle -N magic-enter
 
-function mkdirc {
-  [[ "$#" != "1" ]] && echo "Needs exactly one argument" && return 1
+function mkcd {
+  if [[ "$#" != 1 ]]; then
+    echo "Expects exactly one argument; provided $#" >&2
+    return 1
+  fi
   mkdir "$1" && cd "$1"
 }
