@@ -8,6 +8,10 @@ call plug#begin('~/.nvim/plugged')
 Plug 'mhinz/vim-startify'
 Plug 'bling/vim-airline'
 
+Plug 'kana/vim-smartinput'
+Plug 'kana/vim-textobj-user'
+Plug 'kana/vim-smartword'
+Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 "Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
@@ -19,15 +23,17 @@ Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-"Plug 'benekastah/neomake'
-Plug 'kassio/neoterm'
+Plug 'benekastah/neomake'
+"Plug 'kassio/neoterm'
+Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
-Plug 'critiqjo/vim-autoclose'
+"Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/lldb.nvim'
+Plug 'critiqjo/vsearch.vim'
 
 call plug#end()
 " --- Plug Scripts }}}
@@ -64,6 +70,7 @@ set wildmode=longest,full
 set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
+set mouse=
 set nrformats-=octal " For use with <C-A> and <C-X>
 set timeoutlen=1200 " <leader> timeout
 
@@ -76,6 +83,7 @@ set undolevels=256  " Maximum number of changes that can be undone
 set undoreload=2048 " Maximum number lines to save for undo on a buffer reload
 
 " -- Formatting
+set expandtab
 set shiftwidth=4
 set tabstop=4
 
@@ -100,10 +108,50 @@ let g:autoclose_no_squote = ['rust']
 let g:autoclose_no_dquote = ['vim']
 let g:surround_no_insert_mappings = 1
 let g:viewdoc_openempty = 0
+let g:tmux_navigator_no_mappings = 1
 
 let g:neoterm_position = 'vertical'
 let g:neoterm_automap_keys = '<leader>tt'
 nnoremap <silent> <leader>tc :call neoterm#close_all()<CR>
+
+call textobj#user#plugin('assignment', {
+\   'lhs': {
+\     'select-function': 'AssLHS',
+\     'select': ['il', 'al'],
+\   },
+\   'rhs': {
+\     'select-function': 'AssRHS',
+\     'select': ['ir', 'ar'],
+\   },
+\ })
+function! AssLHS()
+  normal! ^
+  let head_pos = getpos('.')
+  normal! f=ge
+  if getpos('.') == head_pos
+    " entire line
+    normal! g_
+  endif
+  let tail_pos = getpos('.')
+  return ['v', head_pos, tail_pos]
+endfunction
+function! AssRHS()
+  normal! g_
+  let tail_pos = getpos('.')
+  if getline('.')[tail_pos[2]-1] == ';'
+    let tail_pos[2] -= 1
+  endif
+  normal! F=w
+  let head_pos = getpos('.')
+  return ['v', head_pos, tail_pos]
+endfunction
+
+map w <Plug>(smartword-w)
+map b <Plug>(smartword-b)
+map e <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
+
+nmap <M-b> <Plug>LLBreakSwitch
 " --- Plugin Options }}}
 
 " --- Keymaps {{{
@@ -126,10 +174,11 @@ nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 nnoremap ZQ :call SmartForceQuit()<CR>
 
 nnoremap <M-/> :Unite line:buffers<CR>i
-nnoremap <M-h> <C-w>h
-nnoremap <M-j> <C-w>j
-nnoremap <M-k> <C-w>k
-nnoremap <M-l> <C-w>l
+nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-w><c-w> :TmuxNavigatePrevious<cr>
 
 inoremap <C-A> <C-O>^
 inoremap <C-E> <C-O>$
@@ -202,6 +251,7 @@ nnoremap <leader>o :Startify<CR>
 nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
+nnoremap <leader>tq :tabc<CR>
 "Neoterm maps: <leader>tt <leader>tc
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
@@ -211,10 +261,12 @@ nnoremap <leader>w :update<CR>
 " --- Autocommands {{{
 augroup critiq_ft
   autocmd!
-  autocmd FileType man\|help nmap <buffer> d <C-D> | nmap <buffer> u <C-U>
   autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
+  autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
   autocmd FileType rust setlocal makeprg=cargo\ build | Tmap cargo build
-  autocmd FileType vim\|python setlocal et ts=2 sw=2
+  autocmd FileType vim\|python setlocal ts=2 sw=2
+  autocmd WinLeave,InsertEnter * setlocal nocursorline
+  autocmd WinEnter,BufEnter,InsertLeave * setlocal cursorline
 augroup END
 " --- Autocommands }}}
 
@@ -226,4 +278,4 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
 " --- Custom commands }}}
 
-" vim:fdm=marker
+" vim:fdm=marker:ts=2:sw=2

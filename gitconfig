@@ -7,8 +7,8 @@
 	default = simple
 [alias]
 	co = checkout
-	d = diff
-	dh = diff HEAD
-	ds = diff --staged
+	d = diff --find-copies
+	dh = diff --find-copies HEAD
+	ds = diff --staged --find-copies
 	lg = log --color --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset' --abbrev-commit
 	l = log --graph --decorate --pretty=oneline --abbrev-commit

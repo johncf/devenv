@@ -7,6 +7,7 @@ font pango:DejaVu Sans 7.5
 focus_follows_mouse no
 hide_edge_borders both
 new_window pixel 2
+#workspace "9:IX" output VGA-1
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -37,8 +38,8 @@ client.focused_inactive #333333 #333333 #888888 #292d2e
 client.unfocused        #333333 #333333 #888888 #292d2e
 client.urgent           #2f343a #900000 #ffffff #900000
 
-bindsym $mod+Return exec urxvtc
-bindsym $mod+Shift+Return exec NVIM_TUI_ENABLE_CURSOR_SHAPE=1 urxvtc -e nvim
+bindsym $mod+Return exec urxvtc -e tmux
+bindsym $mod+Shift+Return exec urxvtc
 
 # kill focused window
 bindsym $mod+q kill
