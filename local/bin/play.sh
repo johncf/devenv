@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ag -ig "$@" | {
+ag --ignore '(jpg|png|txt)$' -ig "$@" | \
+  sed '/\(jpg\|png\|txt\|zip\|pdf\)$/Id' | {
     files=()
     while read line; do
         files+=("$line")

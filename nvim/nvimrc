@@ -147,10 +147,6 @@ map ge <Plug>(smartword-ge)
 nmap <M-b> <Plug>LLBreakSwitch
 " --- Plugin Options }}}
 
-" --- Critiq vars! {{{
-let g:critiq_draw_cl = 1
-" --- }}}
-
 " --- Keymaps {{{
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
 " CScope maps: <C-\>X <C-@>X <C-@><C-@>X where X=[cdefgist]
@@ -237,7 +233,7 @@ nnoremap <leader>P O<Esc>"+p
 
 nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>
-nnoremap <silent> <leader>cl :set invcursorline<BAR>let g:critiq_draw_cl = 1-g:critiq_draw_cl<CR>
+nmap <silent> <leader>cl <Plug>desertEx-cls
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
@@ -256,13 +252,13 @@ nnoremap <leader>w :update<CR>
 " --- Keymaps }}}
 
 " --- Autocommands {{{
-augroup critiq_ft
+augroup critiq_au
   autocmd!
   autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
   autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|python setlocal ts=2 sw=2
   autocmd WinLeave,InsertEnter * setlocal nocursorline
-  autocmd WinEnter,BufEnter * if g:critiq_draw_cl | setlocal cursorline | endif
+  autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
 augroup END
 " --- Autocommands }}}
 

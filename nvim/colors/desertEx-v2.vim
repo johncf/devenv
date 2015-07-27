@@ -2,7 +2,6 @@
 " Maintainer:   Mingbai <mbbill AT gmail DOT com>
 
 set background=dark
-set t_Co=256
 
 hi clear
 if exists("syntax_on")
@@ -60,3 +59,14 @@ hi Ignore       ctermfg=241             cterm=NONE
 hi Todo         ctermfg=130 ctermbg=220 cterm=NONE
   "Todo         ctermfg=9
 
+function! s:CLSwitch()
+  set invcursorline
+  hi clear CursorLine
+  if &diff
+    hi CursorLine cterm=underline
+  else
+    hi CursorLine ctermbg=237 cterm=NONE
+  endif
+endfun
+
+nnoremap <silent> <Plug>desertEx-cls :call <sid>CLSwitch()<cr>
