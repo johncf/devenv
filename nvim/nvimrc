@@ -104,15 +104,8 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 
-let g:autoclose_no_squote = ['rust']
-let g:autoclose_no_dquote = ['vim']
-let g:surround_no_insert_mappings = 1
 let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
-
-let g:neoterm_position = 'vertical'
-let g:neoterm_automap_keys = '<leader>tt'
-nnoremap <silent> <leader>tc :call neoterm#close_all()<CR>
 
 call textobj#user#plugin('assignment', {
 \   'lhs': {
@@ -153,6 +146,10 @@ map ge <Plug>(smartword-ge)
 
 nmap <M-b> <Plug>LLBreakSwitch
 " --- Plugin Options }}}
+
+" --- Critiq vars! {{{
+let g:critiq_draw_cl = 1
+" --- }}}
 
 " --- Keymaps {{{
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
@@ -240,7 +237,7 @@ nnoremap <leader>P O<Esc>"+p
 
 nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>
-nnoremap <leader>cl :set invcursorline<CR>
+nnoremap <silent> <leader>cl :set invcursorline<BAR>let g:critiq_draw_cl = 1-g:critiq_draw_cl<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
@@ -263,19 +260,18 @@ augroup critiq_ft
   autocmd!
   autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
   autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
-  autocmd FileType rust setlocal makeprg=cargo\ build | Tmap cargo build
   autocmd FileType vim\|python setlocal ts=2 sw=2
   autocmd WinLeave,InsertEnter * setlocal nocursorline
-  autocmd WinEnter,BufEnter,InsertLeave * setlocal cursorline
+  autocmd WinEnter,BufEnter * if g:critiq_draw_cl | setlocal cursorline | endif
 augroup END
 " --- Autocommands }}}
 
-" --- Custom commands {{{
+" --- Command defs {{{
 command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
-" --- Custom commands }}}
+" --- Command defs }}}
 
 " vim:fdm=marker:ts=2:sw=2

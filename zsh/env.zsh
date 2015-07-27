@@ -7,8 +7,9 @@ alias cp="cp --reflink=auto"
 export EDITOR='nvim'
 export HISTSIZE=1024
 export SAVEHIST=2048
-export HISTFILE=~/.cache/zsh/history
+export HISTFILE=${HOME}/.cache/zsh/history
 export PATH=$PATH:${HOME}/.local/bin
-export PYTHONSTARTUP=~/.config/pystartup
+export PYTHONSTARTUP=${HOME}/.config/pystartup
 export WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+export NVIM_PYTHON_LOG_FILE=${HOME}/.cache/nvlogs/py

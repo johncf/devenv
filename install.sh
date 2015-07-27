@@ -13,8 +13,8 @@ ln -s $SCR_DIR/Xdefaults .Xdefaults
 echo "linked $(pwd)/.Xdefaults"
 ln -s $SCR_DIR/gitconfig .gitconfig
 echo "linked $(pwd)/.gitconfig"
-mkdir -p .config .nvim .cache/zsh
-echo "dirs $(pwd)/.{config,nvim,cache/zsh}"
+mkdir -p .config .nvim
+echo "dirs $(pwd)/.{config,nvim}"
 
 cd .config
 ln -s $SCR_DIR/config/Xdefaults.d ./
@@ -43,4 +43,4 @@ font=$(head -11 $SCR_DIR/config/Xdefaults.d/urxvt | tail -8 | cut -c 3-)
 echo "$font"$'\n'
 echo "$font" | bash
 
-echo $'\n Completed!\nInstall libotf manually.'
+echo $'\n Completed!\nDon't forget to install libotf'

@@ -14,6 +14,7 @@ hi Normal       ctermfg=253 ctermbg=234 cterm=NONE
 
 hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
+hi CursorLine               ctermbg=237 cterm=NONE
 hi CursorLineNr ctermfg=11  ctermbg=233
 hi DiffAdd      ctermfg=16  ctermbg=223
 hi DiffChange   ctermfg=16  ctermbg=117
