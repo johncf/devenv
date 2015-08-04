@@ -15,10 +15,10 @@ hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
 hi CursorLine               ctermbg=237 cterm=NONE
 hi CursorLineNr ctermfg=11  ctermbg=233
-hi DiffAdd      ctermfg=16  ctermbg=223
-hi DiffChange   ctermfg=16  ctermbg=117
-hi DiffDelete   ctermfg=16  ctermbg=243 cterm=NONE
-hi DiffText     ctermfg=16  ctermbg=205 cterm=NONE
+hi DiffAdd      ctermfg=10  ctermbg=236 cterm=NONE
+hi DiffChange   ctermfg=11  ctermbg=0   cterm=NONE
+hi DiffDelete   ctermfg=9   ctermbg=236 cterm=NONE
+hi DiffText     ctermfg=14  ctermbg=237 cterm=NONE
 hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
 hi Folded       ctermfg=116 ctermbg=236 cterm=NONE
@@ -58,15 +58,3 @@ hi Special      ctermfg=122             cterm=NONE
 hi Ignore       ctermfg=241             cterm=NONE
 hi Todo         ctermfg=130 ctermbg=220 cterm=NONE
   "Todo         ctermfg=9
-
-function! s:CLSwitch()
-  set invcursorline
-  hi clear CursorLine
-  if &diff
-    hi CursorLine cterm=underline
-  else
-    hi CursorLine ctermbg=237 cterm=NONE
-  endif
-endfun
-
-nnoremap <silent> <Plug>desertEx-cls :call <sid>CLSwitch()<cr>

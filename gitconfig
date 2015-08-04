@@ -10,5 +10,6 @@
 	d = diff --find-copies
 	dh = diff --find-copies HEAD
 	ds = diff --staged --find-copies
-	lg = log --color --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset' --abbrev-commit
-	l = log --graph --decorate --pretty=oneline --abbrev-commit
+	lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset'
+	l = log --graph --decorate --oneline
+	lstat = log --graph --decorate --oneline --stat

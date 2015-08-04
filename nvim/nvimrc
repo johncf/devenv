@@ -53,7 +53,7 @@ set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
 set laststatus=2
-set lazyredraw " Faster <C-O> mappings in insert mode with airline
+set lazyredraw " Faster <C-o> mappings in insert mode with airline
 set list
 set listchars=tab:»\ ,trail:·
 set number
@@ -71,7 +71,7 @@ set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set mouse=
-set nrformats-=octal " For use with <C-A> and <C-X>
+set nrformats-=octal " For use with <C-a> and <C-x>
 set timeoutlen=1200 " <leader> timeout
 
 " -- History management
@@ -154,55 +154,53 @@ nmap <M-b> <Plug>LLBreakSwitch
 " Switch to normal mode
 inoremap zj <Esc>
 vnoremap zj <Esc>
-tnoremap zj <C-\><C-N>
+tnoremap zj <C-\><C-n>
 
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
 nnoremap Y y$
-nnoremap ]c :cn<CR>
-nnoremap [c :cp<CR>
 nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
 nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 " Make ZQ redoable!
 nnoremap ZQ :call SmartForceQuit()<CR>
 
 nnoremap <M-/> :Unite line:buffers<CR>i
-nnoremap <silent> <M-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <M-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <M-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <M-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c-w><c-w> :TmuxNavigatePrevious<cr>
+nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <C-w><C-w> :TmuxNavigatePrevious<CR>
 
-inoremap <C-A> <C-O>^
-inoremap <C-E> <C-O>$
-" Make <C-U> and <CR> undoable
-inoremap <C-U> <C-G>u<C-U>
-inoremap <CR> <C-G>u<CR>
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
+" Make <C-u> and <CR> undoable
+inoremap <C-u> <C-g>u<C-u>
+inoremap <CR> <C-g>u<CR>
 
-" C-mode: <C-B> Home; <C-E> End; <C-F> C-window; <C-H> backspace
-"         <C-C> C-exit; <C-D> list-opts; <C-U> clear-back; <C-W> del-word
-cnoremap <C-A> <Home>
+" C-mode: <C-b> Home; <C-e> End; <C-f> C-window; <C-h> backspace
+"         <C-c> C-exit; <C-d> list-opts; <C-u> clear-back; <C-w> del-word
+cnoremap <C-a> <Home>
 " idea from tpope/vim-rsi
-cnoremap <expr> <C-D> getcmdpos()>strlen(getcmdline()) ? "<C-D>" : "<Del>"
+cnoremap <expr> <C-d> getcmdpos()>strlen(getcmdline()) ? "<C-d>" : "<Del>"
 " mimic line kill, or if at the end of line -- up
-cnoremap <expr> <C-K> getcmdpos()>strlen(getcmdline()) ? "<C-K>" :
-        \ getcmdpos()<2 ? "<C-E><C-U>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
+cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
+        \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
 " --- Meta-keymaps mode-ict {{{
-inoremap <M-b> <C-O>b
-inoremap <M-B> <C-O>B
-inoremap <M-d> <C-O>d
-inoremap <M-e> <C-O>e<Right>
-inoremap <M-E> <C-O>E<Right>
+inoremap <M-b> <C-o>b
+inoremap <M-B> <C-o>B
+inoremap <M-d> <C-o>d
+inoremap <M-e> <C-o>e<Right>
+inoremap <M-E> <C-o>E<Right>
 inoremap <M-f> <Esc>f
 inoremap <M-F> <Esc>F
 inoremap <M-o> <Esc>o
 inoremap <M-O> <Esc>O
 inoremap <M-t> <Esc>t
 inoremap <M-T> <Esc>T
-inoremap <M-u> <C-O>u
-inoremap <M-w> <C-O>w
-inoremap <M-W> <C-O>W
+inoremap <M-u> <C-o>u
+inoremap <M-w> <C-o>w
+inoremap <M-W> <C-o>W
 noremap! <M-h> <Left>
 noremap! <M-j> <Down>
 noremap! <M-k> <Up>
@@ -233,13 +231,13 @@ nnoremap <leader>P O<Esc>"+p
 
 nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>
-nmap <silent> <leader>cl <Plug>desertEx-cls
+nmap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
 nnoremap <leader>m :MouseToggle<CR>
-nnoremap <leader>n :<C-U>b <C-R>=GetModifiableBuffer(v:count, 1)<CR><CR>
-nnoremap <leader>N :<C-U>b <C-R>=GetModifiableBuffer(v:count, -1)<CR><CR>
+nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
+nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
 nnoremap <leader>o :Startify<CR>
 nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
