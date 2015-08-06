@@ -1,6 +1,8 @@
 #!/bin/bash
-f=1600000
 if [ -n "$1" ]; then
-    f=$(python2 -c "print int(float($1)*1e6)")
+    f=$(awk "BEGIN{ print ${1}*1e6 }")
+    echo $f | sudo tee /sys/devices/system/cpu/cpu[0-9]/cpufreq/scaling_max_freq
+else
+    grep ^ /sys/devices/system/cpu/cpu[0-9]/cpufreq/scaling_cur_freq | \
+        awk -F':|/' '{print $6, $9}'
 fi
-echo $f|sudo tee /sys/devices/system/cpu/cpu[0123]/cpufreq/scaling_max_freq
