@@ -9,3 +9,4 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/prompt.zsh
 
+source ~/.zsh/z/z.sh
