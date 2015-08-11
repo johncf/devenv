@@ -18,7 +18,7 @@ Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 Plug 'tpope/vim-repeat' "tpope plugin repeat
 Plug 'tpope/vim-obsession'
 
-Plug 'Shougo/unite.vim' , { 'on': ['Unite'] } "has many more commands
+Plug 'Shougo/unite.vim'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 
 Plug 'powerman/vim-plugin-viewdoc'
@@ -104,10 +104,43 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 
+let g:startify_files_number = 5
+let g:startify_custom_indices = ['f', 'r', 'e', 'w', 'a']
+
 let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
-let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 
+" --- Unite options {{{
+let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
+let g:unite_source_history_yank_enable = 1
+
+function s:oldfiles_candidates(...)
+  if exists('s:sane_oldfiles') && len(s:sane_oldfiles)
+    return s:sane_oldfiles
+  endif
+  let s:sane_oldfiles = []
+  for f in v:oldfiles
+    if stridx(f, '[Doc') < 0 && stridx(f, '[unite]') < 0 && stridx(f, 'fugitive://') != 0
+      let s:sane_oldfiles += [{
+        \   'word': f,
+        \   'kind': 'file',
+        \   'action__path': f
+        \ }]
+    endif
+  endfor
+  return s:sane_oldfiles
+endfun
+
+let oldfiles_source = {
+      \     'name' : 'oldfiles',
+      \     'description' : 'List of old files',
+      \     'gather_candidates': function('s:oldfiles_candidates')
+      \ }
+
+call unite#define_source(oldfiles_source)
+" --- Unite options }}}
+
+" --- Textobj options {{{
 call textobj#user#plugin('assignment', {
 \   'lhs': {
 \     'select-function': 'AssLHS',
@@ -139,6 +172,7 @@ function! AssRHS()
   let head_pos = getpos('.')
   return ['v', head_pos, tail_pos]
 endfunction
+" --- Textobj options }}}
 
 map w <Plug>(smartword-w)
 map b <Plug>(smartword-b)
@@ -230,18 +264,20 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
-nnoremap <leader>/ :Unite line:buffers<CR>
+nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
+nnoremap <leader>b :Unite -quick-match -vertical -winwidth=60 buffer<CR>
+nnoremap <leader>iy :Unite history/yank<CR>
 
-nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>
-nmap <silent> <leader>cl :set invcursorline<CR>
+nnoremap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
+nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
 nnoremap <leader>hl :set invhlsearch<CR>
 nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
 nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
-nnoremap <leader>o :Startify<CR>
+nnoremap <leader>o :Unite oldfiles -start-insert<CR>
 nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
