@@ -106,6 +106,7 @@ let g:airline_theme = 'bubblegum'
 
 let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
+let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 
 call textobj#user#plugin('assignment', {
 \   'lhs': {
@@ -167,7 +168,6 @@ nnoremap ZQ :call SmartForceQuit()<CR>
 nnoremap <silent> gH :call cursor(getcurpos()[1] - winline()/2, 0)<CR>
 nnoremap <silent> gL :call cursor(getcurpos()[1] + (winheight('%')-winline())/2, 0)<CR>
 
-nnoremap <M-/> :Unite line:buffers<CR>i
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
@@ -183,9 +183,7 @@ inoremap <CR> <C-g>u<CR>
 " C-mode: <C-b> Home; <C-e> End; <C-f> C-window; <C-h> backspace
 "         <C-c> C-exit; <C-d> list-opts; <C-u> clear-back; <C-w> del-word
 cnoremap <C-a> <Home>
-" idea from tpope/vim-rsi
-cnoremap <expr> <C-d> getcmdpos()>strlen(getcmdline()) ? "<C-d>" : "<Del>"
-" mimic line kill, or if at the end of line -- up
+" idea from tpope/vim-rsi -- mimic line kill if not at the end of line
 cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
         \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
@@ -232,6 +230,7 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
+nnoremap <leader>/ :Unite line:buffers<CR>
 
 nnoremap <leader>b :term cd %:h; $SHELL<CR>
 nnoremap <leader>cd :cd %:h<CR>

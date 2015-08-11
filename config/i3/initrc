@@ -3,5 +3,5 @@
 bash ~/.local/bin/rand-wall.sh
 #bash ~/.local/bin/moz-init.sh
 xmodmap ~/.config/Xmodmap
-i3-msg "workspace 1:neo; exec urxvtd -o -q -f && sleep 0.5 && urxvtc -e tmux"
+i3-msg "workspace 1:neo; exec urxvtd -o -q -f && sleep 0.5 && urxvtc"
 
