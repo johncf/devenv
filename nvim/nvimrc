@@ -139,6 +139,13 @@ let oldfiles_source = {
       \ }
 
 call unite#define_source(oldfiles_source)
+
+function! s:dir_find()
+  let path = input('Path: ', '.', 'dir')
+  if len(path)
+    exe 'Unite -start-insert file_rec/neovim:' . escape(path, ' ')
+  endif
+endfun
 " --- Unite options }}}
 
 " --- Textobj options {{{
@@ -288,8 +295,10 @@ nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
 nnoremap <leader>p o<Esc>"+p
 nnoremap <leader>P O<Esc>"+p
+
 nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
-nnoremap <leader>b :Unite -quick-match -vertical -winwidth=60 buffer<CR>
+nnoremap <leader>ib :Unite -quick-match -vertical -winwidth=60 buffer<CR>
+nnoremap <leader>id :call <SID>dir_find()<CR>
 nnoremap <leader>iy :Unite history/yank<CR>
 
 nnoremap <leader>cd :cd %:h<CR>
@@ -297,7 +306,7 @@ nnoremap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
-nnoremap <leader>hl :set invhlsearch<CR>
+nnoremap <silent> <leader>hl :nohl<CR>
 nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
 nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
@@ -318,7 +327,11 @@ augroup critiq_au
   autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
   autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|python setlocal ts=2 sw=2
-  autocmd FileType help if &bt == "nofile" | nnoremap <buffer> <nowait> d <C-d> | nnoremap <buffer> <nowait> u <C-u> | endif
+  autocmd FileType man\|help\|pydoc\|info
+      \ if &bt == "nofile" |
+      \   nnoremap <buffer> <nowait> d <C-d> |
+      \   nnoremap <buffer> <nowait> u <C-u> |
+      \ endif
   autocmd WinLeave,InsertEnter * setlocal nocursorline
   autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
 augroup END
