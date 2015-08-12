@@ -17,6 +17,7 @@ Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 "Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
 Plug 'tpope/vim-obsession'
+Plug 'unblevable/quick-scope'
 
 Plug 'Shougo/unite.vim'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
@@ -114,7 +115,7 @@ let g:tmux_navigator_no_mappings = 1
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
 
-function s:oldfiles_candidates(...)
+function! s:oldfiles_candidates(...)
   if exists('s:sane_oldfiles') && len(s:sane_oldfiles)
     return s:sane_oldfiles
   endif
@@ -161,7 +162,7 @@ function! AssLHS()
   endif
   let tail_pos = getpos('.')
   return ['v', head_pos, tail_pos]
-endfunction
+endfun
 function! AssRHS()
   normal! g_
   let tail_pos = getpos('.')
@@ -171,8 +172,31 @@ function! AssRHS()
   normal! F=w
   let head_pos = getpos('.')
   return ['v', head_pos, tail_pos]
-endfunction
+endfun
 " --- Textobj options }}}
+
+" --- Quick-scope options {{{
+" source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
+let g:qs_enable = 0
+
+function! s:qs_selective(movement)
+  let needs_disabling = 0
+  if !g:qs_enable
+    QuickScopeToggle
+    redraw
+    let needs_disabling = 1
+  endif
+  let letter = nr2char(getchar())
+  if needs_disabling
+    QuickScopeToggle
+  endif
+  return a:movement . letter
+endfun
+
+for i in [ 'f', 'F', 't', 'T' ]
+  execute 'noremap <expr> <silent>' . i . " <SID>qs_selective('". i . "')"
+endfor
+" --- Quick-scope options }}}
 
 map w <Plug>(smartword-w)
 map b <Plug>(smartword-b)
