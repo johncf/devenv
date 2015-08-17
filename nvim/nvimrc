@@ -73,11 +73,13 @@ set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set mouse=
 set nrformats-=octal " For use with <C-a> and <C-x>
+set ignorecase " of search patterns
+set smartcase " smartly override ignorecase
 set timeoutlen=1200 " <leader> timeout
 
 " -- History management
 set directory=~/.nvim/swps
-set history=256
+set history=512
 set undofile
 set undodir=~/.nvim/undos
 set undolevels=256  " Maximum number of changes that can be undone
@@ -106,7 +108,7 @@ let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 
 let g:startify_files_number = 5
-let g:startify_custom_indices = ['f', 'r', 'e', 'w', 'a']
+let g:startify_custom_indices = ['f', 'r', 'w', 'a']
 
 let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
@@ -115,13 +117,14 @@ let g:tmux_navigator_no_mappings = 1
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
 
+" heavy-weight solution: https://github.com/Shougo/neomru.vim
 function! s:oldfiles_candidates(...)
   if exists('s:sane_oldfiles') && len(s:sane_oldfiles)
     return s:sane_oldfiles
   endif
   let s:sane_oldfiles = []
   for f in v:oldfiles
-    if stridx(f, '[Doc') < 0 && stridx(f, '[unite]') < 0 && stridx(f, 'fugitive://') != 0
+    if stridx(f, '[Doc') < 0 && stridx(f, '[unite]') < 0 && stridx(f, '[lldb]') < 0 && stridx(f, 'fugitive://') < 0
       let s:sane_oldfiles += [{
         \   'word': f,
         \   'kind': 'file',
@@ -141,7 +144,7 @@ let oldfiles_source = {
 call unite#define_source(oldfiles_source)
 
 function! s:dir_find()
-  let path = input('Path: ', '.', 'dir')
+  let path = input('Path: ', expand('%:h'), 'dir')
   if len(path)
     exe 'Unite -start-insert file_rec/neovim:' . escape(path, ' ')
   endif
