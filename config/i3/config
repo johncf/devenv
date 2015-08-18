@@ -56,14 +56,14 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left 200 px
-bindsym $mod+Shift+j move down 200 px
-bindsym $mod+Shift+k move up 200 px
-bindsym $mod+Shift+l move right 200 px
+bindsym $mod+Shift+h move left 240 px
+bindsym $mod+Shift+j move down 120 px
+bindsym $mod+Shift+k move up 120 px
+bindsym $mod+Shift+l move right 240 px
 
 bindsym $mod+Left move left 100px
-bindsym $mod+Down move down 100px
-bindsym $mod+Up move up 100px
+bindsym $mod+Down move down 30px
+bindsym $mod+Up move up 30px
 bindsym $mod+Right move right 100px
 
 # focus another display output
@@ -146,23 +146,28 @@ mode $exit_mod {
 	bindsym q mode "default"
 }
 
-bindsym $mod+r mode "resize"
+bindsym $mod+r mode "resize-move"
 
-mode "resize" {
-	bindsym h resize shrink width 250 px or 12 ppt
-	bindsym j resize grow height 250 px or 12 ppt
-	bindsym k resize shrink height 250 px or 12 ppt
-	bindsym l resize grow width 250 px or 12 ppt
+mode "resize-move" {
+	bindsym h resize shrink width 200 px
+	bindsym j resize grow height 160 px
+	bindsym k resize shrink height 160 px
+	bindsym l resize grow width 200 px
 
-	bindsym Left resize shrink width 20 px or 6 ppt
-	bindsym Down resize grow height 20 px or 6 ppt
-	bindsym Up resize shrink height 20 px or 6 ppt
-	bindsym Right resize grow width 20 px or 6 ppt
+	bindsym Shift+h move left 20 px
+	bindsym Shift+j move down 10 px
+	bindsym Shift+k move up 10 px
+	bindsym Shift+l move right 20 px
 
-	bindsym Shift+Left resize shrink width 10 px or 2 ppt
-	bindsym Shift+Down resize grow height 10 px or 2 ppt
-	bindsym Shift+Up resize shrink height 10 px or 2 ppt
-	bindsym Shift+Right resize grow width 10 px or 2 ppt
+	bindsym Left resize shrink width 80 px
+	bindsym Down resize grow height 40 px
+	bindsym Up resize shrink height 40 px
+	bindsym Right resize grow width 80 px
+
+	bindsym Shift+Left resize shrink width 20 px
+	bindsym Shift+Down resize grow height 10 px
+	bindsym Shift+Up resize shrink height 10 px
+	bindsym Shift+Right resize grow width 20 px
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
