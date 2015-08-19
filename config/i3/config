@@ -6,7 +6,7 @@ set $mod1 Mod1
 font pango:DejaVu Sans 7.5
 focus_follows_mouse no
 hide_edge_borders both
-new_window pixel 2
+new_window pixel 1
 #workspace "9:IX" output VGA-1
 
 # Use Mouse+$mod to drag floating windows
@@ -133,13 +133,12 @@ set $exit_mod "(l)ock (u)ser switch (E)xit i3 (S)uspend (P)ower off (R)estart"
 bindsym $mod+Shift+e mode $exit_mod
 
 mode $exit_mod {
-	#bindsym l exec --no-startup-id i3lock -i /home/shared/walls/calvin_png/lock-01.png; mode "default"
-	bindsym l exec dm-tool lock; mode "default"
-	bindsym u exec dm-tool switch-to-greeter; mode "default"
-	bindsym Shift+s exec --no-startup-id systemctl suspend; mode "default"
-	bindsym Shift+e exec i3-msg exit; mode "default"
-	bindsym Shift+p exec systemctl poweroff; mode "default"
-	bindsym Shift+r exec systemctl reboot; mode "default"
+	bindsym l exec --no-startup-id "dm-tool lock", mode "default"
+	bindsym u exec --no-startup-id "dm-tool switch-to-greeter", mode "default"
+	bindsym Shift+s exec --no-startup-id "dm-tool switch-to-greeter && systemctl suspend", mode "default"
+	bindsym Shift+e exec i3-msg exit, mode "default"
+	bindsym Shift+p exec systemctl poweroff, mode "default"
+	bindsym Shift+r exec systemctl reboot, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
