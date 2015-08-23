@@ -14,6 +14,11 @@ function zsh_recompile {
   [[ -f ~/.cache/zsh/compdump ]] && zrecompile -p ~/.cache/zsh/compdump
   [[ -f ~/.cache/zsh/compdump.zwc.old ]] && rm -f ~/.cache/zsh/compdump.zwc.old
 
+  [[ -f $FASD_INIT_CACHE.zwc ]] && rm -f $FASD_INIT_CACHE.zwc
+  [[ -f $FASD_INIT_CACHE ]] && rm -f $FASD_INIT_CACHE
+  fasd --init posix-alias zsh-hook zsh-ccomp zsh-ccomp-install zsh-wcomp zsh-wcomp-install > $FASD_INIT_CACHE
+  zrecompile -p $FASD_INIT_CACHE
+
   source ~/.zshrc
 }
 

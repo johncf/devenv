@@ -15,4 +15,7 @@ HISTSIZE=1024
 SAVEHIST=2048
 HISTFILE=${HOME}/.cache/zsh/history
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
-_Z_DATA=${HOME}/.cache/z
+
+FASD_INIT_CACHE=${HOME}/.cache/zsh/fasd-init.zsh
+_FASD_DATA=${HOME}/.cache/fasd
+_FASD_VIMINFO="$HOME/.nviminfo"

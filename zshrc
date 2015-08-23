@@ -9,4 +9,7 @@ source ~/.zsh/completion.zsh
 source ~/.zsh/functions.zsh
 source ~/.zsh/prompt.zsh
 
-source ~/.zsh/z/z.sh
+source ~/.zsh/fasd/fasd
+[[ -f $FASD_INIT_CACHE ]] \
+    && source $FASD_INIT_CACHE \
+    || echo 'fasd cache not found! Do `zsh_recompile`'
