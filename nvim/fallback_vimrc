@@ -1,9 +1,6 @@
-" --- Plug Scripts {{{
-" Installation:
-"   mkdir -p ~/.nvim/autoload
-"   curl -fLo ~/.nvim/autoload/plug.vim \
-"     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-call plug#begin('~/.nvim/plugged')
+set nocompatible
+
+call plug#begin('~/.vim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'bling/vim-airline'
@@ -16,24 +13,21 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 "Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
 Plug 'tpope/vim-repeat' "tpope plugin repeat
-Plug 'tpope/vim-obsession'
 Plug 'unblevable/quick-scope'
 
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim' , { 'do': 'make' }
+Plug 'Shougo/neocomplete.vim'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-Plug 'benekastah/neomake'
-"Plug 'kassio/neoterm'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
-"Plug 'critiqjo/vim-autoclose'
-Plug 'critiqjo/lldb.nvim'
 Plug 'critiqjo/vsearch.vim'
 
 call plug#end()
@@ -44,7 +38,12 @@ if $TERM == 'linux'
   colorscheme desert
 elseif has("gui_running")
   colorscheme codeschool
+  set guifont=MonacoB
+  set guioptions-=T "toolbar
+  set guioptions-=r "scrollbar
+  set guioptions-=m "menubar
 else
+  set background=dark
   colorscheme desertEx-v2
 endif
 syntax enable
@@ -56,10 +55,10 @@ set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
 set laststatus=2
-set lazyredraw " Faster <C-o> mappings in insert mode with airline
 set list
 set listchars=tab:»\ ,trail:·
 set number
+set omnifunc=syntaxcomplete#Complete
 set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
 set scrolloff=1
@@ -73,10 +72,12 @@ set wildmode=longest,full
 set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
-set mouse=
+set nrformats-=octal " For use with <C-a> and <C-x>
 set ignorecase " of search patterns
 set smartcase " smartly override ignorecase
 set timeoutlen=1200 " <leader> timeout
+set ttimeout
+set ttimeoutlen=100
 
 " -- History management
 set directory=~/.nvim/swps
@@ -115,7 +116,7 @@ let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
 
 " --- Unite options {{{
-let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
+let g:unite_source_rec_async_command = ['ag', '--nocolor', '--nogroup', '-g', '']
 let g:unite_source_history_yank_enable = 1
 
 " heavy-weight solution: https://github.com/Shougo/neomru.vim
@@ -147,7 +148,7 @@ call unite#define_source(oldfiles_source)
 function! s:dir_find()
   let path = input('Path: ', expand('%:h'), 'dir')
   if len(path)
-    exe 'Unite -start-insert file_rec/neovim:' . escape(path, ' ')
+    exe 'Unite -start-insert file_rec/async' . escape(path, ' ')
   endif
 endfun
 " --- Unite options }}}
@@ -209,12 +210,32 @@ for i in [ 'f', 'F', 't', 'T' ]
 endfor
 " --- Quick-scope options }}}
 
+" --- Neocomplete options {{{
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Plugin key-mappings.
+inoremap <expr> <C-n> neocomplete#start_manual_complete()
+"inoremap <expr> <C-l> neocomplete#complete_common_string()
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <expr> <CR> neocomplete#close_popup() . "\<CR>"
+" <TAB>: completion.
+inoremap <expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr> <C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr> <C-y> neocomplete#close_popup()
+inoremap <expr> <C-e> neocomplete#cancel_popup()
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+" --- Neocomplete options }}}
+
 map w <Plug>(smartword-w)
 map b <Plug>(smartword-b)
 map e <Plug>(smartword-e)
 map ge <Plug>(smartword-ge)
-
-nmap <M-b> <Plug>LLBreakSwitch
 " --- Plugin Options }}}
 
 " --- Keymaps {{{
@@ -224,19 +245,17 @@ nmap <M-b> <Plug>LLBreakSwitch
 " Switch to normal mode
 inoremap zj <Esc>
 vnoremap zj <Esc>
-tnoremap zj <C-\><C-n>
 
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
 nnoremap Y y$
 nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
 nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
-" Make ZQ redoable!
-nnoremap ZQ :call SmartForceQuit()<CR>
 
 nnoremap <silent> gH :call cursor(getcurpos()[1] - winline()/2, 0)<CR>
 nnoremap <silent> gL :call cursor(getcurpos()[1] + (winheight('%')-winline())/2, 0)<CR>
 
+" FIXME not working!!
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
@@ -255,21 +274,6 @@ cnoremap <C-a> <Home>
 cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
         \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
-" --- Meta-keymaps mode-ict {{{
-inoremap <M-b> <C-o>b
-inoremap <M-B> <C-o>B
-inoremap <M-d> <C-o>d
-inoremap <M-e> <C-o>e<Right>
-inoremap <M-E> <C-o>E<Right>
-inoremap <M-f> <Esc>f
-inoremap <M-F> <Esc>F
-inoremap <M-o> <Esc>o
-inoremap <M-O> <Esc>O
-inoremap <M-t> <Esc>t
-inoremap <M-T> <Esc>T
-inoremap <M-u> <C-o>u
-inoremap <M-w> <C-o>w
-inoremap <M-W> <C-o>W
 noremap! <M-h> <Left>
 noremap! <M-j> <Down>
 noremap! <M-k> <Up>
@@ -277,20 +281,6 @@ noremap! <M-l> <Right>
 noremap! <M-x> <Del>
 cnoremap <M-b> <S-Left>
 cnoremap <M-e> <S-Right>
-tnoremap <M-b> <Esc>b
-tnoremap <M-d> <Esc>d
-tnoremap <M-f> <Esc>f
-tnoremap <M-F> <Esc>F
-tnoremap <M-h> <Esc>h
-tnoremap <M-j> <Esc>j
-tnoremap <M-k> <Esc>k
-tnoremap <M-l> <Esc>l
-tnoremap <M-n> <Esc>n
-tnoremap <M-p> <Esc>p
-tnoremap <M-u> <Esc>u
-tnoremap <M-w> <Esc>w
-tnoremap <M-x> <Esc>x
-" --- Meta-keymaps }}}
 
 let mapleader = "\<Space>"
 vnoremap <leader>y "+y
@@ -318,7 +308,6 @@ nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>tq :tabc<CR>
-"Neoterm maps: <leader>tt <leader>tc
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
 nnoremap <leader>w :update<CR>
