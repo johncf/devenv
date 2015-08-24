@@ -117,32 +117,9 @@ let g:tmux_navigator_no_mappings = 1
 " --- Unite options {{{
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
-
-" heavy-weight solution: https://github.com/Shougo/neomru.vim
-function! s:oldfiles_candidates(...)
-  if exists('s:sane_oldfiles') && len(s:sane_oldfiles)
-    return s:sane_oldfiles
-  endif
-  let s:sane_oldfiles = []
-  for f in v:oldfiles
-    if stridx(f, '[Doc') < 0 && stridx(f, '[unite]') < 0 && stridx(f, '[lldb]') < 0 && stridx(f, 'fugitive://') < 0
-      let s:sane_oldfiles += [{
-        \   'word': f,
-        \   'kind': 'file',
-        \   'action__path': f
-        \ }]
-    endif
-  endfor
-  return s:sane_oldfiles
-endfun
-
-let oldfiles_source = {
-      \     'name' : 'oldfiles',
-      \     'description' : 'List of old files',
-      \     'gather_candidates': function('s:oldfiles_candidates')
-      \ }
-
-call unite#define_source(oldfiles_source)
+let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
+let g:unite_fasd#fasd_cache = '~/.cache/fasd'
+let g:unite_fasd#viminfo_cache = '/tmp/fasd_viminfo'
 
 function! s:dir_find()
   let path = input('Path: ', expand('%:h'), 'dir')
@@ -313,7 +290,8 @@ nnoremap <silent> <leader>hl :nohl<CR>
 nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
 nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
-nnoremap <leader>o :Unite oldfiles -start-insert<CR>
+nnoremap <leader>o :Unite fasd:mru -start-insert<CR>
+nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
 nnoremap <leader>q :call SmartBufferClose()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>

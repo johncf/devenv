@@ -10,6 +10,7 @@ function zsh_recompile {
     [[ -f $f ]] && zrecompile -p $f
     [[ -f $f.zwc.old ]] && rm -f $f.zwc.old
   done
+  zrecompile -p ~/.zsh/fasd/fasd
 
   [[ -f ~/.cache/zsh/compdump ]] && zrecompile -p ~/.cache/zsh/compdump
   [[ -f ~/.cache/zsh/compdump.zwc.old ]] && rm -f ~/.cache/zsh/compdump.zwc.old
