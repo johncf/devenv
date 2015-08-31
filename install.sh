@@ -2,6 +2,16 @@
 
 set -e
 
+function _symlink {
+    if [ "$#" != 2 ]; then
+        echo "Bad call to _symlink"
+        echo "Expected exactly 2 arguments, got $#"
+        echo "Exiting..."
+        exit
+    fi
+    [ -e "$2" ] && echo "$2 exists; skipping..." || (ln -s "$1" "$2" && echo "Linked $2")
+}
+
 if [ "$1" == "--help" ]; then
     echo "Usage: ./install.sh [--no-x]"
     echo "  --no-x   Ignore X related configuration"
@@ -11,50 +21,38 @@ fi
 
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-cd $HOME
-ln -s $SCR_DIR/zshrc .zshrc
-echo "linked ~/.zshrc"
-ln -s $SCR_DIR/zsh .zsh
-echo "linked ~/.zsh"
-ln -s $SCR_DIR/gitconfig .gitconfig
-echo "linked ~/.gitconfig"
-mkdir -p .config .nvim
-echo "dirs ~/.{config,nvim}"
+mkdir -p $HOME/{.config,.nvim}
+echo "dirs ~/{.config,.nvim}"
 
-ln -s $SCR_DIR/nvim/fallback_vimrc .vimrc
-echo "linked ~/.vimrc"
-ln -s .nvim .vim
-echo "linked ~/.vim to ~/.nvim"
+mkdir -p $HOME/.nvim/{swps,undos}
+echo "dirs ~/.nvim/{swps,undos}"
 
-cd $HOME/.config
-ln -s $SCR_DIR/config/pystartup ./
-echo "linked $(pwd)/pystartup"
+mkdir -p $HOME/.cache/zsh
+echo "dirs ~/.cache/zsh"
 
-cd $HOME/.nvim
-ln -s $SCR_DIR/nvim/colors ./
-echo "linked $(pwd)/colors"
-ln -s $SCR_DIR/nvim/plugin ./
-echo "linked $(pwd)/plugin"
-ln -s $SCR_DIR/nvim/nvimrc ./
-echo "linked $(pwd)/nvimrc"
-mkdir -p swps undos
-echo "dirs $(pwd)/{swps,undos}"
+_symlink $SCR_DIR/zshrc $HOME/.zshrc
+_symlink $SCR_DIR/zsh $HOME/.zsh
+_symlink $SCR_DIR/gitconfig $HOME/.gitconfig
 
-echo $'\n# Get vim-plug'
-plug=$(head -5 $SCR_DIR/nvim/nvimrc | tail -3 | cut -c 5-)
+_symlink $SCR_DIR/nvim/colors $HOME/.nvim/colors
+_symlink $SCR_DIR/nvim/plugin $HOME/.nvim/plugin
+_symlink $SCR_DIR/nvim/nvimrc $HOME/.nvim/nvimrc
+_symlink $SCR_DIR/nvim/fallback_vimrc $HOME/.vimrc
+_symlink $HOME/.nvim $HOME/.vim
+
+_symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
+
+plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/nvimrc | cut -c 3-)
 echo "$plug"$'\n'
-echo "$plug" | bash
+bash <<<$plug
 
 if [ "$1" != "--no-x" ]; then
-    ln -s $SCR_DIR/Xdefaults $HOME/.Xdefaults
-    echo "linked $HOME/.Xdefaults"
-    ln -s $SCR_DIR/config/Xdefaults.d $HOME/.config/Xdefaults.d
-    echo "linked $HOME/.config/Xdefaults.d"
+    _symlink $SCR_DIR/Xdefaults $HOME/.Xdefaults
+    _symlink $SCR_DIR/config/Xdefaults.d $HOME/.config/Xdefaults.d
 
-    echo $'\n# Get fonts'
-    font=$(head -11 $SCR_DIR/config/Xdefaults.d/urxvt | tail -8 | cut -c 3-)
+    font=$(sed -n '/^! # Fonts.*{{{$/,/^! # }}}/p' $SCR_DIR/config/Xdefaults.d/urxvt | cut -c 3-)
     echo "$font"$'\n'
-    echo "$font" | bash
+    bash <<<$font
 fi
 
-echo $'\n Completed!\nDon't forget to install libotf'
+echo $'\n# Completed!'
