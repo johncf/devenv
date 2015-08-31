@@ -7,6 +7,7 @@ call plug#begin('~/.nvim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'bling/vim-airline'
+Plug 'romainl/Apprentice'
 
 Plug 'kana/vim-smartinput'
 Plug 'kana/vim-textobj-user'
@@ -42,8 +43,6 @@ call plug#end()
 filetype plugin indent on
 if $TERM == 'linux'
   colorscheme desert
-elseif has("gui_running")
-  colorscheme codeschool
 else
   colorscheme desertEx-v2
 endif

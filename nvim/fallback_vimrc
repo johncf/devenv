@@ -4,6 +4,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'bling/vim-airline'
+Plug 'romainl/Apprentice'
+Plug 'antlypls/vim-colors-codeschool'
 
 Plug 'kana/vim-smartinput'
 Plug 'kana/vim-textobj-user'
@@ -37,14 +39,13 @@ filetype plugin indent on
 if $TERM == 'linux'
   colorscheme desert
 elseif has("gui_running")
-  colorscheme codeschool
+  colorscheme apprentice "codeschool
   set guifont=MonacoB
   set guioptions-=T "toolbar
   set guioptions-=r "scrollbar
   set guioptions-=m "menubar
 else
-  set background=dark
-  colorscheme desertEx-v2
+  colorscheme desertEx-v2 "apprentice
 endif
 syntax enable
 

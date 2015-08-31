@@ -15,10 +15,10 @@ hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
 hi CursorLine               ctermbg=237 cterm=NONE
 hi CursorLineNr ctermfg=11  ctermbg=233
-hi DiffAdd      ctermfg=10  ctermbg=236 cterm=NONE
-hi DiffChange   ctermfg=11  ctermbg=0   cterm=NONE
-hi DiffDelete   ctermfg=9   ctermbg=236 cterm=NONE
-hi DiffText     ctermfg=14  ctermbg=237 cterm=NONE
+hi DiffAdd      ctermfg=107 ctermbg=236 cterm=NONE
+hi DiffChange   ctermfg=251 ctermbg=236 cterm=NONE
+hi DiffDelete   ctermfg=131 ctermbg=236 cterm=NONE
+hi DiffText     ctermfg=110 ctermbg=238 cterm=NONE
 hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
 hi Folded       ctermfg=116 ctermbg=236 cterm=NONE
