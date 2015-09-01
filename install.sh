@@ -9,7 +9,7 @@ function _symlink {
         echo "Exiting..."
         exit
     fi
-    [ -e "$2" ] && echo "$2 exists; skipping..." || (ln -s "$1" "$2" && echo "Linked $2")
+    [ -e "$2" ] && echo "Path exists; ignoring $2" || (ln -s "$1" "$2" && echo "Linked $2")
 }
 
 if [ "$1" == "--help" ]; then
@@ -43,15 +43,20 @@ _symlink $HOME/.nvim $HOME/.vim
 _symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
 
 plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/nvimrc | cut -c 3-)
-echo "$plug"$'\n'
+echo -e "\n$plug\n"
 bash <<<$plug
 
 if [ "$1" != "--no-x" ]; then
-    _symlink $SCR_DIR/Xdefaults $HOME/.Xdefaults
-    _symlink $SCR_DIR/config/Xdefaults.d $HOME/.config/Xdefaults.d
+    _symlink $SCR_DIR/config/Xresources.d $HOME/.config/Xresources.d
+    if ! [ -e $HOME/.Xresources ]; then
+        sed "s:\${HOME}:$HOME:" $SCR_DIR/Xresources > $HOME/.Xresources
+        echo "Created $HOME/.Xresources"
+    else
+        echo "Path exists; ignoring $HOME/.Xresources"
+    fi
 
-    font=$(sed -n '/^! # Fonts.*{{{$/,/^! # }}}/p' $SCR_DIR/config/Xdefaults.d/urxvt | cut -c 3-)
-    echo "$font"$'\n'
+    font=$(sed -n '/^! # Fonts.*{{{$/,/^! # }}}/p' $SCR_DIR/config/Xresources.d/urxvt | cut -c 3-)
+    echo -e "\n$font\n"
     bash <<<$font
 fi
 

@@ -1,0 +1,6 @@
+#include "${HOME}/.config/Xresources.d/colors"
+#include "${HOME}/.config/Xresources.d/rofi"
+#include "${HOME}/.config/Xresources.d/urxvt"
+#include "${HOME}/.config/Xresources.d/urxvt.keysym"
+
+! vim: ft=xdefaults:
