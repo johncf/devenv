@@ -13,22 +13,24 @@ function _symlink {
 }
 
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./install.sh [--no-x]"
-    echo "  --no-x   Ignore X related configuration"
-    echo "           Note: Fonts are not downloaded."
+    echo "Usage: ./install.sh [--no-x | --no-ff | --help]"
+    echo "  --no-x   Ignore X related configurations"
+    echo "           Note: Skips fonts download and firefox config too."
+    echo "  --no-ff  Ignore Firefox configurations"
+    echo "  --help   Display this message"
     exit
 fi
 
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 mkdir -p $HOME/{.config,.nvim}
-echo "dirs ~/{.config,.nvim}"
+echo "Directory ~/{.config,.nvim}"
 
 mkdir -p $HOME/.nvim/{swps,undos}
-echo "dirs ~/.nvim/{swps,undos}"
+echo "Directory ~/.nvim/{swps,undos}"
 
 mkdir -p $HOME/.cache/zsh
-echo "dirs ~/.cache/zsh"
+echo "Directory ~/.cache/zsh"
 
 _symlink $SCR_DIR/zshrc $HOME/.zshrc
 _symlink $SCR_DIR/zsh $HOME/.zsh
@@ -44,7 +46,8 @@ _symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
 
 plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/nvimrc | cut -c 3-)
 echo -e "\n$plug\n"
-bash <<<$plug
+bash <<<"$plug"
+echo
 
 if [ "$1" != "--no-x" ]; then
     _symlink $SCR_DIR/config/Xresources.d $HOME/.config/Xresources.d
@@ -57,7 +60,15 @@ if [ "$1" != "--no-x" ]; then
 
     font=$(sed -n '/^! # Fonts.*{{{$/,/^! # }}}/p' $SCR_DIR/config/Xresources.d/urxvt | cut -c 3-)
     echo -e "\n$font\n"
-    bash <<<$font
+    bash <<<"$font"
+    echo
+
+    if [ "$1" != "--no-ff" ]; then
+        ffpath=`echo $HOME/.mozilla/firefox/*.default`
+        mkdir -p $ffpath/chrome
+        echo "Directory $ffpath/chrome"
+        _symlink $SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css $ffpath/chrome/userChrome.css
+    fi
 fi
 
 echo $'\n# Completed!'

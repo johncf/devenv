@@ -30,3 +30,5 @@ if [ -e $HOME/.Xresources ]; then
 else
     echo "Path does not exist $HOME/.Xresources"
 fi
+
+_unlink $HOME/.mozilla/firefox/*.default/chrome/userChrome.css
