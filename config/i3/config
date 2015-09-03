@@ -189,7 +189,7 @@ bar {
 	}
 }
 
-exec_always --no-startup-id xrdb -load ~/.Xdefaults
+exec_always --no-startup-id xrdb -load ~/.Xresources
 exec --no-startup-id bash ~/.config/i3/initrc 2>/tmp/${USER}_i3initlog
 
 # vim:ft=i3
