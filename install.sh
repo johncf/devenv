@@ -32,9 +32,14 @@ echo "Directory ~/.nvim/{swps,undos}"
 mkdir -p $HOME/.cache/zsh
 echo "Directory ~/.cache/zsh"
 
+mkdir -p $HOME/.local/bin
+echo "Directory ~/.local/bin"
+
 _symlink $SCR_DIR/zshrc $HOME/.zshrc
 _symlink $SCR_DIR/zsh $HOME/.zsh
 _symlink $SCR_DIR/gitconfig $HOME/.gitconfig
+_symlink $SCR_DIR/tmux.conf $HOME/.tmux.conf
+_symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
 
 _symlink $SCR_DIR/nvim/colors $HOME/.nvim/colors
 _symlink $SCR_DIR/nvim/plugin $HOME/.nvim/plugin

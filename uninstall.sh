@@ -13,6 +13,8 @@ function _unlink {
 _unlink $HOME/.zshrc
 _unlink $HOME/.zsh
 _unlink $HOME/.gitconfig
+_unlink $HOME/.tmux.conf
+_unlink $HOME/.local/bin/tmux-preswitch.sh
 
 _unlink $HOME/.nvim/colors
 _unlink $HOME/.nvim/plugin
