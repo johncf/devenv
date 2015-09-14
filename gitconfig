@@ -1,17 +1,18 @@
 [user]
-	email = john.ch.fr@gmail.com
-	name = critiqjo
+    email = john.ch.fr@gmail.com
+    name = critiqjo
 [url "https://"]
-	insteadOf = git://
+    insteadOf = git://
 [push]
-	default = simple
+    default = simple
 [alias]
-	ca = commit --amend
-	co = checkout
-	d = diff --find-copies
-	dh = diff --find-copies HEAD
-	ds = diff --staged --find-copies
-	l = log --graph --decorate --oneline
-	lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset'
-	lt = log --graph --decorate --oneline --stat
-	pf = push --force
+    ca = commit --amend
+    co = checkout
+    d = diff --find-copies
+    dt = diff --find-copies --stat
+    dh = diff --find-copies HEAD
+    ds = diff --find-copies --staged
+    l = log --graph --decorate --oneline --max-count=16
+    lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset'
+    lt = log --graph --decorate --oneline --stat --max-count=4
+    pf = push --force

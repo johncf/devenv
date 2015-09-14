@@ -3,7 +3,7 @@
 # Neovim logo by Jason Long (see the svg file for links)
 
 pkgname=neovim-git
-pkgver=0.r3630.fa13cc6
+pkgver=0.r3908.b2ece14
 pkgrel=1
 pkgdesc='Fork of Vim aiming to improve user experience, plugins, and GUIs.'
 arch=('i686' 'x86_64')
@@ -32,14 +32,15 @@ pkgver() {
 build() {
   mkdir -p "${pkgname}/build"
   cd "${pkgname}/build"
-  cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo -DCMAKE_INSTALL_PREFIX=/usr ..
+  cmake -G 'Unix Makefiles' -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+    -DCMAKE_INSTALL_PREFIX=/usr ..
   make
 }
 
 check() {
   cd "${pkgname}/build"
   ./bin/nvim --version
-  ./bin/nvim -u NONE -c ':quit'
+  ./bin/nvim --headless -u NONE -i NONE -c ':quit'
 }
 
 package() {
