@@ -4,12 +4,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'mhinz/vim-startify'
 Plug 'bling/vim-airline'
+
 Plug 'romainl/Apprentice'
+Plug 'morhetz/gruvbox'
 Plug 'antlypls/vim-colors-codeschool'
 
-Plug 'kana/vim-smartinput'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-smartword'
+Plug 'beloglazov/vim-textobj-quotes'
 Plug 'godlygeek/tabular'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
@@ -30,27 +32,15 @@ Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
+Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/vsearch.vim'
 
 call plug#end()
 " --- Plug Scripts }}}
 
-filetype plugin indent on
-if $TERM == 'linux'
-  colorscheme desert
-elseif has("gui_running")
-  colorscheme apprentice "codeschool
-  set guifont=MonacoB
-  set guioptions-=T "toolbar
-  set guioptions-=r "scrollbar
-  set guioptions-=m "menubar
-else
-  colorscheme desertEx-v2 "apprentice
-endif
-syntax enable
-
 " --- Global Options {{{
 " -- UI
+set background=dark
 set diffopt+=vertical
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
@@ -101,6 +91,30 @@ set spellfile=~/.nvim/spell/en.utf-8.add
 set spelllang=en
 " --- Global Options }}}
 
+filetype plugin indent on
+let s:colors_fav = ['desertEx-v2', 'gruvbox', 'apprentice', 'codeschool', 'desert']
+
+function s:colors_cycle()
+  let color_next = s:colors_fav[s:colors_idx]
+  let s:colors_idx += 1
+  let s:colors_idx = s:colors_idx % len(s:colors_fav)
+  exe 'colorscheme ' . color_next
+endfun
+
+if $TERM == 'linux'
+  let s:colors_idx = 4
+elseif has("gui_running")
+  let s:colors_idx = 1
+  set guifont=MonacoB
+  set guioptions-=T "toolbar
+  set guioptions-=r "scrollbar
+  set guioptions-=m "menubar
+else
+  let s:colors_idx = 0
+endif
+call s:colors_cycle()
+syntax enable
+
 " --- Plugin Options {{{
 if $TERM != 'linux'
   let g:airline_powerline_fonts = 1
@@ -117,7 +131,7 @@ let g:viewdoc_openempty = 0
 let g:tmux_navigator_no_mappings = 1
 
 " --- Unite options {{{
-let g:unite_source_rec_async_command = ['ag', '--nocolor', '--nogroup', '-g', '']
+let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
 let g:unite_fasd#fasd_cache = '~/.cache/fasd'
@@ -130,40 +144,6 @@ function! s:dir_find()
   endif
 endfun
 " --- Unite options }}}
-
-" --- Textobj options {{{
-call textobj#user#plugin('assignment', {
-\   'lhs': {
-\     'select-function': 'AssLHS',
-\     'select': ['il', 'al'],
-\   },
-\   'rhs': {
-\     'select-function': 'AssRHS',
-\     'select': ['ir', 'ar'],
-\   },
-\ })
-function! AssLHS()
-  normal! ^
-  let head_pos = getpos('.')
-  normal! f=ge
-  if getpos('.') == head_pos
-    " entire line
-    normal! g_
-  endif
-  let tail_pos = getpos('.')
-  return ['v', head_pos, tail_pos]
-endfun
-function! AssRHS()
-  normal! g_
-  let tail_pos = getpos('.')
-  if getline('.')[tail_pos[2]-1] == ';'
-    let tail_pos[2] -= 1
-  endif
-  normal! F=w
-  let head_pos = getpos('.')
-  return ['v', head_pos, tail_pos]
-endfun
-" --- Textobj options }}}
 
 " --- Quick-scope options {{{
 " source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
@@ -230,6 +210,8 @@ nnoremap Y y$
 nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
 nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 
+nnoremap <C-j> j<C-e>
+nnoremap <C-k> k<C-y>
 nnoremap <silent> gH :call cursor(getcurpos()[1] - winline()/2, 0)<CR>
 nnoremap <silent> gL :call cursor(getcurpos()[1] + (winheight('%')-winline())/2, 0)<CR>
 
@@ -314,6 +296,9 @@ command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
+
+" Cycle colorschemes
+command! ColorCycle call <SID>colors_cycle()
 " --- Command defs }}}
 
 " vim:fdm=marker:ts=2:sw=2

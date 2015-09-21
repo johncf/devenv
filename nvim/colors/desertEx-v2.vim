@@ -1,12 +1,15 @@
 " Vim color file
 " Maintainer:   Mingbai <mbbill AT gmail DOT com>
 
-set background=dark
+if &background != 'dark'
+  finish
+endif
 
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
+
 let g:colors_name="desertEx-v2"
 
 hi Normal       ctermfg=253 ctermbg=234 cterm=NONE
@@ -21,7 +24,7 @@ hi DiffDelete   ctermfg=131 ctermbg=236 cterm=NONE
 hi DiffText     ctermfg=110 ctermbg=238 cterm=NONE
 hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
-hi Folded       ctermfg=116 ctermbg=236 cterm=NONE
+hi Folded       ctermfg=248 ctermbg=236 cterm=NONE
 hi IncSearch    ctermbg=26  ctermfg=159
 hi LineNr       ctermfg=144 ctermbg=233 cterm=NONE
   "LineNr       ctermfg=180
@@ -58,3 +61,5 @@ hi Special      ctermfg=122             cterm=NONE
 hi Ignore       ctermfg=241             cterm=NONE
 hi Todo         ctermfg=130 ctermbg=220 cterm=NONE
   "Todo         ctermfg=9
+
+set background=dark
