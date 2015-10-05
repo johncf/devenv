@@ -31,7 +31,7 @@ source ~/.nvim/base/keymaps.vim
 tnoremap zj <C-\><C-n>
 
 " Make ZQ redoable!
-nnoremap ZQ :call SmartForceQuit()<CR>
+nnoremap ZQ :call critiqjo#redoable_zq()<CR>
 
 nmap <M-b> <Plug>LLBreakSwitch
 

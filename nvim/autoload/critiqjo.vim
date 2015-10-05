@@ -1,5 +1,5 @@
 " Update the undo-file, and quit without saving
-function! SmartForceQuit()
+function! critiqjo#redoable_zq()
   if &undofile && &modified && expand('%') != ''
     earlier 1f
     exe 'wundo ' . escape(undofile(expand('%')), ' %')
@@ -8,7 +8,7 @@ function! SmartForceQuit()
 endfun
 
 " Try returning to the previously visited buffer, then close
-function! SmartBufferClose()
+function! critiqjo#buf_close()
   let toclose = bufnr('%')
   let switch = bufnr('#')
   if &modified
@@ -32,7 +32,7 @@ endfun
 
 " Get the nth modifiable buffer, relative to the current one if direction=±1,
 " or relative to the first modifiable buffer if direction=0
-function! GetModifiableBuffer(n, direction)
+function! critiqjo#get_ma_buf(n, direction)
   let dir = a:direction
   let n = a:n
   let curbufnr = bufnr('%')
@@ -68,7 +68,7 @@ function! GetModifiableBuffer(n, direction)
 endfun
 
 " original src: http://stackoverflow.com/questions/2974192/
-function! CloseHiddenBuffers()
+function! critiqjo#only_visible()
   " figure out which buffers are visible in any tab
   let visible = {}
   for t in range(1, tabpagenr('$'))
@@ -87,3 +87,14 @@ function! CloseHiddenBuffers()
   echon "Deleted " . l:tally . " buffers"
 endfun
 
+function! critiqjo#unite_dir()
+  let path = input('Path: ', expand('%:h'), 'dir')
+  if len(path)
+    if has('nvim')
+      let rec_type = 'neovim'
+    else
+      let rec_type = 'async'
+    endif
+    exe 'Unite -start-insert file_rec/' . rec_type . ':' . escape(path, ' ')
+  endif
+endfun

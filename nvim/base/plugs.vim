@@ -33,3 +33,4 @@ Plug 'zaiste/tmux.vim'
 
 Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/vsearch.vim'
+Plug 'critiqjo/unite-fasd.vim'

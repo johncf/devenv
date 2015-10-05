@@ -17,18 +17,6 @@ let g:unite_source_history_yank_enable = 1
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
 let g:unite_fasd#fasd_cache = '~/.cache/fasd'
 let g:unite_fasd#viminfo_cache = '/tmp/fasd_viminfo'
-
-function! UniteDirList()
-  let path = input('Path: ', expand('%:h'), 'dir')
-  if len(path)
-    if has('nvim')
-      let rec_type = 'neovim'
-    else
-      let rec_type = 'async'
-    endif
-    exe 'Unite -start-insert file_rec/' . rec_type . ':' . escape(path, ' ')
-  endif
-endfun
 " --- Unite options }}}
 
 " --- Quick-scope options {{{

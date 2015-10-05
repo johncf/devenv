@@ -43,7 +43,7 @@ _symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
 
 _symlink $SCR_DIR/nvim/base $HOME/.nvim/base
 _symlink $SCR_DIR/nvim/colors $HOME/.nvim/colors
-_symlink $SCR_DIR/nvim/plugin $HOME/.nvim/plugin
+_symlink $SCR_DIR/nvim/autoload $HOME/.nvim/autoload
 _symlink $SCR_DIR/nvim/nvimrc $HOME/.nvim/nvimrc
 _symlink $SCR_DIR/nvim/fallback_vimrc $HOME/.vimrc
 _symlink $HOME/.nvim $HOME/.vim

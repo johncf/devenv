@@ -4,29 +4,29 @@
 " Encoding and decoding
 
 function! s:string_encode(str)
-	let map = {"\n": 'n', "\r": 'r', "\t": 't', "\b": 'b', "\f": '\f', '"': '"', '\': '\'}
-	return substitute(a:str,"[\001-\033\\\\\"]",'\="\\".get(map,submatch(0),printf("%03o",char2nr(submatch(0))))','g')
+  let map = {"\n": 'n', "\r": 'r', "\t": 't', "\b": 'b', "\f": '\f', '"': '"', '\': '\'}
+  return substitute(a:str,"[\001-\033\\\\\"]",'\="\\".get(map,submatch(0),printf("%03o",char2nr(submatch(0))))','g')
 endfunction
 
 function! s:string_decode(str)
-	let map = {'n': "\n", 'r': "\r", 't': "\t", 'b': "\b", 'f': "\f", 'e': "\e", 'a': "\001", 'v': "\013", "\n": ''}
-	let str = a:str
-	if str =~ '^\s*".\{-\}\\\@<!\%(\\\\\)*"\s*\n\=$'
-		let str = substitute(substitute(str,'^\s*\zs"','',''),'"\ze\s*\n\=$','','')
-	endif
-	return substitute(str,'\\\(\o\{1,3\}\|x\x\{1,2\}\|u\x\{1,4\}\|.\)','\=get(map,submatch(1),submatch(1) =~? "^[0-9xu]" ? nr2char("0".substitute(submatch(1),"^[Uu]","x","")) : submatch(1))','g')
+  let map = {'n': "\n", 'r': "\r", 't': "\t", 'b': "\b", 'f': "\f", 'e': "\e", 'a': "\001", 'v': "\013", "\n": ''}
+  let str = a:str
+  if str =~ '^\s*".\{-\}\\\@<!\%(\\\\\)*"\s*\n\=$'
+    let str = substitute(substitute(str,'^\s*\zs"','',''),'"\ze\s*\n\=$','','')
+  endif
+  return substitute(str,'\\\(\o\{1,3\}\|x\x\{1,2\}\|u\x\{1,4\}\|.\)','\=get(map,submatch(1),submatch(1) =~? "^[0-9xu]" ? nr2char("0".substitute(submatch(1),"^[Uu]","x","")) : submatch(1))','g')
 endfunction
 
 function! s:url_encode(str)
-	return substitute(a:str,'[^A-Za-z0-9_.~-]','\="%".printf("%02X",char2nr(submatch(0)))','g')
+  return substitute(a:str,'[^A-Za-z0-9_.~-]','\="%".printf("%02X",char2nr(submatch(0)))','g')
 endfunction
 
 function! s:url_decode(str)
-	let str = substitute(substitute(substitute(a:str,'%0[Aa]\n$','%0A',''),'%0[Aa]','\n','g'),'+',' ','g')
-	return substitute(str,'%\(\x\x\)','\=nr2char("0x".submatch(1))','g')
+  let str = substitute(substitute(substitute(a:str,'%0[Aa]\n$','%0A',''),'%0[Aa]','\n','g'),'+',' ','g')
+  return substitute(str,'%\(\x\x\)','\=nr2char("0x".submatch(1))','g')
 endfunction
 
-" HTML entities {{{2
+" HTML entities {{{
 
 let g:unimpaired_html_entities = {
       \ 'nbsp':     160, 'iexcl':    161, 'cent':     162, 'pound':    163,
@@ -93,86 +93,78 @@ let g:unimpaired_html_entities = {
       \ 'spades':  9824, 'clubs':   9827, 'hearts':  9829, 'diams':   9830,
       \ 'apos':      39}
 
-" }}}2
+" }}}
 
 function! s:xml_encode(str)
-	let str = a:str
-	let str = substitute(str,'&','\&amp;','g')
-	let str = substitute(str,'<','\&lt;','g')
-	let str = substitute(str,'>','\&gt;','g')
-	let str = substitute(str,'"','\&quot;','g')
-	return str
+  let str = a:str
+  let str = substitute(str,'&','\&amp;','g')
+  let str = substitute(str,'<','\&lt;','g')
+  let str = substitute(str,'>','\&gt;','g')
+  let str = substitute(str,'"','\&quot;','g')
+  return str
 endfunction
 
 function! s:xml_entity_decode(str)
-	let str = substitute(a:str,'\c&#\%(0*38\|x0*26\);','&amp;','g')
-	let str = substitute(str,'\c&#\(\d\+\);','\=nr2char(submatch(1))','g')
-	let str = substitute(str,'\c&#\(x\x\+\);','\=nr2char("0".submatch(1))','g')
-	let str = substitute(str,'\c&apos;',"'",'g')
-	let str = substitute(str,'\c&quot;','"','g')
-	let str = substitute(str,'\c&gt;','>','g')
-	let str = substitute(str,'\c&lt;','<','g')
-	let str = substitute(str,'\C&\(\%(amp;\)\@!\w*\);','\=nr2char(get(g:unimpaired_html_entities,submatch(1),63))','g')
-	return substitute(str,'\c&amp;','\&','g')
+  let str = substitute(a:str,'\c&#\%(0*38\|x0*26\);','&amp;','g')
+  let str = substitute(str,'\c&#\(\d\+\);','\=nr2char(submatch(1))','g')
+  let str = substitute(str,'\c&#\(x\x\+\);','\=nr2char("0".submatch(1))','g')
+  let str = substitute(str,'\c&apos;',"'",'g')
+  let str = substitute(str,'\c&quot;','"','g')
+  let str = substitute(str,'\c&gt;','>','g')
+  let str = substitute(str,'\c&lt;','<','g')
+  let str = substitute(str,'\C&\(\%(amp;\)\@!\w*\);','\=nr2char(get(g:unimpaired_html_entities,submatch(1),63))','g')
+  return substitute(str,'\c&amp;','\&','g')
 endfunction
 
 function! s:xml_decode(str)
-	let str = substitute(a:str,'<\%([[:alnum:]-]\+=\%("[^"]*"\|''[^'']*''\)\|.\)\{-\}>','','g')
-	return s:xml_entity_decode(str)
+  let str = substitute(a:str,'<\%([[:alnum:]-]\+=\%("[^"]*"\|''[^'']*''\)\|.\)\{-\}>','','g')
+  return s:xml_entity_decode(str)
 endfunction
 
 function! s:Transform(algorithm,type)
-	let sel_save = &selection
-	let cb_save = &clipboard
-	set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
-	let reg_save = @@
-	if a:type =~ '^\d\+$'
-		silent exe 'norm! ^v'.a:type.'$hy'
-	elseif a:type =~ '^.$'
-		silent exe "normal! `<" . a:type . "`>y"
-	elseif a:type == 'line'
-		silent exe "normal! '[V']y"
-	elseif a:type == 'block'
-		silent exe "normal! `[\<C-V>`]y"
-	else
-		silent exe "normal! `[v`]y"
-	endif
-	if a:algorithm =~# '^\u\|#'
-		let @@ = {a:algorithm}(@@)
-	else
-		let @@ = s:{a:algorithm}(@@)
-	endif
-	norm! gvp
-	let @@ = reg_save
-	let &selection = sel_save
-	let &clipboard = cb_save
-	if a:type =~ '^\d\+$'
-		silent! call repeat#set("\<Plug>unimpaired_line_".a:algorithm,a:type)
-	endif
+  let sel_save = &selection
+  let cb_save = &clipboard
+  set selection=inclusive clipboard-=unnamed clipboard-=unnamedplus
+  let reg_save = @@
+  if a:type =~ '^\d\+$'
+    silent exe 'norm! ^v'.a:type.'$hy'
+  elseif a:type =~ '^.$'
+    silent exe "normal! `<" . a:type . "`>y"
+  elseif a:type == 'line'
+    silent exe "normal! '[V']y"
+  elseif a:type == 'block'
+    silent exe "normal! `[\<C-V>`]y"
+  else
+    silent exe "normal! `[v`]y"
+  endif
+  if a:algorithm =~# '^\u\|#'
+    let @@ = {a:algorithm}(@@)
+  else
+    let @@ = s:{a:algorithm}(@@)
+  endif
+  norm! gvp
+  let @@ = reg_save
+  let &selection = sel_save
+  let &clipboard = cb_save
+  if a:type =~ '^\d\+$'
+    silent! call repeat#set("\<Plug>unimpaired_line_".a:algorithm,a:type)
+  endif
 endfunction
 
 function! s:TransformOpfunc(type)
-	return s:Transform(s:encode_algorithm, a:type)
+  return s:Transform(s:encode_algorithm, a:type)
 endfunction
 
 function! s:TransformSetup(algorithm)
-	let s:encode_algorithm = a:algorithm
-	let &opfunc = matchstr(expand('<sfile>'), '<SNR>\d\+_').'TransformOpfunc'
+  let s:encode_algorithm = a:algorithm
+  let &opfunc = matchstr(expand('<sfile>'), '<SNR>\d\+_').'TransformOpfunc'
 endfunction
 
-function! UnimpairedMapTransform(algorithm, key)
-	exe 'nnoremap <silent> <Plug>unimpaired_'    .a:algorithm.' :<C-U>call <SID>TransformSetup("'.a:algorithm.'")<CR>g@'
-	exe 'xnoremap <silent> <Plug>unimpaired_'    .a:algorithm.' :<C-U>call <SID>Transform("'.a:algorithm.'",visualmode())<CR>'
-	exe 'nnoremap <silent> <Plug>unimpaired_line_'.a:algorithm.' :<C-U>call <SID>Transform("'.a:algorithm.'",v:count1)<CR>'
-	exe 'nmap '.a:key.'  <Plug>unimpaired_'.a:algorithm
-	exe 'xmap '.a:key.'  <Plug>unimpaired_'.a:algorithm
-	exe 'nmap '.a:key.a:key[strlen(a:key)-1].' <Plug>unimpaired_line_'.a:algorithm
+function! u_transform#map(algorithm, key)
+  exe 'nnoremap <silent> <Plug>unimpaired_'.a:algorithm.' :<C-U>call <SID>TransformSetup("'.a:algorithm.'")<CR>g@'
+  exe 'xnoremap <silent> <Plug>unimpaired_'.a:algorithm.' :<C-U>call <SID>Transform("'.a:algorithm.'",visualmode())<CR>'
+  exe 'nnoremap <silent> <Plug>unimpaired_line_'.a:algorithm.' :<C-U>call <SID>Transform("'.a:algorithm.'",v:count1)<CR>'
+  exe 'nmap '.a:key.'  <Plug>unimpaired_'.a:algorithm
+  exe 'xmap '.a:key.'  <Plug>unimpaired_'.a:algorithm
+  exe 'nmap '.a:key.a:key[strlen(a:key)-1].' <Plug>unimpaired_line_'.a:algorithm
 endfunction
-
-call UnimpairedMapTransform('string_encode','[y')
-call UnimpairedMapTransform('string_decode',']y')
-call UnimpairedMapTransform('url_encode','[u')
-call UnimpairedMapTransform('url_decode',']u')
-call UnimpairedMapTransform('xml_encode','[x')
-call UnimpairedMapTransform('xml_decode',']x')
-

@@ -4,7 +4,12 @@ map e <Plug>(smartword-e)
 map ge <Plug>(smartword-ge)
 
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
-" CScope maps: <C-\>X <C-@>X <C-@><C-@>X where X=[cdefgist]
+call u_transform#map('string_encode', '[y')
+call u_transform#map('string_decode', ']y')
+call u_transform#map('url_encode', '[u')
+call u_transform#map('url_decode', ']u')
+call u_transform#map('xml_encode', '[x')
+call u_transform#map('xml_decode', ']x')
 
 " Switch to normal mode
 inoremap zj <Esc>
@@ -51,7 +56,7 @@ nnoremap <leader>P O<Esc>"+p
 
 nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
 nnoremap <leader>ib :Unite -quick-match -vertical -winwidth=60 buffer<CR>
-nnoremap <leader>id :call UniteDirList()<CR>
+nnoremap <leader>id :call critiqjo#unite_dir()<CR>
 nnoremap <leader>iy :Unite history/yank<CR>
 
 nnoremap <leader>cd :cd %:h<CR>
@@ -61,14 +66,14 @@ nnoremap <leader>do :DiffOrig<CR>
 nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
 nnoremap <silent> <leader>hl :nohl<CR>
 nnoremap <leader>m :MouseToggle<CR>
-nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
-nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
+nnoremap <leader>n :<C-u>b <C-r>=critiqjo#get_ma_buf(v:count, 1)<CR><CR>
+nnoremap <leader>N :<C-u>b <C-r>=critiqjo#get_ma_buf(v:count, -1)<CR><CR>
 nnoremap <leader>o :Unite fasd:mru -start-insert<CR>
 nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
-nnoremap <leader>q :call SmartBufferClose()<CR>
+nnoremap <leader>q :call critiqjo#buf_close()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>tq :tabc<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
+nnoremap <leader>vo :call critiqjo#only_visible()<CR>
 nnoremap <leader>w :update<CR>
