@@ -41,6 +41,7 @@ _symlink $SCR_DIR/gitconfig $HOME/.gitconfig
 _symlink $SCR_DIR/tmux.conf $HOME/.tmux.conf
 _symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
 
+_symlink $SCR_DIR/nvim/base $HOME/.nvim/base
 _symlink $SCR_DIR/nvim/colors $HOME/.nvim/colors
 _symlink $SCR_DIR/nvim/plugin $HOME/.nvim/plugin
 _symlink $SCR_DIR/nvim/nvimrc $HOME/.nvim/nvimrc
@@ -49,7 +50,7 @@ _symlink $HOME/.nvim $HOME/.vim
 
 _symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
 
-plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/nvimrc | cut -c 3-)
+plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/base/plugs.vim | cut -c 3-)
 echo -e "\n$plug\n"
 bash <<<"$plug"
 echo

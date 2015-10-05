@@ -1,218 +1,44 @@
 " --- Plug Scripts {{{
-" # vim-plug installation: {{{
-" mkdir -p ~/.nvim/autoload
-" curl -fLo ~/.nvim/autoload/plug.vim \
-"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" # }}}
-
 call plug#begin('~/.nvim/plugged')
 
-Plug 'mhinz/vim-startify'
-Plug 'bling/vim-airline'
+source ~/.nvim/base/plugs.vim
 
-Plug 'romainl/Apprentice'
-Plug 'morhetz/gruvbox'
-
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-smartword'
-Plug 'beloglazov/vim-textobj-quotes'
-Plug 'godlygeek/tabular'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
-"Plug 'tpope/vim-abolish' "Abbreviation, substitution, coercion
-Plug 'tpope/vim-repeat' "tpope plugin repeat
 Plug 'tpope/vim-obsession'
-Plug 'unblevable/quick-scope'
 
-Plug 'Shougo/unite.vim'
-Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
-
-Plug 'powerman/vim-plugin-viewdoc'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'benekastah/neomake'
-"Plug 'kassio/neoterm'
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'rust-lang/rust.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'zaiste/tmux.vim'
-
-Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/lldb.nvim'
-Plug 'critiqjo/vsearch.vim'
 
 call plug#end()
 " --- Plug Scripts }}}
 
 " --- Global Options {{{
-" -- UI
-set background=dark
-set diffopt+=vertical
-set display+=lastline " Show as much of last line as possible
-set foldmethod=marker
-set hidden " Buffers can be hidden keeping its changes
-set laststatus=2
+source ~/.nvim/base/options.vim
+
 set lazyredraw " Faster <C-o> mappings in insert mode with airline
-set list
-set listchars=tab:»\ ,trail:·
-set number
-set relativenumber " Relative line numbering
-set ruler " Show line and column numbers
-set scrolloff=1
-set showcmd
-set noshowmode
-set splitright
-set wildmenu " Enhanced command line suggestions
-set wildmode=longest,full
-
-" -- Usability
-set autoindent
-set backspace=indent,eol,start
-set incsearch " Show results simultaneously while typing a search command
 set mouse=
-set ignorecase " of search patterns
-set smartcase " smartly override ignorecase
-set timeoutlen=1200 " <leader> timeout
-
-" -- History management
-set directory=~/.nvim/swps
-set history=512
-set undofile
-set undodir=~/.nvim/undos
-set undolevels=256  " Maximum number of changes that can be undone
-set undoreload=2048 " Maximum number lines to save for undo on a buffer reload
-
-" -- Formatting
-set expandtab
-set shiftwidth=4
-set tabstop=4
-
-" -- Session-saves
-set ssop-=options " Do not store global and local options
-
-" -- Spellcheck
-set spellfile=~/.nvim/spell/en.utf-8.add
-set spelllang=en
 " --- Global Options }}}
 
-filetype plugin indent on
-let s:colors_fav = ['desertEx-v2', 'gruvbox', 'apprentice', 'desert']
-
-function s:colors_cycle()
-  let color_next = s:colors_fav[s:colors_idx]
-  let s:colors_idx += 1
-  let s:colors_idx = s:colors_idx % len(s:colors_fav)
-  exe 'colorscheme ' . color_next
-endfun
-
-if $TERM == 'linux'
-  let s:colors_idx = 4
-else
-  let s:colors_idx = 0
-endif
-call s:colors_cycle()
-syntax enable
-
 " --- Plugin Options {{{
-if $TERM != 'linux'
-  let g:airline_powerline_fonts = 1
-endif
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
-let g:airline_theme = 'bubblegum'
-"alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
-
-let g:startify_files_number = 5
-let g:startify_custom_indices = ['f', 'r', 'w', 'a']
-
-let g:viewdoc_openempty = 0
+source ~/.nvim/base/plugin-opts.vim
 let g:tmux_navigator_no_mappings = 1
-
-" --- Unite options {{{
-let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
-let g:unite_source_history_yank_enable = 1
-let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
-let g:unite_fasd#fasd_cache = '~/.cache/fasd'
-let g:unite_fasd#viminfo_cache = '/tmp/fasd_viminfo'
-
-function! s:dir_find()
-  let path = input('Path: ', expand('%:h'), 'dir')
-  if len(path)
-    exe 'Unite -start-insert file_rec/neovim:' . escape(path, ' ')
-  endif
-endfun
-" --- Unite options }}}
-
-" --- Quick-scope options {{{
-" source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
-let g:qs_enable = 0
-
-function! s:qs_selective(movement)
-  let needs_disabling = 0
-  if !g:qs_enable
-    QuickScopeToggle
-    redraw
-    let needs_disabling = 1
-  endif
-  let letter = nr2char(getchar())
-  if needs_disabling
-    QuickScopeToggle
-  endif
-  return a:movement . letter
-endfun
-
-for i in [ 'f', 'F', 't', 'T' ]
-  execute 'noremap <expr> <silent>' . i . " <SID>qs_selective('". i . "')"
-endfor
-" --- Quick-scope options }}}
-
-map w <Plug>(smartword-w)
-map b <Plug>(smartword-b)
-map e <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
-
-nmap <M-b> <Plug>LLBreakSwitch
 " --- Plugin Options }}}
 
 " --- Keymaps {{{
-" URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
-" CScope maps: <C-\>X <C-@>X <C-@><C-@>X where X=[cdefgist]
+source ~/.nvim/base/keymaps.vim
 
-" Switch to normal mode
-inoremap zj <Esc>
-vnoremap zj <Esc>
 tnoremap zj <C-\><C-n>
 
-" Don't go to Ex mode, open cmd-line window instead.
-nnoremap Q q:
-nnoremap Y y$
-nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
-nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
 " Make ZQ redoable!
 nnoremap ZQ :call SmartForceQuit()<CR>
 
-nnoremap <C-j> j<C-e>
-nnoremap <C-k> k<C-y>
-nnoremap <silent> gH :call cursor(getcurpos()[1] - winline()/2, 0)<CR>
-nnoremap <silent> gL :call cursor(getcurpos()[1] + (winheight('%')-winline())/2, 0)<CR>
+nmap <M-b> <Plug>LLBreakSwitch
 
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
-
-inoremap <C-a> <C-o>^
-inoremap <C-e> <C-o>$
-" Make <C-u> and <CR> undoable
-inoremap <C-u> <C-g>u<C-u>
-inoremap <CR> <C-g>u<CR>
-
-" C-mode: <C-b> Home; <C-e> End; <C-f> C-window; <C-h> backspace
-"         <C-c> C-exit; <C-d> list-opts; <C-u> clear-back; <C-w> del-word
-cnoremap <C-a> <Home>
-" idea from tpope/vim-rsi -- mimic line kill if not at the end of line
-cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
-        \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
 " --- Meta-keymaps mode-ict {{{
 inoremap <M-b> <C-o>b
@@ -229,13 +55,6 @@ inoremap <M-T> <Esc>T
 inoremap <M-u> <C-o>u
 inoremap <M-w> <C-o>w
 inoremap <M-W> <C-o>W
-noremap! <M-h> <Left>
-noremap! <M-j> <Down>
-noremap! <M-k> <Up>
-noremap! <M-l> <Right>
-noremap! <M-x> <Del>
-cnoremap <M-b> <S-Left>
-cnoremap <M-e> <S-Right>
 tnoremap <M-b> <Esc>b
 tnoremap <M-d> <Esc>d
 tnoremap <M-f> <Esc>f
@@ -250,65 +69,8 @@ tnoremap <M-u> <Esc>u
 tnoremap <M-w> <Esc>w
 tnoremap <M-x> <Esc>x
 " --- Meta-keymaps }}}
-
-let mapleader = "\<Space>"
-vnoremap <leader>y "+y
-nnoremap <leader>y "+y
-nnoremap <leader>Y "+y$
-nnoremap <leader>p o<Esc>"+p
-nnoremap <leader>P O<Esc>"+p
-
-nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
-nnoremap <leader>ib :Unite -quick-match -vertical -winwidth=60 buffer<CR>
-nnoremap <leader>id :call <SID>dir_find()<CR>
-nnoremap <leader>iy :Unite history/yank<CR>
-
-nnoremap <leader>cd :cd %:h<CR>
-nnoremap <silent> <leader>cl :set invcursorline<CR>
-nnoremap <leader>co :copen<CR>
-nnoremap <leader>do :DiffOrig<CR>
-nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
-nnoremap <silent> <leader>hl :nohl<CR>
-nnoremap <leader>m :MouseToggle<CR>
-nnoremap <leader>n :<C-u>b <C-r>=GetModifiableBuffer(v:count, 1)<CR><CR>
-nnoremap <leader>N :<C-u>b <C-r>=GetModifiableBuffer(v:count, -1)<CR><CR>
-nnoremap <leader>o :Unite fasd:mru -start-insert<CR>
-nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
-nnoremap <leader>q :call SmartBufferClose()<CR>
-nnoremap <leader>Q :qall<CR>
-nnoremap <leader>s :set invspell<CR>
-nnoremap <leader>tq :tabc<CR>
-"Neoterm maps: <leader>tt <leader>tc
-nnoremap <leader>u :UndotreeToggle<CR>
-nnoremap <leader>vo :call CloseHiddenBuffers()<CR>
-nnoremap <leader>w :update<CR>
 " --- Keymaps }}}
 
-" --- Autocommands {{{
-augroup critiq_au
-  autocmd!
-  autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
-  autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
-  autocmd FileType vim\|python setlocal ts=2 sw=2
-  autocmd FileType man\|help\|pydoc\|info
-      \ if &bt == "nofile" |
-      \   nnoremap <buffer> <nowait> d <C-d> |
-      \   nnoremap <buffer> <nowait> u <C-u> |
-      \ endif
-  autocmd WinLeave,InsertEnter * setlocal nocursorline
-  autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
-augroup END
-" --- Autocommands }}}
-
-" --- Command defs {{{
-command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
-
-" See the diff between the current buffer and the file on disk.
-command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-                \ | wincmd p | diffthis
-
-" Cycle colorschemes
-command! ColorCycle call <SID>colors_cycle()
-" --- Command defs }}}
+source ~/.nvim/base/misc.vim
 
 " vim:fdm=marker:ts=2:sw=2
