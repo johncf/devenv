@@ -1,6 +1,7 @@
 alias ls='ls --color'
 alias ll='ls -lAh'
 alias cp="cp --reflink=auto"
+alias calc='noglob calc'
 [ -z "$NVIM_LISTEN_ADDRESS" ] || alias :="${HOME}/.local/bin/nvimex.py"
 
 #export TERM=xterm-256color

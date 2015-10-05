@@ -9,15 +9,14 @@ let g:airline_theme = 'bubblegum'
 let g:startify_files_number = 5
 let g:startify_custom_indices = ['f', 'r', 'w', 'a']
 
-let g:viewdoc_openempty = 0
-
-" --- Unite options {{{
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
+
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
 let g:unite_fasd#fasd_cache = '~/.cache/fasd'
 let g:unite_fasd#viminfo_cache = '/tmp/fasd_viminfo'
-" --- Unite options }}}
+
+let g:viewdoc_openempty = 0
 
 " --- Quick-scope options {{{
 " source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
