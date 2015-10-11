@@ -23,6 +23,11 @@ if [[ "$(tput colors)" == "256" ]]; then
     fg[darkred]=$FG[088]
     fg[grey]=$FG[245]
     fg[darkyellow]=$FG[136]
+
+    fg[alt_user]=$FG[203]
+    fg[alt_path]=$FG[071]
+    fg[alt_time]=$FG[185]
+    fg[alt_red]=$FG[009]
 else
     fg[teal]=$fg[green]
     fg[orange]=$fg[yellow]
@@ -35,4 +40,9 @@ else
     fg[grey]=$fg_bold[grey]
     fg[darkyellow]=$fg[default]
     fg[yellow]=$fg_bold[yellow]
+
+    fg[alt_user]=$fg[lightred]
+    fg[alt_path]=$fg[green]
+    fg[alt_time]=$fg[grey]
+    fg[alt_red]=$fg[lightred]
 fi

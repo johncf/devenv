@@ -2,9 +2,10 @@
 
 # User customizable options
 PR_ARROW_CHAR="%#" # The arrow symbol that is used in the prompt
-PR_SHOW_USER=true # (true, false) - show username in rhs prompt
-PR_SHOW_HOST=true # (true, false) - show host in rhs prompt
-PR_SHOW_GIT=true # (true, false) - show git status in rhs prompt
+LIGHT_MODE="false" # lightweight mode with alt colors (no git)
+if [[ "$EUID" == 0 ]]; then
+    LIGHT_MODE="true"
+fi
 
 # Current directory
 function PR_DIR() {
@@ -17,47 +18,43 @@ function PR_DIR() {
 
 # An exclamation point if the previous command did not complete successfully
 function PR_ERROR() {
-    echo "%(?..%(!.%{$fg[violet]%}.%{$fg[red]%})%B!%b%{$reset_color%} )"
+    echo "%(?..%{$fg[red]%}%B!%b%{$reset_color%} )"
 }
 
-# The arrow in red (for root) or violet (for regular user)
+# Time and arrow
 function PR_LINE2() {
-    echo "%{$fg[orange]%}%D{%H:%M} %(!.%{$fg[red]%}.%{$fg[grey]%})${PR_ARROW_CHAR}%{$reset_color%}"
-}
-
-# Set custom rhs prompt
-function PR_USER() {
-    if [[ "${PR_SHOW_USER}" == "true" ]]; then
-        echo "%(!.%{$fg_bold[red]%}.%{$fg[teal]%})%n%{$reset_color%}"
-    fi
+    echo "%{$fg[orange]%}%D{%H:%M} %{$fg[grey]%}${PR_ARROW_CHAR}%{$reset_color%}"
 }
 
 function PR_HOST() {
-    if [[ "${PR_SHOW_HOST}" == "true" ]]; then
+    if [ -z "$SSH_CLIENT" ]; then
         echo "%{$fg[cyan]%}%m%{$reset_color%}"
+    else
+        echo "%{$fg[grey]%}%m%{$reset_color%}"
     fi
 }
 
-# ': ' only if either user or host enabled
-function PR_COLON() {
-    if [[ "${PR_SHOW_USER}" == "true" ]] || [[ "${PR_SHOW_HOST}" == "true" ]]; then
-        echo "%{$reset_color%}: "
-    fi
-}
-
-# '@' only if both user and host enabled
-function PR_AT() {
-    if [[ "${PR_SHOW_USER}" == "true" ]] && [[ "${PR_SHOW_HOST}" == "true" ]]; then
-        echo "%{$reset_color%}@"
-    fi
-}
-
-# Build the rhs prompt
 function PR_INFO() {
-    echo "$(PR_USER)$(PR_AT)$(PR_HOST)$(PR_COLON)$(PR_DIR)"
+    local PR_USER="%{$fg[teal]%}%n%{$reset_color%}"
+    echo "${PR_USER}@$(PR_HOST): $(PR_DIR)"
 }
 
-# Set RHS prompt for git repositories
+# The static prompt
+function PCMD() {
+    if [[ "${LIGHT_MODE}" == "false" ]]; then
+        echo "$(PR_INFO)"$'\n'"$(PR_LINE2) "
+    else
+        local PR_USER="%{$fg[alt_user]%}%n%{$reset_color%}"
+        local PR_DIR="%{$fg[alt_path]%}%~%{$reset_color%}"
+        local PR_LINE2="%{$fg[alt_time]%}%D{%H:%M} %{$fg[alt_red]%}${PR_ARROW_CHAR}%{$reset_color%} "
+        echo "${PR_USER}@$(PR_HOST): ${PR_DIR}"$'\n'"${PR_LINE2}"
+    fi
+}
+
+PROMPT='$(PCMD)' # single quotes to prevent immediate execution
+RPROMPT='$(PR_ERROR)' # set asynchronously and dynamically
+
+# git stuff {{{
 DIFF_SYMBOL="-"
 GIT_PROMPT_SYMBOL=""
 GIT_PROMPT_PREFIX="%{$fg[violet]%}%B(%b%{$reset_color%}"
@@ -131,43 +128,23 @@ function parse_git_state() {
 
 # If inside a Git repository, print its branch and state
 function git_prompt_string() {
-    if [[ "${PR_SHOW_GIT}" == "true" ]]; then
-        local git_where="$(parse_git_branch)"
-        local git_detached="$(parse_git_detached)"
-        [ -n "$git_where" ] && echo " $GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[lightred]%}%B${git_where#(refs/heads/|tags/)}%b$git_detached$GIT_PROMPT_SUFFIX"
-    fi
+    local git_where="$(parse_git_branch)"
+    local git_detached="$(parse_git_detached)"
+    [ -n "$git_where" ] && echo " $GIT_PROMPT_SYMBOL$(parse_git_state)$GIT_PROMPT_PREFIX%{$fg[lightred]%}%B${git_where#(refs/heads/|tags/)}%b$git_detached$GIT_PROMPT_SUFFIX"
 }
+# git }}}
 
-PROMPT_MODE=0
-
-# Function to toggle between prompt modes
-function prompt_mode_toggle() {
-    if [[ "${PROMPT_MODE}" == 0 ]]; then
-        PROMPT_MODE=1
-        PROMPT='$(PCMD)'
-    else
-        PROMPT_MODE=0
-    fi
-}
-
-# Prompt
-function PCMD() {
-    if [[ "${PROMPT_MODE}" == 0 ]]; then
-        echo "$(PR_INFO)"$'\n'"$(PR_LINE2) "
-    else
-        echo "%n@%m: %~"$'\n'"%t ${PR_ARROW_CHAR} "
-    fi
-}
-
-PROMPT='$(PCMD)' # single quotes to prevent immediate execution
-RPROMPT='$(PR_ERROR)' # set asynchronously and dynamically
-
+# The async prompt
 function ACMD() {
     echo '$(PR_INFO)'"$(git_prompt_string)"$'\n'"$(PR_LINE2) "
 }
 
 ASYNC_PROC=0
 function precmd() {
+    if [[ "${LIGHT_MODE}" != "false" ]]; then
+        return
+    fi
+
     function async() {
         # save to temp file
         printf "%s" "$(ACMD)" > "/tmp/${USER}_zsh_prompt"
@@ -182,10 +159,8 @@ function precmd() {
     fi
 
     # start background computation
-    if [[ "${PROMPT_MODE}" == 0 ]]; then
-        async &!
-        ASYNC_PROC=$!
-    fi
+    async &!
+    ASYNC_PROC=$!
 }
 
 function TRAPUSR1() {

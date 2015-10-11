@@ -25,6 +25,7 @@ syntax enable
 " --- Autocommands {{{
 augroup critiq_au
   autocmd!
+  autocmd BufRead,BufNewFile *.ll set filetype=llvm
   autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
   autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|python setlocal ts=2 sw=2

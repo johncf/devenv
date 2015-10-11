@@ -15,7 +15,7 @@ alias ll='ls -lAh'
 alias cp="cp --reflink=auto"
 alias vim='nvim'
 
-export PS1='\u@\h \[\e[38;5;191m\]\w\n\[\e[38;5;208;1m\]\@ \[\e[1;30m\]\$\[\e[m\] '
+export PS1='\[\e[38;5;203m\]\u\[\e[m\]@\[\e[38;5;38m\]\h \[\e[38;5;71m\]\w \n\[\e[38;5;185m\]\@ \[\e[38;5;9m\]\$\[\e[m\] '
 export HISTCONTROL=erasedups:ignorespace
 export HISTSIZE=768
 export HISTFILESIZE=2048
