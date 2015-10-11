@@ -9,24 +9,14 @@ endfun
 
 " Try returning to the previously visited buffer, then close
 function! critiqjo#buf_close()
-  let toclose = bufnr('%')
-  let switch = bufnr('#')
   if &modified
     echohl WarningMsg | echom "No write since last change!" | echohl None
     return
   endif
-  if switch != toclose && buflisted(switch)
-    b #
-  else
-    bp
-  endif
-  if bufnr('%') != toclose
-    bd! #
+  if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1
+    q!
   else
     bd!
-    if exists(':Startify')
-      Startify
-    endif
   endif
 endfun
 

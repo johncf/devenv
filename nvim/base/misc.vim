@@ -1,7 +1,7 @@
 filetype plugin indent on
 let s:colors_fav = ['desertEx-v2', 'gruvbox', 'apprentice', 'codeschool', 'desert']
 
-function s:colors_cycle()
+function! s:colors_cycle()
   let color_next = s:colors_fav[s:colors_idx]
   let s:colors_idx += 1
   let s:colors_idx = s:colors_idx % len(s:colors_fav)

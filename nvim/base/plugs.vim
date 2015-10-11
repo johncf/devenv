@@ -31,6 +31,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
+Plug 'critiqjo/gtags.vim'
+Plug 'critiqjo/unite-fasd.vim'
 Plug 'critiqjo/vim-autoclose'
 Plug 'critiqjo/vsearch.vim'
-Plug 'critiqjo/unite-fasd.vim'
