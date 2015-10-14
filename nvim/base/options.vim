@@ -14,16 +14,20 @@ set scrolloff=1
 set showcmd
 set noshowmode
 set splitright
-set wildmenu " Enhanced command line suggestions
-set wildmode=longest,full
 
 " -- Usability
 set autoindent
 set backspace=indent,eol,start
 set incsearch " Show results simultaneously while typing a search command
 set ignorecase " of search patterns
+set path=.,./**
 set smartcase " smartly override ignorecase
 set timeoutlen=1200 " <leader> timeout
+set switchbuf=useopen,usetab " use open windows and tabs when using :sb*
+set wildignore=*.pyc,*.zwc,*/.git/**
+set wildignorecase
+set wildmenu " Enhanced command line suggestions
+set wildmode=longest,full
 
 " -- History management
 set directory=~/.nvim/swps

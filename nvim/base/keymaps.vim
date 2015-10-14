@@ -1,7 +1,9 @@
-map w <Plug>(smartword-w)
-map b <Plug>(smartword-b)
-map e <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
+if get(g:, 'loaded_smartword')
+  map w <Plug>(smartword-w)
+  map b <Plug>(smartword-b)
+  map e <Plug>(smartword-e)
+  map ge <Plug>(smartword-ge)
+endif
 
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
 call u_transform#map('string_encode', '[y')
@@ -51,8 +53,8 @@ let mapleader = "\<Space>"
 vnoremap <leader>y "+y
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$
-nnoremap <leader>p o<Esc>"+p
-nnoremap <leader>P O<Esc>"+p
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
 
 nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
 nnoremap <leader>ib :Unite -quick-match -vertical -winwidth=60 buffer<CR>
@@ -62,7 +64,7 @@ nnoremap <leader>iy :Unite history/yank<CR>
 nnoremap <leader>cd :cd %:h<CR>
 nnoremap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
-nnoremap <leader>do :DiffOrig<CR>
+nnoremap <leader>f :find<Space><C-d>
 nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
 nnoremap <silent> <leader>hl :nohl<CR>
 nnoremap <leader>m :MouseToggle<CR>
@@ -73,7 +75,6 @@ nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
 nnoremap <leader>q :call critiqjo#buf_close()<CR>
 nnoremap <leader>Q :qall<CR>
 nnoremap <leader>s :set invspell<CR>
-nnoremap <leader>tq :tabc<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call critiqjo#only_visible()<CR>
 nnoremap <leader>w :update<CR>

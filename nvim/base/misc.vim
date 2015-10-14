@@ -26,8 +26,8 @@ syntax enable
 augroup critiq_au
   autocmd!
   autocmd BufRead,BufNewFile *.ll set filetype=llvm
-  autocmd FileType netrw nnoremap <buffer> qq <C-^> | nmap <buffer> <Space> mf
-  autocmd FileType qf nnoremap <buffer> qq <C-w>q | setlocal nonu nornu
+  autocmd FileType netrw nnoremap <buffer> <nowait> q <C-^> | nmap <buffer> <Space> mf
+  autocmd FileType qf nnoremap <buffer> <nowait> q <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|python setlocal ts=2 sw=2
   autocmd FileType man\|help\|pydoc\|info
       \ if &bt == "nofile" |
