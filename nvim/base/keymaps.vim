@@ -1,9 +1,7 @@
-if get(g:, 'loaded_smartword')
-  map w <Plug>(smartword-w)
-  map b <Plug>(smartword-b)
-  map e <Plug>(smartword-e)
-  map ge <Plug>(smartword-ge)
-endif
+map w <Plug>(smartword-w)
+map b <Plug>(smartword-b)
+map e <Plug>(smartword-e)
+map ge <Plug>(smartword-ge)
 
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
 call u_transform#map('string_encode', '[y')
@@ -20,13 +18,12 @@ vnoremap zj <Esc>
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
 nnoremap Y y$
-nnoremap <expr> 0 (getcurpos()[2]==1 ? "_" : "0")
-nnoremap <expr> $ (getcurpos()[4]>1.0E9 ? "g_" : "$")
+nnoremap <expr> 0 getpos('.')[2]==1 ? "_" : "0"
 
 nnoremap <C-j> j<C-e>
 nnoremap <C-k> k<C-y>
-nnoremap <silent> gH :call cursor(getcurpos()[1] - winline()/2, 0)<CR>
-nnoremap <silent> gL :call cursor(getcurpos()[1] + (winheight('%')-winline())/2, 0)<CR>
+nnoremap <silent> gH :call cursor(getpos('.')[1] - winline()/2, 0)<CR>
+nnoremap <silent> gL :call cursor(getpos('.')[1] + (winheight('%')-winline())/2, 0)<CR>
 
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$

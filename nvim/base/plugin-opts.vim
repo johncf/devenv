@@ -3,18 +3,15 @@ if $TERM != 'linux'
 endif
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#wordcount#enabled = 0
 let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
-
-let g:startify_files_number = 5
-let g:startify_custom_indices = ['f', 'r', 'w', 'a']
 
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 let g:unite_source_history_yank_enable = 1
 
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
 let g:unite_fasd#fasd_cache = '~/.cache/fasd'
-let g:unite_fasd#viminfo_cache = '/tmp/fasd_viminfo'
 
 let g:viewdoc_openempty = 0
 

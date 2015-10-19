@@ -1,5 +1,5 @@
 filetype plugin indent on
-let s:colors_fav = ['desertEx-v2', 'gruvbox', 'apprentice', 'codeschool', 'desert']
+let s:colors_fav = ['desertEx-v2', 'gruvbox', 'apprentice', 'desert']
 
 function! s:colors_cycle()
   let color_next = s:colors_fav[s:colors_idx]
@@ -9,7 +9,7 @@ function! s:colors_cycle()
 endfun
 
 if $TERM == 'linux'
-  let s:colors_idx = 4
+  let s:colors_idx = 3
 elseif has("gui_running")
   let s:colors_idx = 1
   set guifont=MonacoB
@@ -36,6 +36,7 @@ augroup critiq_au
       \ endif
   autocmd WinLeave,InsertEnter * setlocal nocursorline
   autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
+  autocmd VimEnter * let g:unite_fasd#read_only = 0
 augroup END
 " --- Autocommands }}}
 
@@ -47,5 +48,5 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
 
 " Cycle colorschemes
-command! ColorCycle call <SID>colors_cycle()
+command! ColorCycle call <SID>colors_cycle() | colorscheme
 " --- Command defs }}}
