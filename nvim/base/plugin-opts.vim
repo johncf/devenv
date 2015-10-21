@@ -8,7 +8,6 @@ let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
 
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
-let g:unite_source_history_yank_enable = 1
 
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
 let g:unite_fasd#fasd_cache = '~/.cache/fasd'
