@@ -32,11 +32,12 @@ inoremap <C-u> <C-g>u<C-u>
 inoremap <CR> <C-g>u<CR>
 
 " C-mode: <C-b> Home; <C-e> End; <C-f> C-window; <C-h> backspace
-"         <C-c> C-exit; <C-d> list-opts; <C-u> clear-back; <C-w> del-word
+"         <C-c> C-exit; <C-d> list-opts; <C-u> clear-back
 cnoremap <C-a> <Home>
 " idea from tpope/vim-rsi -- mimic line kill if not at the end of line
 cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
         \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
+cnoremap <expr> <C-w> critiqjo#abstract_left("\<BS>")
 
 inoremap <M-b> <C-o>b
 inoremap <M-d> <C-o>d
@@ -50,8 +51,10 @@ noremap! <M-j> <Down>
 noremap! <M-k> <Up>
 noremap! <M-l> <Right>
 noremap! <M-x> <Del>
-cnoremap <M-b> <S-Left>
 cnoremap <M-e> <S-Right>
+cnoremap <expr> <M-b> critiqjo#abstract_left("\<Left>")
+cnoremap <expr> <M-d> critiqjo#abstract_right("\<Del>")
+cnoremap <expr> <M-w> critiqjo#abstract_right("\<Right>")
 
 let mapleader = "\<Space>"
 vnoremap <leader>y "+y
