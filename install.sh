@@ -13,21 +13,20 @@ function _symlink {
 }
 
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./install.sh [--no-x | --no-ff | --help]"
+    echo "Usage: ./install.sh [--no-x | --help]"
     echo "  --no-x   Ignore X related configurations"
     echo "           Note: Skips fonts download and firefox config too."
-    echo "  --no-ff  Ignore Firefox configurations"
     echo "  --help   Display this message"
     exit
 fi
 
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
-mkdir -p $HOME/{.config,.nvim}
-echo "Directory ~/{.config,.nvim}"
+mkdir -p $HOME/.config/nvim
+echo "Directory ~/.config/nvim"
 
-mkdir -p $HOME/.nvim/{swps,undos}
-echo "Directory ~/.nvim/{swps,undos}"
+mkdir -p $HOME/.cache/nvim/{swps,undos,spell}
+echo "Directory ~/.cache/nvim/{swps,undos,spell}"
 
 mkdir -p $HOME/.cache/zsh
 echo "Directory ~/.cache/zsh"
@@ -35,27 +34,35 @@ echo "Directory ~/.cache/zsh"
 mkdir -p $HOME/.local/bin
 echo "Directory ~/.local/bin"
 
+_symlink $SCR_DIR/config/nvim/base $HOME/.config/nvim/base
+_symlink $SCR_DIR/config/nvim/colors $HOME/.config/nvim/colors
+_symlink $SCR_DIR/config/nvim/autoload $HOME/.config/nvim/autoload
+_symlink $SCR_DIR/config/nvim/init.vim $HOME/.config/nvim/init.vim
+_symlink $SCR_DIR/config/nvim/fallback.vim $HOME/.vimrc
+_symlink $HOME/.config/nvim $HOME/.vim
+
+exit # comment this out!
+
 _symlink $SCR_DIR/zshrc $HOME/.zshrc
 _symlink $SCR_DIR/zsh $HOME/.zsh
 _symlink $SCR_DIR/gitconfig $HOME/.gitconfig
 _symlink $SCR_DIR/tmux.conf $HOME/.tmux.conf
 _symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
 
-_symlink $SCR_DIR/nvim/base $HOME/.nvim/base
-_symlink $SCR_DIR/nvim/colors $HOME/.nvim/colors
-_symlink $SCR_DIR/nvim/autoload $HOME/.nvim/autoload
-_symlink $SCR_DIR/nvim/nvimrc $HOME/.nvim/nvimrc
-_symlink $SCR_DIR/nvim/fallback_vimrc $HOME/.vimrc
-_symlink $HOME/.nvim $HOME/.vim
-
 _symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
 
-plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/nvim/base/plugs.vim | cut -c 3-)
+plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/config/nvim/base/plugs.vim | cut -c 3-)
 echo -e "\n$plug\n"
 bash <<<"$plug"
 echo
 
 if [ "$1" != "--no-x" ]; then
+    mkdir -p $HOME/.local/share/applications
+    mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
+    echo "Directories ~/.local/share/... for nvim.desktop and nvim.svg"
+    _symlink $SCR_DIR/local/share/applications/nvim.desktop $HOME/.local/share/applications/nvim.desktop
+    _symlink $SCR_DIR/local/share/icons/hicolor/scalable/apps/nvim.svg $HOME/.local/share/icons/hicolor/scalable/apps/nvim.svg
+
     _symlink $SCR_DIR/config/Xresources.d $HOME/.config/Xresources.d
     if ! [ -e $HOME/.Xresources ]; then
         sed "s:\${HOME}:$HOME:" $SCR_DIR/Xresources > $HOME/.Xresources
@@ -69,12 +76,10 @@ if [ "$1" != "--no-x" ]; then
     bash <<<"$font"
     echo
 
-    if [ "$1" != "--no-ff" ]; then
-        ffpath=`echo $HOME/.mozilla/firefox/*.default`
-        mkdir -p $ffpath/chrome
-        echo "Directory $ffpath/chrome"
-        _symlink $SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css $ffpath/chrome/userChrome.css
-    fi
+    ffpath=`echo $HOME/.mozilla/firefox/*.default`
+    mkdir -p $ffpath/chrome
+    echo "Directory $ffpath/chrome"
+    _symlink $SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css $ffpath/chrome/userChrome.css
 fi
 
 echo $'\n# Completed!'

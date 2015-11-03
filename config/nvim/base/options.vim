@@ -30,10 +30,10 @@ set wildmenu " Enhanced command line suggestions
 set wildmode=longest,full
 
 " -- History management
-set directory=~/.nvim/swps
+exe 'set directory=' . g:critiqjo#cache_dir . 'swps'
 set history=512
+exe 'set undodir=' . g:critiqjo#cache_dir . 'undos'
 set undofile
-set undodir=~/.nvim/undos
 set undolevels=256  " Maximum number of changes that can be undone
 set undoreload=2048 " Maximum number lines to save for undo on a buffer reload
 
@@ -46,5 +46,5 @@ set tabstop=4
 set ssop-=options " Do not store global and local options
 
 " -- Spellcheck
-set spellfile=~/.nvim/spell/en.utf-8.add
+exe 'set spellfile=' . g:critiqjo#cache_dir . 'spell/en.utf-8.add'
 set spelllang=en

@@ -1,10 +1,10 @@
 set nocompatible
 
-let rtp0 = split(&rtp, ',')[0]
+let cache_dir = $HOME . '/.cache/nvim/'
 
 " --- Plug Scripts {{{
 " Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-call plug#begin(rtp0 . '/plugged')
+call plug#begin(cache_dir . 'plugged')
 Plug 'morhetz/gruvbox'
 Plug 'kana/vim-smartword'
 Plug 'tpope/vim-fugitive'
@@ -31,8 +31,8 @@ set path=.,./**
 set tm=1200 ttimeout ttm=100
 set wmnu wic wim=longest,full
 
-exe 'set dir=' . rtp0 . '/swps'
-exe 'set udir=' . rtp0 . '/undos'
+exe 'set dir=' . cache_dir . 'swps'
+exe 'set udir=' . cache_dir . 'undos'
 set hi=512 udf ul=256 ur=2048
 " --- }}}
 

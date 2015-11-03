@@ -38,6 +38,13 @@ cnoremap <C-a> <Home>
 cnoremap <expr> <C-k> getcmdpos()>strlen(getcmdline()) ? "<C-k>" :
         \ getcmdpos()<2 ? "<C-e><C-u>" : "<C-\>egetcmdline()[0:getcmdpos()-2]<CR>"
 
+inoremap <M-b> <C-o>b
+inoremap <M-d> <C-o>d
+inoremap <M-e> <C-o>e<Right>
+inoremap <M-o> <Esc>o
+inoremap <M-O> <Esc>O
+inoremap <M-u> <C-o>u
+inoremap <M-w> <C-o>w
 noremap! <M-h> <Left>
 noremap! <M-j> <Down>
 noremap! <M-k> <Up>

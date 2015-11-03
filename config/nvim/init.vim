@@ -1,7 +1,10 @@
-" --- Plug Scripts {{{
-call plug#begin('~/.nvim/plugged')
+let g:critiqjo#rtp0_dir = $HOME . '/.config/nvim/'
+let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
 
-source ~/.nvim/base/plugs.vim
+" --- Plug Scripts {{{
+call plug#begin(g:critiqjo#cache_dir . 'plugged')
+
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
 Plug 'tpope/vim-obsession'
 
@@ -14,47 +17,34 @@ call plug#end()
 " --- Plug Scripts }}}
 
 " --- Global Options {{{
-source ~/.nvim/base/options.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/options.vim'
 
 set lazyredraw " Faster <C-o> mappings in insert mode with airline
 set mouse=
 " --- Global Options }}}
 
 " --- Plugin Options {{{
-source ~/.nvim/base/plugin-opts.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
+
 let g:tmux_navigator_no_mappings = 1
 " --- Plugin Options }}}
 
 " --- Keymaps {{{
-source ~/.nvim/base/keymaps.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
 
 tnoremap zj <C-\><C-n>
 
 " Make ZQ redoable!
 nnoremap ZQ :call critiqjo#redoable_zq()<CR>
 
-nmap <M-b> <Plug>LLBreakSwitch
+"nmap <M-b> <Plug>LLBreakSwitch
 
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 
-" --- Meta-keymaps mode-ict {{{
-inoremap <M-b> <C-o>b
-inoremap <M-B> <C-o>B
-inoremap <M-d> <C-o>d
-inoremap <M-e> <C-o>e<Right>
-inoremap <M-E> <C-o>E<Right>
-inoremap <M-f> <Esc>f
-inoremap <M-F> <Esc>F
-inoremap <M-o> <Esc>o
-inoremap <M-O> <Esc>O
-inoremap <M-t> <Esc>t
-inoremap <M-T> <Esc>T
-inoremap <M-u> <C-o>u
-inoremap <M-w> <C-o>w
-inoremap <M-W> <C-o>W
+" --- Meta-keymaps t-mode {{{
 tnoremap <M-b> <Esc>b
 tnoremap <M-d> <Esc>d
 tnoremap <M-f> <Esc>f
@@ -71,6 +61,6 @@ tnoremap <M-x> <Esc>x
 " --- Meta-keymaps }}}
 " --- Keymaps }}}
 
-source ~/.nvim/base/misc.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/misc.vim'
 
 " vim:fdm=marker:ts=2:sw=2

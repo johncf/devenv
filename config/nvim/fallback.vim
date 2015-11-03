@@ -1,9 +1,12 @@
 set nocompatible
 
-" --- Plug Scripts {{{
-call plug#begin('~/.vim/plugged')
+let g:critiqjo#rtp0_dir = $HOME . '/.vim/'
+let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
 
-source ~/.nvim/base/plugs.vim
+" --- Plug Scripts {{{
+call plug#begin(g:critiqjo#cache_dir . 'plugged')
+
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
 Plug 'Shougo/vimproc.vim' , { 'do': 'make' }
 Plug 'Shougo/neocomplete.vim'
@@ -12,7 +15,7 @@ call plug#end()
 " --- Plug Scripts }}}
 
 " --- Global Options {{{
-source ~/.nvim/base/options.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/options.vim'
 
 set omnifunc=syntaxcomplete#Complete
 set nrformats-=octal " For use with <C-a> and <C-x>
@@ -21,7 +24,7 @@ set ttimeoutlen=100
 " --- Global Options }}}
 
 " --- Plugin Options {{{
-source ~/.nvim/base/plugin-opts.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
 
 " --- Neocomplete options {{{
 " Use smartcase.
@@ -47,9 +50,26 @@ endif
 " --- Plugin Options }}}
 
 " --- Keymaps {{{
-source ~/.nvim/base/keymaps.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
+
+if !has('gui_running')
+  exe "set <M-h>=\<Esc>h"
+  exe "set <M-j>=\<Esc>j"
+  exe "set <M-k>=\<Esc>k"
+  exe "set <M-l>=\<Esc>l"
+
+  exe "set <M-b>=\<Esc>b"
+  exe "set <M-d>=\<Esc>d"
+  exe "set <M-e>=\<Esc>e"
+  exe "set <M-w>=\<Esc>w"
+  exe "set <M-x>=\<Esc>x"
+
+  exe "set <M-o>=\<Esc>o"
+  exe "set <M-O>=\<Esc>O"
+  exe "set <M-u>=\<Esc>u"
+endif
 " --- Keymaps }}}
 
-source ~/.nvim/base/misc.vim
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/misc.vim'
 
 " vim:fdm=marker:ts=2:sw=2

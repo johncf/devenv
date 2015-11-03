@@ -10,17 +10,20 @@ function _unlink {
     [ -L "$1" ] && rm "$1" && echo "Removed symlink $1" || echo "Not a symlink; ignoring $1"
 }
 
+_unlink $HOME/.config/nvim/autoload
+_unlink $HOME/.config/nvim/base
+_unlink $HOME/.config/nvim/colors
+_unlink $HOME/.config/nvim/init.vim
+_unlink $HOME/.vimrc
+_unlink $HOME/.vim
+
+exit
+
 _unlink $HOME/.zshrc
 _unlink $HOME/.zsh
 _unlink $HOME/.gitconfig
 _unlink $HOME/.tmux.conf
 _unlink $HOME/.local/bin/tmux-preswitch.sh
-
-_unlink $HOME/.nvim/colors
-_unlink $HOME/.nvim/plugin
-_unlink $HOME/.nvim/nvimrc
-_unlink $HOME/.vimrc
-_unlink $HOME/.vim
 
 _unlink $HOME/.config/pystartup
 
