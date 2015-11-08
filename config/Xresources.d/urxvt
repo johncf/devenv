@@ -1,9 +1,7 @@
 ! appearance
-URxvt*font:            xft:MonacoB:size=9.7,xft:Inconsolata for Powerline:size=11.4
+URxvt*font:            xft:MonacoB:size=9.7
 ! # Fonts installation (requires package libotf): {{{
 ! mkdir -p ~/.local/share/fonts
-! curl -fLo ~/.local/share/fonts/Inconsolata\ for\ Powerline.otf \
-!   https://raw.githubusercontent.com/powerline/fonts/master/Inconsolata/Inconsolata%20for%20Powerline.otf
 ! curl -fLo ~/.local/share/fonts/MonacoB.otf \
 !   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
 ! curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \

@@ -1,7 +1,9 @@
-map w <Plug>(smartword-w)
-map b <Plug>(smartword-b)
-map e <Plug>(smartword-e)
-map ge <Plug>(smartword-ge)
+if stridx(&rtp, 'smartword') > 0
+  map w <Plug>(smartword-w)
+  map b <Plug>(smartword-b)
+  map e <Plug>(smartword-e)
+  map ge <Plug>(smartword-ge)
+endif
 
 " URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
 call u_transform#map('string_encode', '[y')

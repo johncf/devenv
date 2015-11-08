@@ -37,7 +37,7 @@ tnoremap zj <C-\><C-n>
 " Make ZQ redoable!
 nnoremap ZQ :call critiqjo#redoable_zq()<CR>
 
-"nmap <M-b> <Plug>LLBreakSwitch
+nmap <M-b> <Plug>LLBreakSwitch
 
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>

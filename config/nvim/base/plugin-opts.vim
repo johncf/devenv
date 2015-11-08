@@ -1,11 +1,24 @@
-if $TERM != 'linux'
-  let g:airline_powerline_fonts = 1
-endif
+" --- Airline options {{{
+let g:airline_left_sep = '▌'
+let g:airline_left_alt_sep = '│'
+let g:airline_right_sep = '▐'
+let g:airline_right_alt_sep = '│'
+let g:airline#extensions#tabline#left_alt_sep = '│'
+let g:airline#extensions#tabline#right_alt_sep = '│'
+let g:airline_symbols = {
+  \ 'branch': '┣',
+  \ 'readonly': 'я',
+  \ 'linenr': 'L',
+  \ 'modified': '+',
+  \ 'paste': 'P',
+  \ 'whitespace': 'Ξ'
+  \ }
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
 let g:airline#extensions#wordcount#enabled = 0
 let g:airline_theme = 'bubblegum'
 "alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
+" --- Airline options }}}
 
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 

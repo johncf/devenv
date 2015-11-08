@@ -51,7 +51,8 @@ _symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
 
 _symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
 
-plug=$(sed -n '/^" # vim-plug.*{{{$/,/^" # }}}/p' $SCR_DIR/config/nvim/base/plugs.vim | cut -c 3-)
+plug='curl -fLo '$HOME'/.config/nvim/autoload/plug.vim \
+      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo -e "\n$plug\n"
 bash <<<"$plug"
 echo
@@ -60,8 +61,10 @@ if [ "$1" != "--no-x" ]; then
     mkdir -p $HOME/.local/share/applications
     mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
     echo "Directories ~/.local/share/... for nvim.desktop and nvim.svg"
-    _symlink $SCR_DIR/local/share/applications/nvim.desktop $HOME/.local/share/applications/nvim.desktop
-    _symlink $SCR_DIR/local/share/icons/hicolor/scalable/apps/nvim.svg $HOME/.local/share/icons/hicolor/scalable/apps/nvim.svg
+    _symlink $SCR_DIR/local/share/applications/nvim.desktop \
+        $HOME/.local/share/applications/nvim.desktop
+    _symlink $SCR_DIR/local/share/icons/hicolor/scalable/apps/nvim.svg \
+        $HOME/.local/share/icons/hicolor/scalable/apps/nvim.svg
 
     _symlink $SCR_DIR/config/Xresources.d $HOME/.config/Xresources.d
     if ! [ -e $HOME/.Xresources ]; then

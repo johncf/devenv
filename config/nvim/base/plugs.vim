@@ -1,10 +1,8 @@
-" # vim-plug installation: {{{
-" mkdir -p ~/.nvim/autoload
-" curl -fLo ~/.nvim/autoload/plug.vim \
-"   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-" # }}}
+" Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-Plug 'bling/vim-airline'
+if $TERM != 'linux' || has("gui_running")
+  Plug 'bling/vim-airline'
+endif
 
 Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'

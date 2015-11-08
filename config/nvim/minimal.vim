@@ -39,7 +39,7 @@ set hi=512 udf ul=256 ur=2048
 let g:viewdoc_openempty = 0
 
 " --- Keymaps {{{
-if get(g:, 'loaded_smartword')
+if stridx(&rtp, 'smartword') > 0
   map w <Plug>(smartword-w)
   map b <Plug>(smartword-b)
   map e <Plug>(smartword-e)
