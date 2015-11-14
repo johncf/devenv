@@ -4,29 +4,33 @@ if $TERM != 'linux' || has("gui_running")
   Plug 'bling/vim-airline'
 endif
 
+" Colorschemes
 Plug 'romainl/Apprentice'
 Plug 'morhetz/gruvbox'
 
-Plug 'kana/vim-textobj-user'
-Plug 'kana/vim-smartword'
+" Text formatting
 Plug 'beloglazov/vim-textobj-quotes'
+Plug 'cohama/lexima.vim'
 Plug 'godlygeek/tabular'
-Plug 'tpope/vim-fugitive'
+Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 Plug 'tpope/vim-repeat' "tpope plugin repeat
+
+" Navigation
+Plug 'critiqjo/gtags.vim'
+Plug 'critiqjo/vsearch.vim'
+Plug 'kana/vim-smartword'
 Plug 'unblevable/quick-scope'
 
-Plug 'Shougo/unite.vim'
-Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
-
-Plug 'powerman/vim-plugin-viewdoc'
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
-
+" Filetype-specific
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
-Plug 'critiqjo/gtags.vim'
+" Misc
 Plug 'critiqjo/unite-fasd.vim'
-Plug 'critiqjo/vim-autoclose'
-Plug 'critiqjo/vsearch.vim'
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'powerman/vim-plugin-viewdoc'
+Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-fugitive'
