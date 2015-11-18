@@ -88,24 +88,3 @@ function! critiqjo#unite_dir()
     exe 'Unite -start-insert file_rec/' . rec_type . ':' . escape(path, ' ')
   endif
 endfun
-
-" original src: https://github.com/vim-utils/vim-husk/
-function! critiqjo#abstract_right(command)
-  let line = getcmdline()
-  let pos = getcmdpos()
-  let next = match(line, '\<\w\|$', pos, 1) + 1
-  return repeat(a:command, next - pos)
-endfunction
-function! critiqjo#abstract_left(command)
-  let line = getcmdline()
-  let pos = getcmdpos()
-  let i = 0
-  let next = 1
-  let nextnext = 1
-  while nextnext < pos
-    let next = nextnext
-    let nextnext = match(line, '\<\w\|^\|$', 0, i) + 1
-    let i += 1
-  endwhile
-  return repeat(a:command, pos - next)
-endfunction

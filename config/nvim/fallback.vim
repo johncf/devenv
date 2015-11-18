@@ -53,20 +53,15 @@ endif
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
 
 if !has('gui_running')
-  exe "set <M-h>=\<Esc>h"
-  exe "set <M-j>=\<Esc>j"
-  exe "set <M-k>=\<Esc>k"
-  exe "set <M-l>=\<Esc>l"
+  imap <Esc>h <M-h>
+  imap <Esc>j <M-j>
+  imap <Esc>k <M-k>
+  imap <Esc>l <M-l>
 
-  exe "set <M-b>=\<Esc>b"
-  exe "set <M-d>=\<Esc>d"
-  exe "set <M-e>=\<Esc>e"
-  exe "set <M-w>=\<Esc>w"
-  exe "set <M-x>=\<Esc>x"
+  imap <Esc>o <M-o>
+  imap <Esc>O <M-O>
 
-  exe "set <M-o>=\<Esc>o"
-  exe "set <M-O>=\<Esc>O"
-  exe "set <M-u>=\<Esc>u"
+  inoremap <nowait> <Esc> <Esc>
 endif
 " --- Keymaps }}}
 

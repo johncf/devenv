@@ -28,6 +28,7 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'zaiste/tmux.vim'
 
 " Misc
+Plug 'critiqjo/husk-plus.vim'
 Plug 'critiqjo/unite-fasd.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'powerman/vim-plugin-viewdoc'
