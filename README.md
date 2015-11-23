@@ -1,33 +1,31 @@
 # critiq.scripts
 Here's a collection of scripts and configuration files that I use.
 
-## My system overview
+## Favorites
 * **Operating System**: [Arch Linux](https://wiki.archlinux.org/index.php/The_Arch_Way)
-* **Window Manager**: [i3](https://i3wm.org) + X
-* **Terminal Emulator**: [urxvt](https://wiki.archlinux.org/index.php/Rxvt-unicode)
-* **Text editor**: [neovim](http://neovim.org/)
-* **Shell**: zsh, bash
-* **File system**: [btrfs](https://btrfs.wiki.kernel.org/index.php/UseCases)
+* **Window Manager**: [i3](https://i3wm.org)
+* **Terminal Emulator**: [rxvt-unicode](https://wiki.archlinux.org/index.php/Rxvt-unicode)
+* **Text editor**: [Neovim](http://neovim.org/)
+* **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh)
+* **File system**: [Btrfs](https://btrfs.wiki.kernel.org/index.php/UseCases)
 
-## Repo directories
-* **AUR**: custom PKGBUILDs that I use
-* **config**: `$HOME/.config` files
-* **local**: `$HOME/.local` files
-  * **bin**: tiny scripts that make my life easier
-* **nvim**: neovim configuration files
-  * **plugin**: short scripts, mostly borrowed from various sources (see respective files).
-  * **colors/desertEx-v2.vim**: Modified version of [desertEx.vim](https://github.com/mbbill/desertEx) colorscheme.
-* **zsh**: zsh config files, contains code borrowed from:
-  * [spicycode](https://github.com/spicycode/ze-best-zsh-config/blob/master/.zsh) for the base config
-  * [anishathalye](https://github.com/anishathalye/dotfiles/blob/master/zsh) for asynchronously updating prompt with git info
-  * [fasd](https://github.com/clvv/fasd)
+## Major files and directories
+* **config**: `~/.config` files
+  * **nvim**: neovim configuration files
+    * **autoload**: short scripts, mostly stolen from various sources (see respective files).
+    * **colors/desertEx-v2.vim**: Modified version of [desertEx.vim](https://github.com/mbbill/desertEx) colorscheme.
+  * **pystartup**: for autocompletion and persistent history in python REPL.
+* **local/bin**: tiny scripts that make my life easier
+* **zsh**: zsh config files, contains stolen code from various sources (see respective files):
+  * **prompt.zsh**: for asynchronously updating prompt with git info ([stolen from](https://github.com/anishathalye/dotfiles/blob/master/zsh/prompt.zsh))
+  * [fasd](https://github.com/clvv/fasd): for fast directory switching, and [vim integration](https://github.com/critiqjo/unite-fasd.vim)
 
 ## Installation and removal
-Just run `install.sh` to create relevant directories and links... `--no-x` option skips downloading fonts and does not install Xdefaults stuff.
-Run `uninstall.sh` to remove all links created by `install.sh` (removes only if it is a symbolic link).
+Just run `install.sh` to create relevant directories and links... By default, configures only (Neo)vim. See `install.sh --help`.
+Run `uninstall.sh` to remove all (and only) symbolic links created by `install.sh`.
 
 ## My filesystem layout
-There is only a single "Linux" partition which is formatted with btrfs. This contains the following subvolumes and the corresponding mount points:
+There is a single "Linux" partition which is btrfs formatted; containing the following subvolumes:
 ```
 Subvolume       Mount point         Description
 <0>              --                 The root subvolume of a btrfs partition
@@ -43,5 +41,15 @@ Subvolume       Mount point         Description
 ```
 
 ## License
-Many files in this repo were originally written by various authors, whose names are provided in those respective files.
-The rest of the files, authored by me, are released under [MIT License](http://opensource.org/licenses/MIT).
+Many files in this repo were originally written by various authors including:
+
+* [anishathalye](https://github.com/anishathalye/dotfiles/blob/master/zsh)
+* [Doug Black](http://dougblack.io/words/zsh-vi-mode.html)
+* [mattjj](https://github.com/mattjj/my-oh-my-zsh)
+* [mbbill](https://github.com/mbbill)
+* [nelstrom](http://stackoverflow.com/a/3180886/2849934)
+* [spicycode](https://github.com/spicycode/ze-best-zsh-config/blob/master/.zsh)
+* [sykora](http://github.com/sykora/etc/blob/master/zsh/functions/spectrum)
+* [tpope](https://github.com/tpope/vim-unimpaired)
+
+The rest (authored by me) are released under [MIT License](http://opensource.org/licenses/MIT).
