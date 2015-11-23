@@ -1,17 +1,23 @@
 set nocompatible
 
+let rtp0_dir = split(&rtp, ',')[0] . '/'
 let cache_dir = $HOME . '/.cache/nvim/'
 
 " --- Plug Scripts {{{
-" Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(rtp0_dir . 'autoload/plug.vim'))
+  exe 'silent !curl -fLo ' . rtp0_dir . 'autoload/plug.vim --create-dirs ' .
+      \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin(cache_dir . 'plugged')
-Plug 'morhetz/gruvbox'
+Plug 'cohama/lexima.vim'
+Plug 'critiqjo/husk-plus.vim'
 Plug 'kana/vim-smartword'
-Plug 'tpope/vim-fugitive'
+Plug 'morhetz/gruvbox'
+Plug 'powerman/vim-plugin-viewdoc'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'powerman/vim-plugin-viewdoc'
-Plug 'critiqjo/vim-autoclose'
 call plug#end()
 " --- }}}
 
@@ -56,14 +62,11 @@ inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
 inoremap <C-u> <C-g>u<C-u>
 inoremap <CR> <C-g>u<CR>
-noremap! <M-h> <Left>
-noremap! <M-j> <Down>
-noremap! <M-k> <Up>
-noremap! <M-l> <Right>
-noremap! <M-x> <Del>
-cnoremap <C-a> <Home>
-cnoremap <M-b> <S-Left>
-cnoremap <M-e> <S-Right>
+inoremap <M-h> <Left>
+inoremap <M-j> <Down>
+inoremap <M-k> <Up>
+inoremap <M-l> <Right>
+inoremap <M-x> <Del>
 
 let mapleader = "\<Space>"
 vnoremap <leader>y "+y
@@ -81,7 +84,7 @@ nnoremap <leader>w :update<CR>
 
 " --- Misc {{{
 filetype plugin indent on
-colorscheme gruvbox
+silent! colorscheme gruvbox
 syntax enable
 
 augroup critiq_au

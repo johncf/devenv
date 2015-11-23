@@ -2,31 +2,53 @@
 
 set -e
 
+SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+
 function _symlink {
-    if [ "$#" != 2 ]; then
+    if [ "$#" == 1 ]; then
+        src="$SCR_DIR/$1"
+        link="$HOME/.$1"
+    elif [ "$#" == 2 ]; then
+        src="$1"
+        link="$2"
+    else
         echo "Bad call to _symlink"
-        echo "Expected exactly 2 arguments, got $#"
+        echo "Expected 1 or 2 arguments, got $#"
         echo "Exiting..."
         exit
     fi
-    [ -e "$2" ] && echo "Path exists; ignoring $2" || (ln -s "$1" "$2" && echo "Linked $2")
+    [ -e "$link" ] && echo "Path exists; ignoring $link" || \
+        (ln -s "$src" "$link" && echo "Linked $link")
 }
 
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./install.sh [--no-x | --help]"
-    echo "  --no-x   Ignore X related configurations"
-    echo "           Note: Skips fonts download and firefox config too."
+    echo "Usage: ./install.sh [--help | --full [--no-x]]"
+    echo "           Without options, install vim configuration files alone."
+    echo "  --full   Full installation"
+    echo "  --no-x   Skip X-related configurations"
+    echo "           ... including fonts, firefox config, etc."
     echo "  --help   Display this message"
     exit
 fi
 
-SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-
 mkdir -p $HOME/.config/nvim
 echo "Directory ~/.config/nvim"
 
-mkdir -p $HOME/.cache/nvim/{swps,undos,spell}
-echo "Directory ~/.cache/nvim/{swps,undos,spell}"
+mkdir -p $HOME/.cache/nvim/{swps,undos}
+echo "Directory ~/.cache/nvim/{swps,undos}"
+
+_symlink config/nvim/base
+_symlink config/nvim/colors
+_symlink config/nvim/autoload
+_symlink config/nvim/init.vim
+_symlink "$SCR_DIR/config/nvim/fallback.vim" $HOME/.vimrc
+_symlink $HOME/.config/nvim $HOME/.vim
+
+vim -u $SCR_DIR/config/nvim/minimal.vim # download vim-plug + plugins
+if [ "$1" != "--full" ]; then
+    echo $'\n# Skipping zsh, git, tmux, python, and X-related configs!'
+    exit
+fi
 
 mkdir -p $HOME/.cache/zsh
 echo "Directory ~/.cache/zsh"
@@ -34,55 +56,51 @@ echo "Directory ~/.cache/zsh"
 mkdir -p $HOME/.local/bin
 echo "Directory ~/.local/bin"
 
-_symlink $SCR_DIR/config/nvim/base $HOME/.config/nvim/base
-_symlink $SCR_DIR/config/nvim/colors $HOME/.config/nvim/colors
-_symlink $SCR_DIR/config/nvim/autoload $HOME/.config/nvim/autoload
-_symlink $SCR_DIR/config/nvim/init.vim $HOME/.config/nvim/init.vim
-_symlink $SCR_DIR/config/nvim/fallback.vim $HOME/.vimrc
-_symlink $HOME/.config/nvim $HOME/.vim
+_symlink zshrc
+_symlink zsh
+_symlink gitconfig
+_symlink tmux.conf
+_symlink local/bin/tmux-preswitch.sh
 
-exit # comment this out!
+_symlink config/pystartup
 
-_symlink $SCR_DIR/zshrc $HOME/.zshrc
-_symlink $SCR_DIR/zsh $HOME/.zsh
-_symlink $SCR_DIR/gitconfig $HOME/.gitconfig
-_symlink $SCR_DIR/tmux.conf $HOME/.tmux.conf
-_symlink $SCR_DIR/local/bin/tmux-preswitch.sh $HOME/.local/bin/tmux-preswitch.sh
+if [ "$2" == "--no-x" ]; then
+    echo $'\n# Skipping X-related configs!'
+    exit
+fi
 
-_symlink $SCR_DIR/config/pystartup $HOME/.config/pystartup
+# ~/.Xresources
+if ! [ -e $HOME/.Xresources ]; then
+    sed "s:\${HOME}:$HOME:" "$SCR_DIR/Xresources" > $HOME/.Xresources
+    echo "Created ~/.Xresources"
+else
+    echo "Path exists; ignoring ~/.Xresources"
+fi
+_symlink config/Xresources.d
 
-plug='curl -fLo '$HOME'/.config/nvim/autoload/plug.vim \
-      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-echo -e "\n$plug\n"
-bash <<<"$plug"
+# Fonts (requires package libotf)
+mkdir -p ~/.local/share/fonts
+echo "Directory ~/.local/share/fonts"
+curl -fLo ~/.local/share/fonts/MonacoB.otf \
+  https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
+curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
+  https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
+fc-cache -vf
 echo
 
-if [ "$1" != "--no-x" ]; then
-    mkdir -p $HOME/.local/share/applications
-    mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
-    echo "Directories ~/.local/share/... for nvim.desktop and nvim.svg"
-    _symlink $SCR_DIR/local/share/applications/nvim.desktop \
-        $HOME/.local/share/applications/nvim.desktop
-    _symlink $SCR_DIR/local/share/icons/hicolor/scalable/apps/nvim.svg \
-        $HOME/.local/share/icons/hicolor/scalable/apps/nvim.svg
+mkdir -p $HOME/.local/share/applications
+mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
+echo "Directories ~/.local/share/... for nvim.desktop and nvim.svg"
 
-    _symlink $SCR_DIR/config/Xresources.d $HOME/.config/Xresources.d
-    if ! [ -e $HOME/.Xresources ]; then
-        sed "s:\${HOME}:$HOME:" $SCR_DIR/Xresources > $HOME/.Xresources
-        echo "Created $HOME/.Xresources"
-    else
-        echo "Path exists; ignoring $HOME/.Xresources"
-    fi
+_symlink local/share/applications/nvim.desktop
+_symlink local/share/icons/hicolor/scalable/apps/nvim.svg
 
-    font=$(sed -n '/^! # Fonts.*{{{$/,/^! # }}}/p' $SCR_DIR/config/Xresources.d/urxvt | cut -c 3-)
-    echo -e "\n$font\n"
-    bash <<<"$font"
-    echo
+ffpath=`echo $HOME/.mozilla/firefox/*.default`
+mkdir -p $ffpath/chrome
+echo "Directory $ffpath/chrome"
+_symlink "$SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css" \
+    $ffpath/chrome/userChrome.css
 
-    ffpath=`echo $HOME/.mozilla/firefox/*.default`
-    mkdir -p $ffpath/chrome
-    echo "Directory $ffpath/chrome"
-    _symlink $SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css $ffpath/chrome/userChrome.css
-fi
+_symlink config/i3
 
 echo $'\n# Completed!'

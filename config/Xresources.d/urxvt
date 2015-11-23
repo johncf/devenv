@@ -1,13 +1,5 @@
 ! appearance
 URxvt*font:            xft:MonacoB:size=9.7
-! # Fonts installation (requires package libotf): {{{
-! mkdir -p ~/.local/share/fonts
-! curl -fLo ~/.local/share/fonts/MonacoB.otf \
-!   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
-! curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
-!   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
-! fc-cache -vf
-! # }}}
 URxvt.depth:           32
 URxvt.scrollBar:       false
 
