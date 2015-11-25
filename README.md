@@ -24,6 +24,10 @@ Here's a collection of scripts and configuration files that I use.
 Just run `install.sh` to create relevant directories and links... By default, configures only (Neo)vim. See `install.sh --help`.
 Run `uninstall.sh` to remove all (and only) symbolic links created by `install.sh`.
 
+## Screenshot
+
+![screenshot](https://cloud.githubusercontent.com/assets/1436441/11402385/a2c0e8c6-93bd-11e5-9956-36b417c424c9.png)
+
 ## My filesystem layout
 There is a single "Linux" partition which is btrfs formatted; containing the following subvolumes:
 ```
