@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [ "$1" == "--help" ]; then
+    echo "Usage: ./uninstall.sh [--help | --full]"
+    echo "           Without options, uninstall vim configuration files alone."
+    echo "  --full   Full uninstallation"
+    echo "  --help   Display this message"
+    exit
+fi
+
 function _unlink {
     if [ "$#" != 1 ]; then
         echo "Bad call to _unlink"
@@ -7,17 +15,22 @@ function _unlink {
         echo "Exiting..."
         exit
     fi
-    [ -L "$1" ] && rm "$1" && echo "Removed symlink $1" || echo "Not a symlink; ignoring $1"
+    [ ! -e "$1" ] && echo "Does not exist; ignoring $1" && return 0
+    [ ! -L "$1" ] && echo "Not a symlink; ignoring $1" && return 0
+    rm "$1" && echo "Removed symlink $1"
 }
 
-_unlink $HOME/.config/nvim/autoload
 _unlink $HOME/.config/nvim/base
 _unlink $HOME/.config/nvim/colors
+_unlink $HOME/.config/nvim/autoload
 _unlink $HOME/.config/nvim/init.vim
 _unlink $HOME/.vimrc
 _unlink $HOME/.vim
 
-exit
+if [ "$1" != "--full" ]; then
+    echo $'\n# Skipping zsh, git, tmux, python, and X-related configs!'
+    exit
+fi
 
 _unlink $HOME/.zshrc
 _unlink $HOME/.zsh

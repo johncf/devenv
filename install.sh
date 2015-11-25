@@ -4,6 +4,16 @@ set -e
 
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
+if [ "$1" == "--help" ]; then
+    echo "Usage: ./install.sh [--help | --full [--no-x]]"
+    echo "           Without options, install vim configuration files alone."
+    echo "  --full   Full installation"
+    echo "  --no-x   Skip X-related configurations"
+    echo "           ... including fonts, firefox config, etc."
+    echo "  --help   Display this message"
+    exit
+fi
+
 function _symlink {
     if [ "$#" == 1 ]; then
         src="$SCR_DIR/$1"
@@ -20,16 +30,6 @@ function _symlink {
     [ -e "$link" ] && echo "Path exists; ignoring $link" || \
         (ln -s "$src" "$link" && echo "Linked $link")
 }
-
-if [ "$1" == "--help" ]; then
-    echo "Usage: ./install.sh [--help | --full [--no-x]]"
-    echo "           Without options, install vim configuration files alone."
-    echo "  --full   Full installation"
-    echo "  --no-x   Skip X-related configurations"
-    echo "           ... including fonts, firefox config, etc."
-    echo "  --help   Display this message"
-    exit
-fi
 
 mkdir -p $HOME/.config/nvim
 echo "Directory ~/.config/nvim"
