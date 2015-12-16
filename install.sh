@@ -77,6 +77,7 @@ else
     echo "Path exists; ignoring ~/.Xresources"
 fi
 _symlink config/Xresources.d
+_symlink config/Xmodmap
 
 # Fonts (requires package libotf)
 mkdir -p ~/.local/share/fonts
@@ -85,6 +86,8 @@ curl -fLo ~/.local/share/fonts/MonacoB.otf \
   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
 curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
   https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
+curl -fLo ~/.local/share/fonts/FontAwesome.otf \
+  https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/fonts/FontAwesome.otf
 fc-cache -vf
 echo
 

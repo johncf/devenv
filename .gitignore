@@ -1,0 +1,2 @@
+config/nvim/autoload/plug.vim
+*.zwc
