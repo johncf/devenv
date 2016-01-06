@@ -13,7 +13,7 @@ function! critiqjo#buf_close()
     echohl WarningMsg | echom "No write since last change!" | echohl None
     return
   endif
-  if len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1
+  if getcmdwintype() != '' || len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) <= 1
     q!
   else
     bd!

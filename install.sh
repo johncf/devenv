@@ -34,8 +34,8 @@ function _symlink {
 mkdir -p $HOME/.config/nvim
 echo "Directory ~/.config/nvim"
 
-mkdir -p $HOME/.cache/nvim/{swps,undos}
-echo "Directory ~/.cache/nvim/{swps,undos}"
+mkdir -p $HOME/.cache/nvim/{swps,undos,logs}
+echo "Directory ~/.cache/nvim/{swps,undos,logs}"
 
 _symlink config/nvim/base
 _symlink config/nvim/colors

@@ -9,7 +9,7 @@ export EDITOR='nvim'
 export PATH=$PATH:${HOME}/.local/bin
 export PYTHONSTARTUP=${HOME}/.config/pystartup
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-export NVIM_PYTHON_LOG_FILE=${HOME}/.cache/nvlogs/py
+export NVIM_PYTHON_LOG_FILE=${HOME}/.cache/nvim/logs/py
 export RUST_BACKTRACE=1
 
 # shell-local
