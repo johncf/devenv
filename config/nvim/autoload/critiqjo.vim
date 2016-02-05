@@ -76,15 +76,3 @@ function! critiqjo#only_visible()
   endfor
   echon "Deleted " . l:tally . " buffers"
 endfun
-
-function! critiqjo#unite_dir()
-  let path = input('Path: ', expand('%:h'), 'dir')
-  if len(path)
-    if has('nvim')
-      let rec_type = 'neovim'
-    else
-      let rec_type = 'async'
-    endif
-    exe 'Unite -start-insert file_rec/' . rec_type . ':' . escape(path, ' ')
-  endif
-endfun

@@ -5,8 +5,9 @@ if $TERM != 'linux' || has("gui_running")
 endif
 
 " Colorschemes
-Plug 'romainl/Apprentice'
+Plug 'AlessandroYorba/Alduin'
 Plug 'morhetz/gruvbox'
+Plug 'romainl/Apprentice'
 
 " Text formatting
 Plug 'beloglazov/vim-textobj-quotes'
@@ -31,6 +32,7 @@ Plug 'zaiste/tmux.vim'
 Plug 'critiqjo/husk-plus.vim'
 Plug 'critiqjo/unite-fasd.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'onur/vim-motivate'
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
 Plug 'Shougo/unite.vim'

@@ -53,10 +53,6 @@ nnoremap <leader>Y "+y$
 nnoremap <leader>p "+p
 nnoremap <leader>P "+P
 
-nnoremap <leader>/ :Unite line:buffers -start-insert<CR>
-nnoremap <leader>ib :Unite -quick-match -vertical -winwidth=60 buffer<CR>
-nnoremap <leader>id :call critiqjo#unite_dir()<CR>
-
 nnoremap <leader>cd :cd %:h<CR>
 nnoremap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>

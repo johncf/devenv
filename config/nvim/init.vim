@@ -16,6 +16,11 @@ Plug 'critiqjo/lldb.nvim'
 call plug#end()
 " --- Plug Scripts }}}
 
+if get(g:, 'critiqjo#loaded', 0) == 1
+  finish
+endif
+let g:critiqjo#loaded = 1
+
 " --- Global Options {{{
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/options.vim'
 

@@ -3,6 +3,8 @@
     name = critiqjo
 [url "https://"]
     insteadOf = git://
+[url "git@github.com:"]
+    pushInsteadOf = https://github.com/
 [push]
     default = simple
 [alias]

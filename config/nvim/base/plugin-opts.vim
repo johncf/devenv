@@ -1,3 +1,5 @@
+let g:alduin_Shout_Windhelm = 1
+
 " --- Airline options {{{
 let g:airline_left_sep = '▌'
 let g:airline_left_alt_sep = '│'
