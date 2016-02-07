@@ -1,28 +1,109 @@
 let g:alduin_Shout_Windhelm = 1
 
-" --- Airline options {{{
-let g:airline_left_sep = '▌'
-let g:airline_left_alt_sep = '│'
-let g:airline_right_sep = '▐'
-let g:airline_right_alt_sep = '│'
-let g:airline#extensions#tabline#left_sep = '▌'
-let g:airline#extensions#tabline#right_sep = '▐'
-let g:airline#extensions#tabline#left_alt_sep = '│'
-let g:airline#extensions#tabline#right_alt_sep = '│'
-let g:airline_symbols = {
-  \ 'branch': '┣',
-  \ 'readonly': 'я',
-  \ 'linenr': 'L',
-  \ 'modified': '+',
-  \ 'paste': 'P',
-  \ 'whitespace': 'Ξ'
-  \ }
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline_theme = 'bubblegum'
-"alttheme: 'powerlineish' "hi VertSplit ctermfg=233 ctermbg=233 cterm=NONE
-" --- Airline options }}}
+let g:bufferline_active_buffer_left = ''
+let g:bufferline_active_buffer_right = ''
+let g:bufferline_show_bufnr = 0
+let g:bufferline_echo = 0
+let g:bufferline_rotate = 1
+let g:bufferline_fixed_index = 0
+
+" --- Lightline options {{{
+let g:lightline = {
+    \   'colorscheme': 'jellybeans',
+    \   'active': {
+    \     'left': [
+    \       ['mode', 'paste'],
+    \       ['fugitive'],
+    \       ['bufferline']
+    \     ],
+    \     'right': [
+    \       ['percent', 'lineinfo'],
+    \       ['filetype'],
+    \       ['fileencoding', 'fileformat']
+    \     ]
+    \   },
+    \   'component': {
+    \     'bufferline': '%{bufferline#refresh_status()}'.
+    \                   '%#TabLineSel# %{g:bufferline_status_info.current}'.
+    \                   '%#LightLineLeft_active_2# %{MyBufferlineAfter()}',
+    \     'paste': '%{&paste?"!":""}'
+    \   },
+    \   'component_function': {
+    \     'fileformat'  : 'MyFileformat',
+    \     'filetype'    : 'MyFiletype',
+    \     'fileencoding': 'MyFileencoding',
+    \     'fugitive'    : 'MyFugitive'
+    \   },
+    \   'subseparator': {
+    \     'left': '|', 'right': '|'
+    \   },
+    \   'tab': {
+    \     'active': [ 'shortpath', 'modified' ],
+    \     'inactive': [ 'filename', 'modified' ]
+    \   },
+    \   'tab_component_function': {
+    \     'shortpath': 'MyShortPath'
+    \   }
+    \ }
+
+let g:lightline.enable = {
+    \   'statusline': 1,
+    \   'tabline': 1
+    \ }
+
+let g:lightline.mode_map = {
+    \   'n'      : ' N ',
+    \   'i'      : ' I ',
+    \   'R'      : ' R ',
+    \   'v'      : ' V ',
+    \   'V'      : 'V-L',
+    \   'c'      : ' C ',
+    \   "\<C-v>" : 'V-B',
+    \   's'      : ' S ',
+    \   'S'      : 'S-L',
+    \   "\<C-s>" : 'S-B',
+    \   "t"      : ' T ',
+    \   '?'      : ' ? '
+    \ }
+
+function! MyBufferlineAfter()
+  let clen = len(g:bufferline_status_info.current)
+  let a = g:bufferline_status_info.after
+  let rlen = 36 + len(MyFugitive()) + len(MyFiletype())
+  let rlen += len(MyFileformat()) + len(MyFileencoding())
+  if winwidth('.') > rlen + clen + len(a)
+    return a
+  else
+    let i = winwidth('.') - rlen - clen - 3
+    return i > 0 ? a[0:i] . '...' : '...'
+  endif
+endfunction
+
+function! MyFiletype()
+  return winwidth('.') > 75 ? (strlen(&filetype) ? &filetype : '--') : ''
+endfunction
+
+function! MyFileformat()
+  return winwidth('.') > 100 ? &fileformat : ''
+endfunction
+
+function! MyFileencoding()
+  return winwidth('.') > 100 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! MyFugitive()
+  if exists('*fugitive#head') && winwidth('.') > 75
+    let bmark = '┣ '
+    let branch = fugitive#head()
+    return strlen(branch) ? bmark . branch : ''
+  endif
+  return ''
+endfunction
+
+function! MyShortPath(n)
+  return pathshorten(expand('%:~:.'))
+endfunction
+" --- Lightline options }}}
 
 call lexima#add_rule({'char': "'", 'at': '\(&\|<[^>]*\|^\s*\)\%#', 'filetype': 'rust'})
 

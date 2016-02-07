@@ -1,8 +1,7 @@
 " Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-if $TERM != 'linux' || has("gui_running")
-  Plug 'bling/vim-airline'
-endif
+Plug 'itchyny/lightline.vim'
+Plug 'bling/vim-bufferline'
 
 " Colorschemes
 Plug 'AlessandroYorba/Alduin'
