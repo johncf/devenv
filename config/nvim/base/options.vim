@@ -13,6 +13,7 @@ set ruler " Show line and column numbers
 set scrolloff=1
 set showcmd
 set noshowmode
+set showtabline=2
 set splitright
 
 " -- Usability

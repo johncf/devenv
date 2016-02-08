@@ -6,6 +6,8 @@ let g:bufferline_show_bufnr = 0
 let g:bufferline_echo = 0
 let g:bufferline_rotate = 1
 let g:bufferline_fixed_index = 0
+let g:bufferline_fname_mod = ':~:.'
+let g:bufferline_pathshorten = 1
 
 " --- Lightline options {{{
 let g:lightline = {
@@ -14,18 +16,32 @@ let g:lightline = {
     \     'left': [
     \       ['mode', 'paste'],
     \       ['fugitive'],
-    \       ['bufferline']
+    \       ['bufferinfo'],
     \     ],
     \     'right': [
-    \       ['percent', 'lineinfo'],
+    \       ['colinfo', 'percent'],
     \       ['filetype'],
-    \       ['fileencoding', 'fileformat']
+    \       ['fileformat']
     \     ]
     \   },
+    \   'inactive': {
+    \     'left': [ ['bufferinfo'] ],
+    \     'right': [ ['percent'], ['filetype'] ]
+    \   },
+    \   'tab': {
+    \     'active': ['tabnum'],
+    \     'inactive': ['tabnum']
+    \   },
+    \   'tabline': {
+    \     'left': [ ['tabs'], ['bufferline'] ],
+    \     'right': [ ['fileencoding'] ]
+    \   },
     \   'component': {
+    \     'bufferinfo': '%f %m',
     \     'bufferline': '%{bufferline#refresh_status()}'.
-    \                   '%#TabLineSel# %{g:bufferline_status_info.current}'.
-    \                   '%#LightLineLeft_active_2# %{MyBufferlineAfter()}',
+    \                   '%#TabLineSel# %{g:bufferline_status_info.current} '.
+    \                   '%#LightLineLeft_tabline_tabsel_1#%{MyBufferlineAfter()}',
+    \     'colinfo': ':%c%V',
     \     'paste': '%{&paste?"!":""}'
     \   },
     \   'component_function': {
@@ -36,13 +52,6 @@ let g:lightline = {
     \   },
     \   'subseparator': {
     \     'left': '|', 'right': '|'
-    \   },
-    \   'tab': {
-    \     'active': [ 'shortpath', 'modified' ],
-    \     'inactive': [ 'filename', 'modified' ]
-    \   },
-    \   'tab_component_function': {
-    \     'shortpath': 'MyShortPath'
     \   }
     \ }
 
@@ -68,27 +77,26 @@ let g:lightline.mode_map = {
 
 function! MyBufferlineAfter()
   let clen = len(g:bufferline_status_info.current)
-  let a = g:bufferline_status_info.after
-  let rlen = 36 + len(MyFugitive()) + len(MyFiletype())
-  let rlen += len(MyFileformat()) + len(MyFileencoding())
-  if winwidth('.') > rlen + clen + len(a)
+  let a = ' ' . g:bufferline_status_info.after
+  let rlen = 4*tabpagenr('$') + len(MyFileencoding()) + 8
+  if &columns > rlen + clen + len(a)
     return a
   else
-    let i = winwidth('.') - rlen - clen - 3
+    let i = &columns - rlen - clen - 3
     return i > 0 ? a[0:i] . '...' : '...'
   endif
 endfunction
 
 function! MyFiletype()
-  return winwidth('.') > 75 ? (strlen(&filetype) ? &filetype : '--') : ''
+  return strlen(&filetype) ? &filetype : '--'
 endfunction
 
 function! MyFileformat()
-  return winwidth('.') > 100 ? &fileformat : ''
+  return winwidth('.') > 80 ? &fileformat : ''
 endfunction
 
 function! MyFileencoding()
-  return winwidth('.') > 100 ? (strlen(&fenc) ? &fenc : &enc) : ''
+  return strlen(&fenc) ? &fenc : &enc
 endfunction
 
 function! MyFugitive()
@@ -98,10 +106,6 @@ function! MyFugitive()
     return strlen(branch) ? bmark . branch : ''
   endif
   return ''
-endfunction
-
-function! MyShortPath(n)
-  return pathshorten(expand('%:~:.'))
 endfunction
 " --- Lightline options }}}
 
