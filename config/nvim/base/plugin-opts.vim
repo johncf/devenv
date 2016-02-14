@@ -42,7 +42,7 @@ let g:lightline = {
     \                   '%#TabLineSel# %{g:bufferline_status_info.current} '.
     \                   '%#LightLineLeft_tabline_tabsel_1#%{MyBufferlineAfter()}',
     \     'colinfo': ':%c%V',
-    \     'paste': '%{&paste?"!":""}'
+    \     'paste': '%{&paste?"P":""}'
     \   },
     \   'component_function': {
     \     'fileformat'  : 'MyFileformat',

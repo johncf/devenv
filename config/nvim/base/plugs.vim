@@ -1,7 +1,7 @@
 " Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 Plug 'itchyny/lightline.vim'
-Plug 'bling/vim-bufferline'
+Plug 'critiqjo/vim-bufferline'
 
 " Colorschemes
 Plug 'AlessandroYorba/Alduin'
