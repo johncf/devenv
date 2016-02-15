@@ -3,9 +3,6 @@ let g:alduin_Shout_Windhelm = 1
 let g:bufferline_active_buffer_left = ''
 let g:bufferline_active_buffer_right = ''
 let g:bufferline_show_bufnr = 0
-let g:bufferline_echo = 0
-let g:bufferline_rotate = 1
-let g:bufferline_fixed_index = 0
 let g:bufferline_fname_mod = ':~:.'
 let g:bufferline_pathshorten = 1
 
@@ -38,16 +35,14 @@ let g:lightline = {
     \   },
     \   'component': {
     \     'bufferinfo': '%f %m',
-    \     'bufferline': '%{bufferline#refresh_status()}'.
-    \                   '%#TabLineSel# %{g:bufferline_status_info.current} '.
-    \                   '%#LightLineLeft_tabline_tabsel_1#%{MyBufferlineAfter()}',
+    \     'bufferline': '%{MyBufferlineRefresh()}'.bufferline#get_status_string('TabLineSel', 'LightLineLeft_tabline_tabsel_1'),
     \     'colinfo': ':%c%V',
+    \     'fileencoding': '%{&fenc}',
     \     'paste': '%{&paste?"P":""}'
     \   },
     \   'component_function': {
     \     'fileformat'  : 'MyFileformat',
     \     'filetype'    : 'MyFiletype',
-    \     'fileencoding': 'MyFileencoding',
     \     'fugitive'    : 'MyFugitive'
     \   },
     \   'subseparator': {
@@ -75,16 +70,11 @@ let g:lightline.mode_map = {
     \   '?'      : ' ? '
     \ }
 
-function! MyBufferlineAfter()
-  let clen = len(g:bufferline_status_info.current)
-  let a = ' ' . g:bufferline_status_info.after
-  let rlen = 4*tabpagenr('$') + len(MyFileencoding()) + 8
-  if &columns > rlen + clen + len(a)
-    return a
-  else
-    let i = &columns - rlen - clen - 3
-    return i > 0 ? a[0:i] . '...' : '...'
-  endif
+function! MyBufferlineRefresh()
+  call bufferline#refresh_status()
+  let rlen = 4*tabpagenr('$') + len(&fenc) + 8
+  call bufferline#trim_status_info(&columns - rlen)
+  return ''
 endfunction
 
 function! MyFiletype()
@@ -93,10 +83,6 @@ endfunction
 
 function! MyFileformat()
   return winwidth('.') > 80 ? &fileformat : ''
-endfunction
-
-function! MyFileencoding()
-  return strlen(&fenc) ? &fenc : &enc
 endfunction
 
 function! MyFugitive()

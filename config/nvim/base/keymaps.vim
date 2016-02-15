@@ -60,8 +60,8 @@ nnoremap <leader>f :find<Space><C-d>
 nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
 nnoremap <silent> <leader>hl :nohl<CR>
 nnoremap <leader>m :MouseToggle<CR>
-nnoremap <leader>n :<C-u>b <C-r>=critiqjo#get_ma_buf(v:count, 1)<CR><CR>
-nnoremap <leader>N :<C-u>b <C-r>=critiqjo#get_ma_buf(v:count, -1)<CR><CR>
+nnoremap <leader>n :<C-u>b <C-r>=critiqjo#get_file_buf(v:count, 1)<CR><CR>
+nnoremap <leader>N :<C-u>b <C-r>=critiqjo#get_file_buf(v:count, -1)<CR><CR>
 nnoremap <leader>o :Unite fasd:mru -start-insert<CR>
 nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
 nnoremap <leader>q :call critiqjo#buf_close()<CR>

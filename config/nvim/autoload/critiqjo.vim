@@ -20,9 +20,9 @@ function! critiqjo#buf_close()
   endif
 endfun
 
-" Get the nth modifiable buffer, relative to the current one if direction=±1,
-" or relative to the first modifiable buffer if direction=0
-function! critiqjo#get_ma_buf(n, direction)
+" Get nth file buffer, relative to the current one if direction=±1, or
+" relative to the first file buffer if direction=0
+function! critiqjo#get_file_buf(n, direction)
   let dir = a:direction
   let n = a:n
   let curbufnr = bufnr('%')
@@ -34,16 +34,16 @@ function! critiqjo#get_ma_buf(n, direction)
     let curbufnr = 0
     let dir = 1
   endif
-  if dir == -1
-    let bufrange = [0] + reverse(range(1, endbufnr - 1))
-  else
+  if dir == 1
     let bufrange = range(0, endbufnr - 1)
+  else
+    let bufrange = [0] + reverse(range(1, endbufnr - 1))
   endif
   let total = 0
   let mbufs = []
   for bi in bufrange
     let buf = (curbufnr - 1 + bi)%endbufnr + 1
-    if buflisted(buf) && getbufvar(buf, "&modifiable")
+    if buflisted(buf) && len(getbufvar(buf, "&buftype")) == 0
       if n == len(mbufs)
         return buf
       endif
