@@ -1,5 +1,5 @@
 filetype plugin indent on
-let s:colors_fav = [ 'desertEx-v2', 'alduin', 'gruvbox', 'apprentice', 'desert' ]
+let s:colors_fav = [ 'desertEx-v2', 'alduin', 'sierra', 'apprentice', 'desert' ]
 
 function! s:colors_cycle()
   let color_next = s:colors_fav[s:colors_idx]
@@ -8,14 +8,15 @@ function! s:colors_cycle()
   exe 'colorscheme ' . color_next
 endfun
 
-if $TERM == 'linux'
-  let s:colors_idx = -1
-elseif has("gui_running")
+if has("gui_running")
+  let g:sierra_Twilight = 1
   let s:colors_idx = 2
   set guifont=MonacoB
   set guioptions-=T "toolbar
   set guioptions-=r "scrollbar
   set guioptions-=m "menubar
+elseif $TERM == 'linux'
+  let s:colors_idx = -1
 else
   let s:colors_idx = system('echo $RANDOM') % 2
 endif
@@ -36,7 +37,7 @@ augroup critiq_au
       \ endif
   autocmd WinLeave,InsertEnter * setlocal nocursorline
   autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
-  autocmd VimEnter * let g:unite_fasd#read_only = 0
+  "autocmd VimEnter * let g:unite_fasd#read_only = 0
 augroup END
 " --- Autocommands }}}
 

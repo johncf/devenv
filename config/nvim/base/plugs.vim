@@ -5,12 +5,13 @@ Plug 'critiqjo/vim-bufferline'
 
 " Colorschemes
 Plug 'AlessandroYorba/Alduin'
-Plug 'morhetz/gruvbox'
+Plug 'AlessandroYorba/Sierra'
 Plug 'romainl/Apprentice'
 
 " Text formatting
 Plug 'beloglazov/vim-textobj-quotes'
 Plug 'cohama/lexima.vim'
+"Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
 Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
@@ -24,15 +25,16 @@ Plug 'unblevable/quick-scope'
 
 " Filetype-specific
 Plug 'rust-lang/rust.vim'
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'zaiste/tmux.vim'
+Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+"Plug 'zaiste/tmux.vim'
 
 " Misc
 Plug 'critiqjo/husk-plus.vim'
-Plug 'critiqjo/unite-fasd.vim'
+"Plug 'critiqjo/unite-fasd.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'onur/vim-motivate'
 Plug 'powerman/vim-plugin-viewdoc'
-Plug 'rking/ag.vim' , { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
-Plug 'Shougo/unite.vim'
+Plug 'rking/ag.vim', { 'on': ['Ag', 'AgBuffer', 'AgFile'] } "AgAdd AgFromSearch
+"Plug 'Shougo/unite.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-obsession'
