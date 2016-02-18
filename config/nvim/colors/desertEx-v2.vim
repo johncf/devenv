@@ -1,10 +1,6 @@
 " Vim color file
 " Maintainer:   Mingbai <mbbill AT gmail DOT com>
 
-if &background != 'dark'
-  finish
-endif
-
 hi clear
 if exists("syntax_on")
   syntax reset
@@ -17,7 +13,7 @@ hi Normal       ctermfg=253 ctermbg=234 cterm=NONE
 hi ColorColumn              ctermbg=235
 hi Cursor       ctermfg=16  ctermbg=226 cterm=NONE
 hi CursorLine               ctermbg=237 cterm=NONE
-hi CursorLineNr ctermfg=11  ctermbg=233
+hi CursorLineNr ctermfg=144 ctermbg=233
 hi DiffAdd      ctermfg=107 ctermbg=236 cterm=NONE
 hi DiffChange   ctermfg=251 ctermbg=237 cterm=NONE
 hi DiffDelete   ctermfg=131 ctermbg=236 cterm=NONE
@@ -26,8 +22,7 @@ hi ErrorMsg     ctermfg=231 ctermbg=196 cterm=NONE
 hi FoldColumn   ctermfg=180 ctermbg=239 cterm=NONE
 hi Folded       ctermfg=248 ctermbg=236 cterm=NONE
 hi IncSearch    ctermbg=26  ctermfg=159
-hi LineNr       ctermfg=144 ctermbg=233 cterm=NONE
-  "LineNr       ctermfg=180
+hi LineNr       ctermfg=59  ctermbg=233 cterm=NONE
 hi MatchParen   ctermfg=51              cterm=bold
 hi ModeMsg      ctermfg=117             cterm=NONE
 hi MoreMsg      ctermfg=29              cterm=NONE
@@ -42,7 +37,7 @@ hi StatusLineNC ctermfg=250 ctermbg=241 cterm=NONE
 hi TermCursorNC                         cterm=underline
 hi Title        ctermfg=167             cterm=NONE
 hi VertSplit    ctermfg=238 ctermbg=238 cterm=NONE
-hi Visual       ctermfg=235 ctermbg=215 cterm=NONE
+hi Visual       ctermfg=235 ctermbg=216 cterm=NONE
 hi WarningMsg   ctermfg=210             cterm=NONE
 hi WildMenu     ctermfg=250 ctermbg=235 cterm=NONE
 
@@ -56,7 +51,7 @@ hi Identifier   ctermfg=79              cterm=NONE
 hi Function     ctermfg=117             cterm=NONE
 hi Statement    ctermfg=186             cterm=bold
 hi PreProc      ctermfg=211             cterm=NONE
-hi Type         ctermfg=215             cterm=bold
+hi Type         ctermfg=216             cterm=NONE
 hi Special      ctermfg=122             cterm=NONE
 hi Ignore       ctermfg=241             cterm=NONE
 hi Todo         ctermfg=130 ctermbg=220 cterm=NONE

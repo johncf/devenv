@@ -29,7 +29,7 @@ Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 "Plug 'zaiste/tmux.vim'
 
 " Misc
-Plug 'critiqjo/husk-plus.vim'
+Plug 'critiqjo/husk-x.vim'
 "Plug 'critiqjo/unite-fasd.vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'onur/vim-motivate'
