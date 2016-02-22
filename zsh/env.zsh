@@ -7,6 +7,7 @@ alias saura="sudo aura"
 [ -z "$NVIM_LISTEN_ADDRESS" ] || alias :="${HOME}/.local/bin/nvimex.py"
 
 #export TERM=xterm-256color
+export CARGO_HOME=${HOME}/.cache/cargo
 export EDITOR='nvim'
 export PATH=$PATH:${HOME}/.local/bin
 export PYTHONSTARTUP=${HOME}/.config/pystartup

@@ -1,10 +1,12 @@
 " -- UI
 set background=dark
+"set breakindent
 set diffopt+=vertical
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
 set hidden " Buffers can be hidden keeping its changes
 set laststatus=2
+"set linebreak " word-wrap
 set list
 set listchars=tab:»\ ,trail:·
 set number
