@@ -6,8 +6,6 @@ call plug#begin(g:critiqjo#cache_dir . 'plugged')
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
-Plug 'tpope/vim-obsession'
-
 Plug 'benekastah/neomake'
 Plug 'christoomey/vim-tmux-navigator'
 
