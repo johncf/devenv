@@ -8,7 +8,7 @@ endif
 
 let g:colors_name="desertEx-v2"
 
-hi Normal            ctermfg=253 ctermbg=234 cterm=NONE
+hi Normal           ctermfg=253 ctermbg=234 cterm=NONE
 
 hi ColorColumn                  ctermbg=235
 hi Cursor           ctermfg=16  ctermbg=226 cterm=NONE
@@ -32,7 +32,7 @@ hi PmenuSel         ctermfg=61  ctermbg=250
 hi Question         ctermfg=48              cterm=NONE
 hi Search           ctermfg=252 ctermbg=234 cterm=underline
 hi SpecialKey       ctermfg=240             cterm=NONE
-hi SpecialComment   ctermfg=79            cterm=NONE
+hi SpecialComment   ctermfg=79              cterm=NONE
 hi StatusLine       ctermfg=252 ctermbg=238 cterm=NONE
 hi StatusLineNC     ctermfg=250 ctermbg=241 cterm=NONE
 hi TermCursorNC                             cterm=underline

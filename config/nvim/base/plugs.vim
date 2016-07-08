@@ -11,7 +11,7 @@ Plug 'romainl/Apprentice'
 " Text formatting
 Plug 'beloglazov/vim-textobj-quotes'
 Plug 'cohama/lexima.vim'
-"Plug 'dhruvasagar/vim-table-mode'
+Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
 Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX

@@ -18,7 +18,7 @@ if has("gui_running")
 elseif $TERM == 'linux'
   let s:colors_idx = -1
 else
-  let s:colors_idx = system('echo $RANDOM') % 2
+  let s:colors_idx = 0
 endif
 call s:colors_cycle()
 syntax enable

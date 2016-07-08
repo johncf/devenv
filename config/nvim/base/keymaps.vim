@@ -47,6 +47,7 @@ inoremap <M-l> <Right>
 inoremap <M-x> <Del>
 
 let mapleader = "\<Space>"
+noremap <leader> <Nop>
 vnoremap <leader>y "+y
 nnoremap <leader>y "+y
 nnoremap <leader>Y "+y$

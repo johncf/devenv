@@ -118,6 +118,8 @@ for i in [ 'f', 'F', 't', 'T' ]
 endfor
 " --- Quick-scope options }}}
 
+let g:table_mode_corner = '|'
+
 let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
 
 let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'

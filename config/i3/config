@@ -7,7 +7,6 @@ font pango:DejaVu Sans 7.5
 focus_follows_mouse no
 hide_edge_borders both
 new_window pixel 1
-#workspace "9:IX" output VGA-1
 
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
@@ -17,7 +16,7 @@ bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q sset Master toggle
 bindsym $mod+f exec dbus-launch thunar
 
-bindsym $mod+i exec firefox
+bindsym $mod+i exec chromium
 for_window [class="^Firefox$" instance="^Navigator$"] move container to workspace 2:wot
 # Enable floating mode for all dialogs that Firefox spawns
 for_window [class="^Firefox$" instance="^(?!Navigator)"] floating enable, border normal
@@ -66,9 +65,18 @@ bindsym $mod+Down move down 30px
 bindsym $mod+Up move up 30px
 bindsym $mod+Right move right 100px
 
-# focus another display output
-bindsym $mod+Shift+Left focus output left
-bindsym $mod+Shift+Right focus output right
+### Multiple monitors:
+#
+## List all monitors:
+#     $ xrandr
+## Switch on a monitor:
+#     $ xrandr --output VGA-1 --auto --right-of LVDS-1
+## Turn off laptop monitor:
+#     $ xrandr --output LVDS-1 --off
+
+# move workspaces between monitors
+bindsym $mod+Shift+Left move workspace to output left
+bindsym $mod+Shift+Right move workspace to output right
 
 # change tiling layout (vertical, toggle)
 bindsym $mod+w split v
@@ -133,12 +141,12 @@ set $exit_mod "(l)ock (u)ser switch (E)xit i3 (S)uspend (P)ower off (R)estart"
 bindsym $mod+Shift+e mode $exit_mod
 
 mode $exit_mod {
-	bindsym l exec --no-startup-id "dm-tool lock", mode "default"
-	bindsym u exec --no-startup-id "dm-tool switch-to-greeter", mode "default"
-	bindsym Shift+s exec --no-startup-id "dm-tool switch-to-greeter && systemctl suspend", mode "default"
-	bindsym Shift+e exec i3-msg exit, mode "default"
-	bindsym Shift+p exec systemctl poweroff, mode "default"
-	bindsym Shift+r exec systemctl reboot, mode "default"
+	bindsym l exec --no-startup-id "dm-tool lock"; mode "default"
+	bindsym u exec --no-startup-id "dm-tool switch-to-greeter"; mode "default"
+	bindsym Shift+s exec --no-startup-id "dm-tool switch-to-greeter; systemctl suspend"; mode "default"
+	bindsym Shift+e exec i3-msg exit; mode "default"
+	bindsym Shift+p exec systemctl poweroff; mode "default"
+	bindsym Shift+r exec systemctl reboot; mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
