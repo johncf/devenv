@@ -13,10 +13,6 @@ call u_transform#map('url_decode', ']u')
 call u_transform#map('xml_encode', '[x')
 call u_transform#map('xml_decode', ']x')
 
-" Switch to normal mode
-inoremap zj <Esc>
-vnoremap zj <Esc>
-
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
 nnoremap Y y$

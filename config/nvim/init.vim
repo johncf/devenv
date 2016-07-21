@@ -35,33 +35,18 @@ let g:tmux_navigator_no_mappings = 1
 " --- Keymaps {{{
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
 
-tnoremap zj <C-\><C-n>
-
-" Make ZQ redoable!
-nnoremap ZQ :call critiqjo#redoable_zq()<CR>
-
-nmap <M-b> <Plug>LLBreakSwitch
+" Simplified dvorak keymaps
+set langmap=jk,kj,sl,ls
 
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 
-" --- Meta-keymaps t-mode {{{
-tnoremap <M-b> <Esc>b
-tnoremap <M-d> <Esc>d
-tnoremap <M-f> <Esc>f
-tnoremap <M-F> <Esc>F
-tnoremap <M-h> <Esc>h
-tnoremap <M-j> <Esc>j
-tnoremap <M-k> <Esc>k
-tnoremap <M-l> <Esc>l
-tnoremap <M-n> <Esc>n
-tnoremap <M-p> <Esc>p
-tnoremap <M-u> <Esc>u
-tnoremap <M-w> <Esc>w
-tnoremap <M-x> <Esc>x
-" --- Meta-keymaps }}}
+" Make ZQ redoable!
+nnoremap ZQ :call critiqjo#redoable_zq()<CR>
+
+nmap <M-b> <Plug>LLBreakSwitch
 " --- Keymaps }}}
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/misc.vim'
