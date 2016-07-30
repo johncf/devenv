@@ -1,5 +1,5 @@
-# critiq.scripts
-Here's a collection of scripts and configuration files that I use.
+# devenv
+This is a collection of scripts and config files that make up my development environment.
 
 ## Favorites
 * **Operating System**: [Arch Linux](https://wiki.archlinux.org/index.php/The_Arch_Way)

@@ -26,8 +26,12 @@ syntax enable
 " --- Autocommands {{{
 augroup critiq_au
   autocmd!
+  autocmd BufReadPost *
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
   autocmd BufRead,BufNewFile *.ll set filetype=llvm
-  autocmd FileType netrw nnoremap <buffer> <nowait> q <C-^> | nmap <buffer> <Space> mf
+  autocmd FileType netrw nnoremap <buffer> <nowait> q <C-^>
   autocmd FileType qf nnoremap <buffer> <nowait> q <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|python setlocal ts=2 sw=2
   autocmd FileType man\|help\|pydoc\|info
