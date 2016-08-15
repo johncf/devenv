@@ -3,6 +3,7 @@
 bash ~/.local/bin/rand-wall.sh
 #bash ~/.local/bin/moz-init.sh
 xmodmap ~/.config/Xmodmap
+setxkbmap us -variant colemak
 compton -b --inactive-dim 0.1
 i3-msg "workspace 1:neo; exec urxvtd -o -q -f && sleep 0.5 && urxvtc"
 

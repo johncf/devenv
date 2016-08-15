@@ -6,7 +6,6 @@ call plug#begin(g:critiqjo#cache_dir . 'plugged')
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
-Plug 'benekastah/neomake'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'critiqjo/lldb.nvim'
@@ -34,9 +33,6 @@ let g:tmux_navigator_no_mappings = 1
 
 " --- Keymaps {{{
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
-
-" Simplified dvorak keymaps
-set langmap=jk,kj,sl,ls
 
 nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <M-j> :TmuxNavigateDown<CR>

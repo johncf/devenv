@@ -1,3 +1,6 @@
+" Colemak keymaps
+set langmap=kj,ju,ul,lh,hk
+
 if stridx(&rtp, 'smartword') > 0
   map w <Plug>(smartword-w)
   map b <Plug>(smartword-b)
