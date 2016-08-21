@@ -4,12 +4,6 @@ let rtp0_dir = split(&rtp, ',')[0] . '/'
 let cache_dir = $HOME . '/.cache/nvim/'
 
 " --- Plug Scripts {{{
-if empty(glob(rtp0_dir . 'autoload/plug.vim'))
-  exe 'silent !curl -fLo ' . rtp0_dir . 'autoload/plug.vim --create-dirs ' .
-      \ 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  autocmd VimEnter * PlugInstall
-endif
-
 call plug#begin(cache_dir . 'plugged')
 Plug 'cohama/lexima.vim'
 Plug 'critiqjo/husk-plus.vim'
