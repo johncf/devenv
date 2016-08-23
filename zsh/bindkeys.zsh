@@ -23,9 +23,9 @@ bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
 # Meta+[hjkl]
-bindkey '\eh' backward-char
-bindkey '\ej' history-beginning-search-forward
-bindkey '\ek' history-beginning-search-backward
+bindkey '\ej' backward-char
+bindkey '\ek' history-beginning-search-forward
+bindkey '\eh' history-beginning-search-backward
 bindkey '\el' forward-char
 
 bindkey '^?' backward-delete-char
@@ -38,6 +38,10 @@ bindkey '^P' up-line-or-history
 bindkey '^R' history-incremental-search-backward
 bindkey '^W' backward-kill-word
 
+bindkey -ar 'k'
+bindkey -ar 'h'
+bindkey -a 'j' backward-char
+bindkey -a 'l' forward-char
 bindkey -a 'u' undo
 bindkey -a '^R' redo
 bindkey -a 'gg' beginning-of-buffer-or-history

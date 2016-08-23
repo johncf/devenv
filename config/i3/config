@@ -3,6 +3,10 @@
 set $mod Mod4
 set $mod1 Mod1
 
+# simulate Alt+[arrow key] when pressing AltGr+[arrow key]
+bindsym --release Mod5+Left exec --no-startup-id xdotool key --clearmodifiers "Alt+Left"
+bindsym --release Mod5+Right exec --no-startup-id xdotool key --clearmodifiers "Alt+Right"
+
 font pango:DejaVu Sans 7.5
 focus_follows_mouse no
 hide_edge_borders both
@@ -49,15 +53,15 @@ bindsym $mod1+Shift+q border pixel 2
 bindsym $mod+x exec rofi -show run
 bindsym $mod+m exec --no-startup-id ~/.local/bin/man-prompt.sh
 
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+h focus up
 bindsym $mod+l focus right
 
 # move focused window
-bindsym $mod+Shift+h move left 240 px
-bindsym $mod+Shift+j move down 120 px
-bindsym $mod+Shift+k move up 120 px
+bindsym $mod+Shift+j move left 240 px
+bindsym $mod+Shift+k move down 120 px
+bindsym $mod+Shift+h move up 120 px
 bindsym $mod+Shift+l move right 240 px
 
 bindsym $mod+Left move left 100px
@@ -156,14 +160,14 @@ mode $exit_mod {
 bindsym $mod+r mode "resize-move"
 
 mode "resize-move" {
-	bindsym h resize shrink width 200 px
-	bindsym j resize grow height 160 px
-	bindsym k resize shrink height 160 px
+	bindsym j resize shrink width 200 px
+	bindsym k resize grow height 160 px
+	bindsym h resize shrink height 160 px
 	bindsym l resize grow width 200 px
 
-	bindsym Shift+h move left 20 px
-	bindsym Shift+j move down 10 px
-	bindsym Shift+k move up 10 px
+	bindsym Shift+j move left 20 px
+	bindsym Shift+k move down 10 px
+	bindsym Shift+h move up 10 px
 	bindsym Shift+l move right 20 px
 
 	bindsym Left resize shrink width 80 px

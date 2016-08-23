@@ -78,7 +78,6 @@ else
     echo "Path exists; ignoring ~/.Xresources"
 fi
 _symlink config/Xresources.d
-_symlink config/Xmodmap
 
 # Fonts (requires package libotf)
 mkdir -p ~/.local/share/fonts
