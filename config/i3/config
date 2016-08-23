@@ -1,7 +1,7 @@
 # See http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $mod1 Mod1
+set $mod_alt Mod5
 
 # simulate Alt+[arrow key] when pressing AltGr+[arrow key]
 bindsym --release Mod5+Left exec --no-startup-id xdotool key --clearmodifiers "Alt+Left"
@@ -41,13 +41,11 @@ client.focused_inactive #333333 #333333 #888888 #292d2e
 client.unfocused        #333333 #333333 #888888 #292d2e
 client.urgent           #2f343a #900000 #ffffff #900000
 
-bindsym $mod+Return exec urxvtc -e tmux
-bindsym $mod+Shift+Return exec urxvtc
+bindsym $mod+Return exec urxvtc
+bindsym $mod_alt+Return exec urxvtc
 
 # kill focused window
 bindsym $mod+q kill
-bindsym $mod1+q border normal
-bindsym $mod1+Shift+q border pixel 2
 
 # program launcher
 bindsym $mod+x exec rofi -show run
@@ -138,7 +136,7 @@ bindsym $mod+Shift+8 move container to workspace 8:ate; workspace number 8
 bindsym $mod+Shift+9 move container to workspace 9:IX; workspace number 9
 bindsym $mod+Shift+0 move container to workspace 10:X; workspace number 10
 
-bindsym $mod1+Shift+r reload
+bindsym $mod_alt+Shift+r reload
 bindsym $mod+Shift+r restart
 
 set $exit_mod "(l)ock (u)ser switch (E)xit i3 (S)uspend (P)ower off (R)estart"

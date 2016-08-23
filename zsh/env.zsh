@@ -1,10 +1,10 @@
-alias ls='ls --color'
-alias ll='ls -lAh'
-alias cp="cp --reflink=auto"
-alias calc='noglob calc'
 alias agg="ag -g"
-alias saura="sudo aura"
-[ -z "$NVIM_LISTEN_ADDRESS" ] || alias :="${HOME}/.local/bin/nvimex.py"
+alias calc='noglob calc'
+alias cp="cp --reflink=auto"
+alias ll='ls -lAh'
+alias ls='ls --color'
+alias sura="sudo aura"
+alias tm='tmux'
 
 #export TERM=xterm-256color
 export CARGO_HOME=${HOME}/.cache/cargo
