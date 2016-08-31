@@ -15,7 +15,6 @@ function _unlink {
         echo "Exiting..."
         exit
     fi
-    [ ! -e "$1" ] && echo "Does not exist; ignoring $1" && return 0
     [ ! -L "$1" ] && echo "Not a symlink; ignoring $1" && return 0
     rm "$1" && echo "Removed symlink $1"
 }
