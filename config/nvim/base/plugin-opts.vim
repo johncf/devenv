@@ -120,9 +120,4 @@ endfor
 
 let g:table_mode_corner = '|'
 
-let g:unite_source_rec_async_command = 'ag --nocolor --nogroup -g .'
-
-let g:unite_fasd#fasd_path = '~/.zsh/fasd/fasd'
-let g:unite_fasd#fasd_cache = '~/.cache/fasd'
-
 let g:viewdoc_openempty = 0

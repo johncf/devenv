@@ -8,7 +8,7 @@ exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
 
-Plug 'critiqjo/lldb.nvim'
+"Plug 'critiqjo/lldb.nvim'
 
 call plug#end()
 " --- Plug Scripts }}}
