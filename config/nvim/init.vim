@@ -26,7 +26,9 @@ set mouse=
 " --- Global Options }}}
 
 " --- Plugin Options {{{
-exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
+if get(g:, 'loaded_bufferline') && get(g:, 'loaded_lexima')
+  exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
+endif
 
 let g:tmux_navigator_no_mappings = 1
 " --- Plugin Options }}}

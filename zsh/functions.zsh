@@ -24,8 +24,8 @@ function zsh_recompile {
 }
 
 function extract {
-  echo Extracting $1 ...
-  if [ -f $1 ] ; then
+  if [ -f $1 -a "$#" -eq "1" ] ; then
+    echo Extracting $1 ...
     case $1 in
       *.tar.bz2)   tar xjf $1  ;;
       *.tar.gz)    tar xzf $1  ;;

@@ -3,7 +3,6 @@
 set -e
 
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-cd "$SCR_DIR"
 
 if [ "$1" == "--help" ]; then
     echo "Usage: ./install.sh [--help | --full [--no-x]]"
@@ -46,13 +45,14 @@ _symlink $HOME/.config/nvim $HOME/.vim
 
 curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-vim -u "$SCR_DIR/config/nvim/minimal.vim" +PlugInstall +qall
+nvim +PlugInstall
 
 _symlink zshrc
 _symlink zsh
 
 mkdir -p $HOME/.cache/zsh
 echo "Directory ~/.cache/zsh"
+git submodule init
 git submodule update
 
 _symlink config/pystartup
