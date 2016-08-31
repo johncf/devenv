@@ -1,7 +1,8 @@
 ! appearance
-URxvt*font:            xft:MonacoB:size=9.7
+URxvt.font:            xft:MonacoB:size=9.7
 URxvt.depth:           32
 URxvt.scrollBar:       false
+URxvt.termName:        xterm-256color
 
 ! interaction
 URxvt.saveLines:       4096
