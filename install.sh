@@ -45,7 +45,7 @@ _symlink $HOME/.config/nvim $HOME/.vim
 
 curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-nvim +PlugInstall
+vim -u "$SCR_DIR/config/nvim/minimal.vim" +PlugInstall +qall 2>/dev/null
 
 _symlink zshrc
 _symlink zsh

@@ -5,10 +5,11 @@ let cache_dir = $HOME . '/.cache/nvim/'
 
 " --- Plug Scripts {{{
 call plug#begin(cache_dir . 'plugged')
+Plug 'critiqjo/vim-bufferline'
 Plug 'cohama/lexima.vim'
 Plug 'critiqjo/husk-plus.vim'
+Plug 'itchyny/lightline.vim'
 Plug 'kana/vim-smartword'
-Plug 'morhetz/gruvbox'
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -78,7 +79,7 @@ nnoremap <leader>w :update<CR>
 
 " --- Misc {{{
 filetype plugin indent on
-silent! colorscheme gruvbox
+silent! colorscheme desertEx-v2
 syntax enable
 
 augroup critiq_au

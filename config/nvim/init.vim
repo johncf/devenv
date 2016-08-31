@@ -3,13 +3,10 @@ let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
 
 " --- Plug Scripts {{{
 call plug#begin(g:critiqjo#cache_dir . 'plugged')
-
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
 Plug 'christoomey/vim-tmux-navigator'
-
 "Plug 'critiqjo/lldb.nvim'
-
 call plug#end()
 " --- Plug Scripts }}}
 
@@ -26,9 +23,7 @@ set mouse=
 " --- Global Options }}}
 
 " --- Plugin Options {{{
-if get(g:, 'loaded_bufferline') && get(g:, 'loaded_lexima')
-  exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
-endif
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs-opts.vim'
 
 let g:tmux_navigator_no_mappings = 1
 " --- Plugin Options }}}

@@ -8,8 +8,8 @@ call plug#begin(g:critiqjo#cache_dir . 'plugged')
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
-Plug 'Shougo/vimproc.vim' , { 'do': 'make' }
-Plug 'Shougo/neocomplete.vim'
+"Plug 'Shougo/vimproc.vim' , { 'do': 'make' }
+"Plug 'Shougo/neocomplete.vim'
 
 call plug#end()
 " --- Plug Scripts }}}
@@ -24,7 +24,7 @@ set ttimeoutlen=100
 " --- Global Options }}}
 
 " --- Plugin Options {{{
-exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugin-opts.vim'
+exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs-opts.vim'
 
 " --- Neocomplete options {{{
 " Use smartcase.
