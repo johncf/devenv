@@ -26,15 +26,15 @@ function _symlink {
         echo "Exiting..."
         exit
     fi
-    [ -e "$link" ] && echo "Path exists; ignoring $link" || \
-        (ln -s "$src" "$link" && echo "Linked $link")
+    [ -e "$link" ] && echo ":: Path exists; ignoring $link" || \
+        (ln -s "$src" "$link" && echo ":: Linked $link")
 }
 
 mkdir -p $HOME/.config/nvim
-echo "Directory ~/.config/nvim"
+echo ":: Directory ~/.config/nvim"
 
 mkdir -p $HOME/.cache/nvim/{swps,undos,logs}
-echo "Directory ~/.cache/nvim/{swps,undos,logs}"
+echo ":: Directory ~/.cache/nvim/{swps,undos,logs}"
 
 _symlink config/nvim/base
 _symlink config/nvim/colors
@@ -45,13 +45,15 @@ _symlink $HOME/.config/nvim $HOME/.vim
 
 curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-vim -u "$SCR_DIR/config/nvim/minimal.vim" +PlugInstall +qall 2>/dev/null
+vim -u "$SCR_DIR/config/nvim/minimal.vim" +PlugInstall +qall 2>/dev/null || {
+    echo ":: (neo)vim plugins could not be installed! Run :PlugInstall manually..."
+}
 
 _symlink zshrc
 _symlink zsh
 
 mkdir -p $HOME/.cache/zsh
-echo "Directory ~/.cache/zsh"
+echo ":: Directory ~/.cache/zsh"
 git submodule init
 git submodule update
 
@@ -60,11 +62,11 @@ _symlink gitconfig
 _symlink tmux.conf
 
 mkdir -p $HOME/.local/bin
-echo "Directory ~/.local/bin"
+echo ":: Directory ~/.local/bin"
 _symlink local/bin/tmux-preswitch.sh
 
 if [ "$1" != "--full" ]; then
-    echo $'\n# Skipping X-related configs!'
+    echo $'\n:: Skipping X-related configs!'
     exit
 fi
 
@@ -73,9 +75,9 @@ _symlink config/i3
 # ~/.Xresources
 if ! [ -e $HOME/.Xresources ]; then
     sed "s:\${HOME}:$HOME:" "$SCR_DIR/Xresources" > $HOME/.Xresources
-    echo "Created ~/.Xresources"
+    echo ":: Created ~/.Xresources"
 else
-    echo "Path exists; ignoring ~/.Xresources"
+    echo ":: Path exists; ignoring ~/.Xresources"
 fi
 _symlink config/Xresources.d
 
@@ -93,7 +95,7 @@ echo
 
 mkdir -p $HOME/.local/share/applications
 mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
-echo "Directories ~/.local/share/... for nvim.desktop and nvim.svg"
+echo ":: Directories ~/.local/share/... for nvim.desktop and nvim.svg"
 
 _symlink local/share/applications/nvim.desktop
 curl -fLo ~/.local/share/icons/hicolor/scalable/apps/nvim.svg \
@@ -101,8 +103,8 @@ curl -fLo ~/.local/share/icons/hicolor/scalable/apps/nvim.svg \
 
 ffpath=`echo $HOME/.mozilla/firefox/*.default`
 mkdir -p $ffpath/chrome
-echo "Directory $ffpath/chrome"
+echo ":: Directory $ffpath/chrome"
 _symlink "$SCR_DIR/mozilla/firefox/_.default/chrome/userChrome.css" \
     $ffpath/chrome/userChrome.css
 
-echo $'\n# Done!'
+echo $'\n:: Done!'
