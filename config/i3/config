@@ -18,15 +18,12 @@ floating_modifier $mod
 bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- unmute
 bindsym XF86AudioMute exec amixer -q sset Master toggle
-bindsym $mod+f exec dbus-launch thunar
+bindsym $mod+f exec dbus-launch pcmanfm
 
 bindsym $mod+i exec chromium
 for_window [class="^Firefox$" instance="^Navigator$"] move container to workspace 2:wot
 # Enable floating mode for all dialogs that Firefox spawns
 for_window [class="^Firefox$" instance="^(?!Navigator)"] floating enable, border normal
-
-# Enable floating mode for File Progress windows of Thunar
-for_window [instance="^thunar$" title="^File\ Operation\ Progress$"] floating enable, border normal
 
 # [class="Vlc" window_role="vlc\\-main"] # Try running `i3-save-tree`
 bindsym $mod+v [instance="vlc"] focus
