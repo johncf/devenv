@@ -1,26 +1,16 @@
 filetype plugin indent on
-let s:colors_fav = [ 'desertEx-v2', 'alduin', 'sierra', 'apprentice', 'desert' ]
-
-function! s:colors_cycle()
-  let color_next = s:colors_fav[s:colors_idx]
-  let s:colors_idx += 1
-  let s:colors_idx = s:colors_idx % len(s:colors_fav)
-  exe 'colorscheme ' . color_next
-endfun
 
 if has("gui_running")
-  let g:sierra_Twilight = 1
-  let s:colors_idx = 2
   set guifont=MonacoB
   set guioptions-=T "toolbar
   set guioptions-=r "scrollbar
   set guioptions-=m "menubar
+  color desert
 elseif $TERM == 'linux'
-  let s:colors_idx = -1
+  color desert
 else
-  let s:colors_idx = 0
+  color desertEx-v2
 endif
-call s:colors_cycle()
 syntax enable
 
 " --- Autocommands {{{
@@ -51,7 +41,3 @@ command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
                 \ | wincmd p | diffthis
-
-" Cycle colorschemes
-command! ColorCycle call <SID>colors_cycle() | colorscheme
-" --- Command defs }}}
