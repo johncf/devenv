@@ -1,7 +1,6 @@
 #!/bin/bash
 
 bash ~/.local/bin/rand-wall.sh
-#bash ~/.local/bin/moz-init.sh
 setxkbmap us -variant colemak
 xmodmap -e "clear Lock"
 compton -b --inactive-dim 0.1
