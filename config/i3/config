@@ -181,7 +181,7 @@ mode "resize-move" {
 }
 
 bar {
-	font pango:FontAwesome 7.5
+	font pango:FontAwesome 8
 	status_command i3status -c ~/.config/i3/status.conf
 	strip_workspace_numbers yes
 	colors {
