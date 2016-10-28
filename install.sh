@@ -71,6 +71,7 @@ if [ "$1" != "--full" ]; then
 fi
 
 _symlink config/i3
+_symlink config/dunst
 
 # ~/.Xresources
 if ! [ -e $HOME/.Xresources ]; then

@@ -40,6 +40,7 @@ if [ "$1" != "--full" ]; then
 fi
 
 _unlink $HOME/.config/i3
+_unlink $HOME/.config/dunst
 _unlink $HOME/.config/Xresources.d
 if [ -e $HOME/.Xresources ]; then
     printf "Remove ~/.Xresources [y/N]: "
