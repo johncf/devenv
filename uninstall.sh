@@ -1,9 +1,8 @@
 #!/bin/bash
 
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./uninstall.sh [--help | --full]"
-    echo "           Without options, uninstall everything except X-related stuff."
-    echo "  --full   Full uninstallation"
+    echo "Usage: ./uninstall.sh [--help]"
+    echo "           Remove all symlinks."
     echo "  --help   Display this message"
     exit
 fi
@@ -34,11 +33,6 @@ _unlink $HOME/.gitconfig
 _unlink $HOME/.tmux.conf
 _unlink $HOME/.local/bin/tmux-preswitch.sh
 
-if [ "$1" != "--full" ]; then
-    echo $'\n# Skipping X-related stuff!'
-    exit
-fi
-
 _unlink $HOME/.config/i3
 _unlink $HOME/.config/dunst
 _unlink $HOME/.config/Xresources.d
@@ -50,7 +44,4 @@ else
     echo "Path does not exist $HOME/.Xresources"
 fi
 
-_unlink $HOME/.local/share/applications/nvim.desktop
-_unlink $HOME/.mozilla/firefox/*.default/chrome/userChrome.css
-
-echo $'\n# Done!'
+echo $'\n:: Done!'
