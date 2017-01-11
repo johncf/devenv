@@ -3,10 +3,6 @@
 set $mod Mod4
 set $mod_alt Mod5
 
-# simulate Alt+[arrow key] when pressing AltGr+[arrow key]
-bindsym --release Mod5+Left exec --no-startup-id xdotool key --clearmodifiers "Alt+Left"
-bindsym --release Mod5+Right exec --no-startup-id xdotool key --clearmodifiers "Alt+Right"
-
 font pango:DejaVu Sans 7.5
 focus_follows_mouse no
 hide_edge_borders both
@@ -15,22 +11,14 @@ new_window pixel 1
 # Use Mouse+$mod to drag floating windows
 floating_modifier $mod
 
-bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ unmute
-bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- unmute
-bindsym XF86AudioMute exec amixer -q sset Master toggle
-bindsym $mod+f exec dbus-launch pcmanfm
-
-bindsym $mod+i exec chromium
-for_window [class="^Firefox$" instance="^Navigator$"] move container to workspace 2:wot
 # Enable floating mode for all dialogs that Firefox spawns
 for_window [class="^Firefox$" instance="^(?!Navigator)"] floating enable, border normal
 
-# [class="Vlc" window_role="vlc\\-main"] # Try running `i3-save-tree`
-bindsym $mod+v [instance="vlc"] focus
-for_window [instance="vlc"] move container to workspace 5:V
+# Enable floating mode for octave plots
+for_window [class="^Octave$" instance="^Octave$"] floating enable, border normal
 
-bindsym --release Print exec --no-startup-id import /tmp/latest-screenshot.png
-bindsym --release Shift+Print exec --no-startup-id import -window root /tmp/latest-screenshot.png
+# Move vlc to workspace 5:V
+for_window [instance="vlc"] move container to workspace 5:V
 
 # class                 border  backgr. text    indicator
 client.focused          #0088BB #0088BB #ffffff #dddddd
@@ -38,15 +26,36 @@ client.focused_inactive #333333 #333333 #888888 #292d2e
 client.unfocused        #333333 #333333 #888888 #292d2e
 client.urgent           #2f343a #900000 #ffffff #900000
 
-bindsym $mod+Return exec urxvtc
-bindsym $mod_alt+Return exec urxvtc
+# Volume controls
+bindsym XF86AudioRaiseVolume exec amixer -q sset Master 5%+ unmute
+bindsym XF86AudioLowerVolume exec amixer -q sset Master 5%- unmute
+bindsym XF86AudioMute exec amixer -q sset Master toggle
+
+# Turn AltGr+[arrow key] into Alt+[arrow key]
+bindsym --release Mod5+Left exec --no-startup-id xdotool key --clearmodifiers "Alt+Left"
+bindsym --release Mod5+Right exec --no-startup-id xdotool key --clearmodifiers "Alt+Right"
+
+# Print Screen
+bindsym --release Print exec --no-startup-id import /tmp/latest-screenshot.png
+bindsym --release Shift+Print exec --no-startup-id import -window root /tmp/latest-screenshot.png
 
 # kill focused window
 bindsym $mod+q kill
 
 # program launcher
 bindsym $mod+x exec rofi -show run
-bindsym $mod+m exec --no-startup-id ~/.local/bin/man-prompt.sh
+
+# restart/reload i3
+bindsym $mod+Shift+r restart
+bindsym $mod_alt+Shift+r reload
+
+# terminal emulator
+bindsym $mod+Return exec urxvtc
+bindsym $mod_alt+Return exec urxvtc
+
+# browser and file manager
+bindsym $mod+i exec chromium
+bindsym $mod+f exec dbus-launch pcmanfm
 
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -132,9 +141,6 @@ bindsym $mod+Shift+7 move container to workspace 7:VII; workspace number 7
 bindsym $mod+Shift+8 move container to workspace 8:ate; workspace number 8
 bindsym $mod+Shift+9 move container to workspace 9:IX; workspace number 9
 bindsym $mod+Shift+0 move container to workspace 10:X; workspace number 10
-
-bindsym $mod_alt+Shift+r reload
-bindsym $mod+Shift+r restart
 
 set $exit_mod "(l)ock (u)ser switch (E)xit i3 (S)uspend (P)ower off (R)estart"
 bindsym $mod+Shift+e mode $exit_mod

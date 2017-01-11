@@ -93,7 +93,7 @@ function! MyFugitive()
 endfunction
 " --- Lightline options }}}
 
-call lexima#add_rule({'char': "'", 'at': '\(&\|<[^>]*\|^\s*\)\%#', 'filetype': 'rust'})
+call lexima#add_rule({'char': "'"})
 
 " --- Quick-scope options {{{
 " source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
