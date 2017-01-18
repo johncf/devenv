@@ -57,6 +57,7 @@ _symlink tmux.conf
 mkdir -p $HOME/.local/bin
 echo ":: Directory ~/.local/bin"
 _symlink local/bin/tmux-preswitch.sh
+_symlink local/bin/rand-wall.sh # requires feh
 
 _symlink config/i3
 _symlink config/dunst
@@ -83,7 +84,7 @@ fi
 curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-# Fonts (requires package libotf)
+# Fonts (requires libotf)
 curl -fLo ~/.local/share/fonts/MonacoB.otf \
     https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
 curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
