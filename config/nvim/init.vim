@@ -5,9 +5,7 @@ let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
 call plug#begin(g:critiqjo#cache_dir . 'plugged')
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs.vim'
 
-Plug 'christoomey/vim-tmux-navigator'
 "Plug 'critiqjo/lldb.nvim'
-Plug 'critiqjo/husk-x.vim'
 "Plug 'tpope/vim-abolish'
 call plug#end()
 " --- Plug Scripts }}}
@@ -32,11 +30,6 @@ let g:tmux_navigator_no_mappings = 1
 
 " --- Keymaps {{{
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
-
-nnoremap <silent> <M-h> :TmuxNavigateLeft<CR>
-nnoremap <silent> <M-j> :TmuxNavigateDown<CR>
-nnoremap <silent> <M-k> :TmuxNavigateUp<CR>
-nnoremap <silent> <M-l> :TmuxNavigateRight<CR>
 
 " Make ZQ redoable!
 nnoremap ZQ :call critiqjo#redoable_zq()<CR>

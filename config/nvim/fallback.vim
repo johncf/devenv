@@ -31,11 +31,16 @@ if !has('gui_running')
   imap <Esc>j <M-j>
   imap <Esc>k <M-k>
   imap <Esc>l <M-l>
+  inoremap <nowait> <Esc> <Esc>
 
   imap <Esc>o <M-o>
   imap <Esc>O <M-O>
 
-  inoremap <nowait> <Esc> <Esc>
+  nmap <Esc>h <M-h>
+  nmap <Esc>j <M-j>
+  nmap <Esc>k <M-k>
+  nmap <Esc>l <M-l>
+  nnoremap <nowait> <Esc> <Esc>
 endif
 " --- Keymaps }}}
 

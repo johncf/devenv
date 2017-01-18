@@ -1,5 +1,6 @@
 " Plugged: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+" UI
 Plug 'itchyny/lightline.vim'
 Plug 'critiqjo/vim-bufferline'
 
@@ -28,3 +29,4 @@ Plug 'onur/vim-motivate'
 Plug 'powerman/vim-plugin-viewdoc'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
+Plug 'critiqjo/husk-x.vim'

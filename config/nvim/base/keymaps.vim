@@ -1,20 +1,17 @@
 " Colemak keymaps
 set langmap=kj,jh,hk
 
+nnoremap <silent> <M-h> <C-w><Left>
+nnoremap <silent> <M-j> <C-w><Down>
+nnoremap <silent> <M-k> <C-w><Up>
+nnoremap <silent> <M-l> <C-w><Right>
+
 if stridx(&rtp, 'smartword') > 0
   map w <Plug>(smartword-w)
   map b <Plug>(smartword-b)
   map e <Plug>(smartword-e)
   map ge <Plug>(smartword-ge)
 endif
-
-" URL/XML/CString En/Decode maps: [X ]X where X=[uxy]
-call u_transform#map('string_encode', '[y')
-call u_transform#map('string_decode', ']y')
-call u_transform#map('url_encode', '[u')
-call u_transform#map('url_decode', ']u')
-call u_transform#map('xml_encode', '[x')
-call u_transform#map('xml_decode', ']x')
 
 " Don't go to Ex mode, open cmd-line window instead.
 nnoremap Q q:
@@ -35,15 +32,13 @@ inoremap <CR> <C-g>u<CR>
 inoremap <M-b> <C-o>b
 inoremap <M-d> <C-o>d
 inoremap <M-e> <C-o>e<Right>
+inoremap <M-w> <C-o>w
 inoremap <M-o> <Esc>o
 inoremap <M-O> <Esc>O
-inoremap <M-u> <C-o>u
-inoremap <M-w> <C-o>w
 inoremap <M-h> <Left>
 inoremap <M-j> <Down>
 inoremap <M-k> <Up>
 inoremap <M-l> <Right>
-inoremap <M-x> <Del>
 
 let mapleader = "\<Space>"
 noremap <leader> <Nop>
