@@ -3,7 +3,8 @@ alias calc='noglob calc'
 alias cp="cp --reflink=auto"
 alias ll='ls -lAh'
 alias ls='ls --color'
-alias sura="sudo aura"
+alias spac="sudo pacman"
+alias saur="aurget"
 alias tm='tmux'
 
 #export TERM=xterm-256color
