@@ -6,7 +6,7 @@ Plug 'critiqjo/vim-bufferline'
 
 " Text formatting
 Plug 'beloglazov/vim-textobj-quotes'
-Plug 'cohama/lexima.vim'
+Plug 'jiangmiao/auto-pairs'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
 Plug 'kana/vim-textobj-user'

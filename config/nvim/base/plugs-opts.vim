@@ -93,8 +93,6 @@ function! MyFugitive()
 endfunction
 " --- Lightline options }}}
 
-call lexima#add_rule({'char': "'"})
-
 " --- Quick-scope options {{{
 " source: https://gist.github.com/cszentkiralyi/dc61ee28ab81d23a67aa
 let g:qs_enable = 0
