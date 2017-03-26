@@ -14,16 +14,15 @@ This is a collection of scripts and config files that make up my development env
 ## Major files and directories
 * **config**: `~/.config` files
   * **nvim**: neovim configuration files
-    * **autoload**: short scripts, mostly stolen from various sources (see respective files).
-    * **colors/desertEx-v2.vim**: Modified version of [desertEx.vim] colorscheme.
+    * **colors/desertEx-v2.vim**: Modified [desertEx.vim] colorscheme.
   * **pystartup**: for autocompletion and persistent history in python REPL.
+  * **zsh**: zsh config files, contains stolen code from various sources (see respective files):
+    * **prompt.zsh**: for asynchronously updating prompt with git info ([stolen])
+    * **[fasd]**: for fast directory switching
 * **local/bin**: tiny scripts that make my life easier
-* **zsh**: zsh config files, contains stolen code from various sources (see respective files):
-  * **prompt.zsh**: for asynchronously updating prompt with git info ([stolen from])
-  * **[fasd]**: for fast directory switching
 
 [desertEx.vim]: https://github.com/mbbill/desertEx
-[stolen from]: https://github.com/anishathalye/dotfiles/blob/master/zsh/prompt.zsh
+[stolen]: https://github.com/anishathalye/dotfiles/blob/master/zsh/prompt.zsh
 [fasd]: https://github.com/clvv/fasd
 
 ## Installation and removal

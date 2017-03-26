@@ -119,3 +119,6 @@ endfor
 let g:table_mode_corner = '|'
 
 let g:viewdoc_openempty = 0
+
+let g:AutoPairsShortcutFastWrap = '<M-s>'
+let g:AutoPairsShortcutBackInsert = '<M-u>'

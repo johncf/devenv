@@ -5,7 +5,7 @@ autoload -U colors && colors
 
 # Make using 256 colors easier
 if [[ "$(tput colors)" == "256" ]]; then
-    source ~/.zsh/spectrum.zsh
+    source ~/.config/zsh/spectrum.zsh
     # change default colors
     fg[green]=$FG[064]
     fg[cyan]=$FG[038]

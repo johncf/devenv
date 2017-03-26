@@ -43,7 +43,7 @@ _symlink "$SCR_DIR/config/nvim/fallback.vim" $HOME/.vimrc
 _symlink $HOME/.config/nvim $HOME/.vim
 
 _symlink zshrc
-_symlink zsh
+_symlink config/zsh
 
 mkdir -p $HOME/.cache/zsh
 echo ":: Directory ~/.cache/zsh"
@@ -62,10 +62,17 @@ _symlink local/bin/rand-wall.sh # requires feh
 _symlink config/i3
 _symlink config/dunst
 
+if ! [ -e $HOME/.config/machine ]; then
+    cp "$SCR_DIR/config/machine.template" $HOME/.config/machine
+    echo ":: Created from template: ~/.config/machine"
+else
+    echo ":: Path exists; ignoring ~/.config/machine"
+fi
+
 # ~/.Xresources
 if ! [ -e $HOME/.Xresources ]; then
-    sed "s:\${HOME}:$HOME:" "$SCR_DIR/Xresources" > $HOME/.Xresources
-    echo ":: Created ~/.Xresources"
+    sed "s:\${HOME}:$HOME:" "$SCR_DIR/Xresources.template" > $HOME/.Xresources
+    echo ":: Created from template: ~/.Xresources"
 else
     echo ":: Path exists; ignoring ~/.Xresources"
 fi

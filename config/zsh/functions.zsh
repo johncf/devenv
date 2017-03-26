@@ -2,15 +2,15 @@
 
 function zsh_recompile {
   autoload -U zrecompile
-  rm -f ~/.zsh/*.zwc
+  rm -f ~/.config/zsh/*.zwc
   [[ -f ~/.zshrc ]] && zrecompile -p ~/.zshrc
   [[ -f ~/.zshrc.zwc.old ]] && rm -f ~/.zshrc.zwc.old
 
-  for f in ~/.zsh/**/*.zsh; do
+  for f in ~/.config/zsh/**/*.zsh; do
     [[ -f $f ]] && zrecompile -p $f
     [[ -f $f.zwc.old ]] && rm -f $f.zwc.old
   done
-  zrecompile -p ~/.zsh/fasd/fasd
+  zrecompile -p ~/.config/zsh/fasd/fasd
 
   [[ -f ~/.cache/zsh/compdump ]] && zrecompile -p ~/.cache/zsh/compdump
   [[ -f ~/.cache/zsh/compdump.zwc.old ]] && rm -f ~/.cache/zsh/compdump.zwc.old

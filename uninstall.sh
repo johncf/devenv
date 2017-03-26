@@ -25,8 +25,8 @@ _unlink $HOME/.config/nvim/init.vim
 _unlink $HOME/.vimrc
 _unlink $HOME/.vim
 
+_unlink $HOME/.config/zsh
 _unlink $HOME/.zshrc
-_unlink $HOME/.zsh
 
 _unlink $HOME/.config/pystartup
 _unlink $HOME/.gitconfig
@@ -44,5 +44,7 @@ if [ -e $HOME/.Xresources ]; then
 else
     echo "Path does not exist $HOME/.Xresources"
 fi
+
+echo "Left untouched: ~/.config/machine"
 
 echo $'\n:: Done!'

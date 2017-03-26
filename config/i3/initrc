@@ -1,7 +1,7 @@
 #!/bin/bash
 
-bash ~/.local/bin/rand-wall.sh
 setxkbmap us -variant colemak
 xmodmap -e "clear Lock"
 compton -bCG --inactive-dim 0.1 -D0
+bash ~/.local/bin/rand-wall.sh
 i3-msg "workspace 1:neo; exec urxvtd -o -q -f && sleep 0.5 && urxvtc"

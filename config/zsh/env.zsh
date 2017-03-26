@@ -20,8 +20,8 @@ export RUSTUP_HOME=${HOME}/.cache/rustup
 export RXVT_SOCKET=${HOME}/.local/urxvtd.sock
 
 # shell-local
-HISTSIZE=1024
-SAVEHIST=2048
+HISTSIZE=2048
+SAVEHIST=32768
 HISTFILE=${HOME}/.cache/zsh/history
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
 
