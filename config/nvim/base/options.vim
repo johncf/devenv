@@ -1,6 +1,7 @@
 " -- UI
 set background=dark
 "set breakindent
+set cursorline
 set diffopt+=vertical
 set display+=lastline " Show as much of last line as possible
 set foldmethod=marker
@@ -10,7 +11,7 @@ set laststatus=2
 set list
 set listchars=tab:»\ ,trail:·
 set number
-set relativenumber " Relative line numbering
+"set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
 set scrolloff=1
 set showcmd

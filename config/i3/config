@@ -20,6 +20,9 @@ for_window [class="^Octave$" instance="^Octave$"] floating enable, border normal
 # Move vlc to workspace 5:V
 for_window [instance="vlc"] move container to workspace 5:V
 
+# Show titlebar for gpicview
+for_window [instance="gpicview"] border normal
+
 # class                 border  backgr. text    indicator
 client.focused          #0088BB #0088BB #ffffff #dddddd
 client.focused_inactive #333333 #333333 #888888 #292d2e
@@ -38,6 +41,9 @@ bindsym --release Mod5+Right exec --no-startup-id xdotool key --clearmodifiers "
 # Print Screen
 bindsym --release Print exec --no-startup-id import /tmp/latest-screenshot.png
 bindsym --release Shift+Print exec --no-startup-id import -window root /tmp/latest-screenshot.png
+
+# show titlebar
+#bindsym $mod+b border normal
 
 # kill focused window
 bindsym $mod+q kill

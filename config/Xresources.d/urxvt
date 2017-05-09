@@ -1,5 +1,5 @@
 ! appearance
-URxvt.font:            xft:MonacoB:size=10.5
+URxvt.font:            xft:MonacoB:size=12
 URxvt.depth:           32
 URxvt.scrollBar:       false
 URxvt.termName:        xterm-256color

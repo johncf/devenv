@@ -21,6 +21,7 @@ Plug 'unblevable/quick-scope'
 " Filetype-specific
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
+Plug 'cespare/vim-toml'
 "Plug 'zaiste/tmux.vim'
 
 " Misc

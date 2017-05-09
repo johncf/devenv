@@ -29,9 +29,6 @@ augroup critiq_au
       \   nnoremap <buffer> <nowait> d <C-d> |
       \   nnoremap <buffer> <nowait> u <C-u> |
       \ endif
-  autocmd WinLeave,InsertEnter * setlocal nocursorline
-  autocmd WinEnter,BufEnter * if &g:cursorline | setlocal cursorline | endif
-  "autocmd VimEnter * let g:unite_fasd#read_only = 0
 augroup END
 " --- Autocommands }}}
 

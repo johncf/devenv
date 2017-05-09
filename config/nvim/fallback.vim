@@ -31,16 +31,28 @@ if !has('gui_running')
   imap <Esc>j <M-j>
   imap <Esc>k <M-k>
   imap <Esc>l <M-l>
-  inoremap <nowait> <Esc> <Esc>
-
   imap <Esc>o <M-o>
   imap <Esc>O <M-O>
+  "autopairs mapping
+  imap <Esc>u <M-u>
+  imap <Esc>s <M-s>
+
+  inoremap <nowait> <Esc> <Esc>
 
   nmap <Esc>h <M-h>
   nmap <Esc>j <M-j>
   nmap <Esc>k <M-k>
   nmap <Esc>l <M-l>
   nnoremap <nowait> <Esc> <Esc>
+
+  " cursor shape change in tmux
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+  else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+  endif
 endif
 " --- Keymaps }}}
 

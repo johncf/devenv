@@ -12,7 +12,7 @@ hi Normal           ctermfg=253 ctermbg=234 cterm=NONE
 
 hi ColorColumn                  ctermbg=235
 hi Cursor           ctermfg=16  ctermbg=226 cterm=NONE
-hi CursorLine                   ctermbg=237 cterm=NONE
+hi CursorLine                   ctermbg=235 cterm=NONE
 hi CursorLineNr     ctermfg=144 ctermbg=233
 hi DiffAdd          ctermfg=107 ctermbg=236 cterm=NONE
 hi DiffChange       ctermfg=251 ctermbg=237 cterm=NONE
