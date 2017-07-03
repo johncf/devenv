@@ -167,25 +167,25 @@ mode $exit_mod {
 bindsym $mod+r mode "resize-move"
 
 mode "resize-move" {
-	bindsym j resize shrink width 200 px
-	bindsym k resize grow height 160 px
-	bindsym h resize shrink height 160 px
-	bindsym l resize grow width 200 px
+	bindsym j resize shrink width 200 px or 10 ppt
+	bindsym k resize grow height 160 px or 5 ppt
+	bindsym h resize shrink height 160 px or 5 ppt
+	bindsym l resize grow width 200 px or 10 ppt
 
 	bindsym Shift+j move left 20 px
 	bindsym Shift+k move down 10 px
 	bindsym Shift+h move up 10 px
 	bindsym Shift+l move right 20 px
 
-	bindsym Left resize shrink width 80 px
-	bindsym Down resize grow height 40 px
-	bindsym Up resize shrink height 40 px
-	bindsym Right resize grow width 80 px
+	bindsym Left resize shrink width 80 px or 4 ppt
+	bindsym Down resize grow height 40 px or 2 ppt
+	bindsym Up resize shrink height 40 px or 2 ppt
+	bindsym Right resize grow width 80 px or 4 ppt
 
-	bindsym Shift+Left resize shrink width 20 px
-	bindsym Shift+Down resize grow height 10 px
-	bindsym Shift+Up resize shrink height 10 px
-	bindsym Shift+Right resize grow width 20 px
+	bindsym Shift+Left resize shrink width 20 px or 1 ppt
+	bindsym Shift+Down resize grow height 10 px or 1 ppt
+	bindsym Shift+Up resize shrink height 10 px or 1 ppt
+	bindsym Shift+Right resize grow width 20 px or 1 ppt
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
