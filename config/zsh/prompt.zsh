@@ -28,15 +28,15 @@ function PR_LINE2() {
 
 function PR_HOST() {
     if [ -z "$SSH_CLIENT" ]; then
-        echo "%{$fg[cyan]%}%m%{$reset_color%}"
+        echo ""
     else
-        echo "%{$fg[grey]%}%m%{$reset_color%}"
+        echo "@%{$fg[grey]%}%m%{$reset_color%}"
     fi
 }
 
 function PR_INFO() {
     local PR_USER="%{$fg[teal]%}%n%{$reset_color%}"
-    echo "${PR_USER}@$(PR_HOST): $(PR_DIR)"
+    echo "${PR_USER}$(PR_HOST): $(PR_DIR)"
 }
 
 # The static prompt
@@ -47,7 +47,7 @@ function PCMD() {
         local PR_USER="%{$fg[alt_user]%}%n%{$reset_color%}"
         local PR_DIR="%{$fg[alt_path]%}%~%{$reset_color%}"
         local PR_LINE2="%{$fg[alt_time]%}%D{%H:%M} %{$fg[alt_red]%}${PR_ARROW_CHAR}%{$reset_color%} "
-        echo "${PR_USER}@$(PR_HOST): ${PR_DIR}"$'\n'"${PR_LINE2}"
+        echo "${PR_USER}$(PR_HOST): ${PR_DIR}"$'\n'"${PR_LINE2}"
     fi
 }
 
