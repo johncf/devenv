@@ -1,12 +1,15 @@
-alias agg="ag -g"
+alias aur='aurget'
 alias calc='noglob calc'
-alias cp="cp --reflink=auto"
-alias ll='ls -lAh'
-alias ls='ls --color'
-alias pac=pacman
-alias spac="sudo pacman"
-alias saur="aurget"
+alias cp='cp --reflink=auto'
+alias ll='exa -l --git'
+#alias ll='ls -lAh'
+alias ls='exa'
+#alias ls='ls --color'
+alias pac='pacman'
+alias spac='sudo pacman'
 alias tm='tmux'
+alias tree='exa -lTL2'
+alias tree3='exa -lTL3'
 
 #export TERM=xterm-256color
 export CARGO_HOME=${HOME}/.cache/cargo
