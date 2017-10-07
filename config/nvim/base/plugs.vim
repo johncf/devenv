@@ -22,6 +22,7 @@ Plug 'unblevable/quick-scope'
 Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 Plug 'cespare/vim-toml'
+Plug 'digitaltoad/vim-pug'
 "Plug 'zaiste/tmux.vim'
 
 " Misc
