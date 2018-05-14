@@ -1,5 +1,9 @@
 # original: https://github.com/spicycode/ze-best-zsh-config/blob/master/.zsh/functions.zsh
 
+function _calc {
+  noglob echo "$@" | bc -l
+}
+
 function zsh_recompile {
   autoload -U zrecompile
   rm -f ~/.config/zsh/*.zwc
