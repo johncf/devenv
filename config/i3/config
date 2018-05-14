@@ -60,8 +60,8 @@ bindsym $mod+Return exec urxvtc
 bindsym $mod_alt+Return exec urxvtc
 
 # browser and file manager
-bindsym $mod+i exec firefox
-bindsym $mod+f exec dbus-launch pcmanfm
+bindsym $mod+i exec firefox-developer-edition
+bindsym $mod+f exec dbus-launch nautilus
 
 bindsym $mod+j focus left
 bindsym $mod+k focus down
