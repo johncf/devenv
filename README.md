@@ -1,11 +1,12 @@
 # devenv
+
 This is a collection of scripts and config files that make up my development environment.
 
 ## Environment
 * **Operating System**: [Arch Linux](https://wiki.archlinux.org/index.php/The_Arch_Way)
 * **Window Manager**: [i3](https://i3wm.org)
-* **Terminal**: [rxvt-unicode] + [tmux]
-* **Text editor**: [Neovim](http://neovim.org/)
+* **Terminal**: [rxvt-unicode][] + [tmux][]
+* **Text editor**: [vim](https://vim.org/)
 * **Shell**: [Zsh](https://wiki.archlinux.org/index.php/Zsh)
 
 [rxvt-unicode]: https://wiki.archlinux.org/index.php/Rxvt-unicode
@@ -31,7 +32,7 @@ Run `uninstall.sh` to remove all symbolic links created by `install.sh`.
 
 ## Screenshot
 
-![screenshot](https://cloud.githubusercontent.com/assets/1436441/11402385/a2c0e8c6-93bd-11e5-9956-36b417c424c9.png)
+![screenshot](https://user-images.githubusercontent.com/21051830/40007162-b17bf712-57b9-11e8-98d7-ef5881e16a12.png)
 
 ## License
 Many files in this repo were originally written by various authors including:
@@ -46,3 +47,15 @@ Many files in this repo were originally written by various authors including:
 * [tpope](https://github.com/tpope/vim-unimpaired)
 
 The rest (authored by me) are released under [MIT License](http://opensource.org/licenses/MIT).
+
+## Rants (out of frustration?)
+
+I'm someone who tries to find productive and lightweight tools to accomplish everyday
+activities. I use a graphical file manager when I want to see thumbnail previews. Until very
+recently my preferred choice was PCManFM. Even though it had a few pesky bugs that caused
+occasional crashes, I liked it and hoped that some day the developers are gonna clean it
+right up!  However, after waiting many years, I am giving up on it especially after it
+caused multiple freezes due to bad memory leaks (and creeping up on swap). So dear reader,
+**please avoid using PCManFM** if you value your time and unsaved works! (Unless, it has
+been several years from the time of writing this, meanwhile someone rewrote it from scratch,
+but decided to keep the name for some reason! Unlikely.)
