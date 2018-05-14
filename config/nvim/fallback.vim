@@ -3,6 +3,10 @@ set nocompatible
 let g:critiqjo#rtp0_dir = $HOME . '/.vim/'
 let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
 
+" disable italics!!! italics+tmux=insanity!
+set t_ZR=
+set t_ZH=
+
 " --- Plug Scripts {{{
 call plug#begin(g:critiqjo#cache_dir . 'plugged')
 
@@ -57,5 +61,7 @@ endif
 " --- Keymaps }}}
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/misc.vim'
+
+autocmd BufRead,BufNewFile *CIDE.?,*cide.? setlocal ft=text
 
 " vim:fdm=marker:ts=2:sw=2
