@@ -18,6 +18,7 @@
     ds = diff --find-copies --staged
     dt = diff --find-copies --stat
     dw = diff --find-copies --word-diff
+    dc = diff --find-copies --word-diff-regex=.
     l = log --graph --decorate --oneline --max-count=16
     lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(bold black)(%cr)%Creset by %C(yellow)%an%Creset'
     lt = log --graph --decorate --oneline --stat --max-count=4
