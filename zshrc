@@ -13,6 +13,3 @@ source ~/.config/zsh/fasd/fasd
 [[ -f $FASD_INIT_CACHE ]] \
     && source $FASD_INIT_CACHE \
     || echo 'fasd cache not found! Do `zsh_recompile`'
-
-# machine specific settings
-source ~/.config/machine

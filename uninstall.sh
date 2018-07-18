@@ -32,19 +32,5 @@ _unlink $HOME/.config/pystartup
 _unlink $HOME/.gitconfig
 _unlink $HOME/.tmux.conf
 _unlink $HOME/.local/bin/tmux-preswitch.sh
-_unlink $HOME/.local/bin/rand-wall.sh
-
-_unlink $HOME/.config/i3
-_unlink $HOME/.config/dunst
-_unlink $HOME/.config/Xresources.d
-if [ -e $HOME/.Xresources ]; then
-    printf "Remove ~/.Xresources [y/N]: "
-    read rm_xres
-    [ "${rm_xres/Y/y}" == "y" ] && rm $HOME/.Xresources && echo "Removed $HOME/.Xresources"
-else
-    echo "Path does not exist $HOME/.Xresources"
-fi
-
-echo "Left untouched: ~/.config/machine"
 
 echo $'\n:: Done!'

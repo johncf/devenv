@@ -23,10 +23,10 @@ bindkey '^A' beginning-of-line
 bindkey '^E' end-of-line
 
 # Meta+[hjkl]
-bindkey '\ej' backward-char
-bindkey '\ek' history-beginning-search-forward
-bindkey '\eh' history-beginning-search-backward
-bindkey '\el' forward-char
+bindkey '∆' backward-char
+bindkey '˚' history-beginning-search-forward
+bindkey '˙' history-beginning-search-backward
+bindkey '¬' forward-char
 
 bindkey '^?' backward-delete-char
 bindkey '^_' undo
