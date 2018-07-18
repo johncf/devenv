@@ -34,9 +34,17 @@ function PR_HOST() {
     fi
 }
 
+function PR_VIRTENV() {
+    if [ -z "$VIRTUAL_ENV" ]; then
+        echo ""
+    else
+        echo " (%{$fg[grey]%}$(basename "$VIRTUAL_ENV")%{$reset_color%})"
+    fi
+}
+
 function PR_INFO() {
     local PR_USER="%{$fg[teal]%}%n%{$reset_color%}"
-    echo "${PR_USER}$(PR_HOST): $(PR_DIR)"
+    echo "${PR_USER}$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
 }
 
 # The static prompt
