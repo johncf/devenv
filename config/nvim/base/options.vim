@@ -47,6 +47,7 @@ set undoreload=2048 " Maximum number lines to save for undo on a buffer reload
 set expandtab
 set shiftwidth=4
 set tabstop=4
+set nojoinspaces
 
 " -- Session-saves
 set ssop-=options " Do not store global and local options
