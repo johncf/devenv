@@ -1,5 +1,4 @@
 [user]
-    email = johncf@protonmail.com
     name = johncf
 [url "https://"]
     insteadOf = git://

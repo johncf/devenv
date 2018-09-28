@@ -38,7 +38,7 @@ function PR_VIRTENV() {
     if [ -z "$VIRTUAL_ENV" ]; then
         echo ""
     else
-        echo " (%{$fg[grey]%}$(basename "$VIRTUAL_ENV")%{$reset_color%})"
+        echo " (%{$fg[grey]%}$(realpath --relative-to=. "$VIRTUAL_ENV")%{$reset_color%})"
     fi
 }
 
