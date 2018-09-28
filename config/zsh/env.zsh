@@ -14,7 +14,7 @@ alias tree3='exa -lTL3'
 
 #export TERM=xterm-256color
 export CARGO_HOME=${HOME}/.cache/cargo
-export EDITOR='nvim'
+export EDITOR='vim'
 export PATH=$PATH:${HOME}/.local/bin:${CARGO_HOME}/bin
 export PYTHONSTARTUP=${HOME}/.config/pystartup
 export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
