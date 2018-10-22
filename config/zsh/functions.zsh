@@ -59,11 +59,11 @@ function magic-enter {
   elif [[ $BUFFER == "man "* ]]; then
     print -S "$BUFFER"
     BUFFER="${BUFFER//\'/}"
-    BUFFER=" nvim -c 'ViewDocMan ${BUFFER#* }' -c 1bd"
+    BUFFER=" vim -c 'ViewDocMan ${BUFFER#* }' -c 1bd"
   elif [[ $BUFFER == "info "* ]]; then
     print -S "$BUFFER"
     BUFFER="${BUFFER//\'/}"
-    BUFFER=" nvim -c 'ViewDocInfo ${BUFFER#* }' -c 1bd"
+    BUFFER=" vim -c 'ViewDocInfo ${BUFFER#* }' -c 1bd"
   fi
   zle accept-line
 }
