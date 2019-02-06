@@ -17,8 +17,6 @@ export CARGO_HOME=${HOME}/.cache/cargo
 export EDITOR='vim'
 export PATH=$PATH:${HOME}/.local/bin:${CARGO_HOME}/bin
 export PYTHONSTARTUP=${HOME}/.config/pystartup
-export NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-export NVIM_PYTHON_LOG_FILE=${HOME}/.cache/nvim/logs/py
 export RUST_NEW_ERROR_FORMAT=true
 export RUSTUP_HOME=${HOME}/.cache/rustup
 export RXVT_SOCKET=${HOME}/.local/urxvtd.sock
@@ -31,5 +29,4 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
 
 FASD_INIT_CACHE=${HOME}/.cache/zsh/fasd-init.zsh
 _FASD_DATA=${HOME}/.cache/fasd
-_FASD_VIMINFO="$HOME/.nviminfo"
 VIRTUAL_ENV_DISABLE_PROMPT=1
