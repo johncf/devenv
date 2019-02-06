@@ -24,5 +24,4 @@ WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # doesn't include '/'
 
 FASD_INIT_CACHE=${HOME}/.cache/zsh/fasd-init.zsh
 _FASD_DATA=${HOME}/.cache/fasd
-_FASD_VIMINFO="$HOME/.nviminfo"
 VIRTUAL_ENV_DISABLE_PROMPT=1
