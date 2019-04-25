@@ -39,9 +39,9 @@ function PR_VIRTENV() {
         echo ""
     else
         shortpath="$(realpath --relative-to=. "$VIRTUAL_ENV")"
-        abspath="$(realpath "$VIRTUAL_ENV")"
-        if [ ${#abspath} -le ${#shortpath} ]; then
-            shortpath="$abspath"
+        homepath="~/$(realpath --relative-to="$HOME" "$VIRTUAL_ENV")"
+        if [ ${#homepath} -le ${#shortpath} ]; then
+            shortpath="$homepath"
         fi
         echo " (%{$fg[grey]%}${shortpath}%{$reset_color%})"
     fi
