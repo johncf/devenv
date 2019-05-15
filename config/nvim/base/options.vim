@@ -26,6 +26,7 @@ set complete-=i " don't scan included files
 set incsearch " Show results simultaneously while typing a search command
 set ignorecase " of search patterns
 set isfname-==  " so that <C-x><C-f> works when an = is followed by a path
+set modeline
 set path=.,./**
 set smartcase " smartly override ignorecase
 set timeoutlen=1200 " <leader> timeout
