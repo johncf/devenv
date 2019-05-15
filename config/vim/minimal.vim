@@ -1,7 +1,7 @@
 set nocompatible
 
 let rtp0_dir = split(&rtp, ',')[0] . '/'
-let cache_dir = $HOME . '/.cache/nvim/'
+let cache_dir = $HOME . '/.cache/vim/'
 
 " --- Plug Scripts {{{
 call plug#begin(cache_dir . 'plugged')

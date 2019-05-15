@@ -14,7 +14,7 @@ This is a collection of scripts and config files that make up my development env
 
 ## Major files and directories
 * **config**: `~/.config` files
-  * **nvim**: neovim configuration files
+  * **vim**: vim configuration files
     * **colors/desertEx-v2.vim**: Modified [desertEx.vim] colorscheme.
   * **pystartup**: for autocompletion and persistent history in python REPL.
   * **zsh**: zsh config files, contains stolen code from various sources (see respective files):

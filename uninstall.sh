@@ -18,10 +18,10 @@ function _unlink {
     rm "$1" && echo "Removed symlink $1"
 }
 
-_unlink $HOME/.config/nvim/base
-_unlink $HOME/.config/nvim/colors
-_unlink $HOME/.config/nvim/autoload
-_unlink $HOME/.config/nvim/init.vim
+_unlink $HOME/.config/vim/base
+_unlink $HOME/.config/vim/colors
+_unlink $HOME/.config/vim/autoload
+_unlink $HOME/.config/vim/init.vim
 _unlink $HOME/.vimrc
 _unlink $HOME/.vim
 

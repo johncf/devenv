@@ -2,7 +2,7 @@ set nocompatible
 set encoding=utf-8
 
 let g:critiqjo#rtp0_dir = $HOME . '/.vim/'
-let g:critiqjo#cache_dir = $HOME . '/.cache/nvim/'
+let g:critiqjo#cache_dir = $HOME . '/.cache/vim/'
 
 " disable italics!!! italics+tmux=insanity!
 set t_ZR=
