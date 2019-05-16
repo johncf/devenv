@@ -47,9 +47,16 @@ function PR_VIRTENV() {
     fi
 }
 
+function PR_USER() {
+    local COLOR="%{$fg[alt_user]%}"
+    if [[ "$EUID" == 0 ]]; then
+        local COLOR="%{$fg[alt_red]%}"
+    fi
+    echo "${COLOR}%n%{$reset_color%}"
+}
+
 function PR_INFO() {
-    local PR_USER="%{$fg[teal]%}%n%{$reset_color%}"
-    echo "${PR_USER}$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
+    echo "$(PR_USER)$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
 }
 
 # The static prompt
@@ -57,10 +64,7 @@ function PCMD() {
     if [[ "${LIGHT_MODE}" == "false" ]]; then
         echo "$(PR_INFO)"$'\n'"$(PR_LINE2) "
     else
-        local PR_USER="%{$fg[alt_user]%}%n%{$reset_color%}"
-        local PR_DIR="%{$fg[alt_path]%}%~%{$reset_color%}"
-        local PR_LINE2="%{$fg[alt_time]%}%D{%H:%M} %{$fg[alt_red]%}${PR_ARROW_CHAR}%{$reset_color%} "
-        echo "${PR_USER}$(PR_HOST): ${PR_DIR}"$'\n'"${PR_LINE2}"
+        echo "$(PR_USER)$(PR_HOST): $(PR_DIR)"$'\n'"$(PR_LINE2)"
     fi
 }
 
