@@ -32,23 +32,14 @@ exe 'source ' . g:critiqjo#rtp0_dir . 'base/plugs-opts.vim'
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/keymaps.vim'
 
 if !has('gui_running')
-  imap <Esc>h <M-h>
-  imap <Esc>j <M-j>
-  imap <Esc>k <M-k>
-  imap <Esc>l <M-l>
-  imap <Esc>o <M-o>
-  imap <Esc>O <M-O>
+  map! ∆ <M-h>
+  map! ˚ <M-j>
+  map! ˙ <M-k>
+  map! ¬ <M-l>
+
   "autopairs mapping
-  imap <Esc>u <M-u>
-  imap <Esc>s <M-s>
-
-  inoremap <nowait> <Esc> <Esc>
-
-  nmap <Esc>h <M-h>
-  nmap <Esc>j <M-j>
-  nmap <Esc>k <M-k>
-  nmap <Esc>l <M-l>
-  nnoremap <nowait> <Esc> <Esc>
+  imap ø <M-u>
+  imap ß <M-s>
 
   " cursor shape change in tmux
   if exists('$TMUX')
