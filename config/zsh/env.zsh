@@ -1,7 +1,7 @@
 alias aur='aurget'
 alias calc='noglob _calc'
 alias cp='cp --reflink=auto'
-alias ll='exa -l --git'
+alias ll='exa -l'
 #alias ll='ls -lAh'
 alias ls='exa'
 #alias ls='ls --color'

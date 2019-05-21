@@ -49,7 +49,7 @@ function PR_VIRTENV() {
 }
 
 function PR_USER() {
-    local COLOR="%{$fg[alt_user]%}"
+    local COLOR="%{$fg[teal]%}"
     if [[ "$EUID" == 0 ]]; then
         local COLOR="%{$fg[alt_red]%}"
     fi
