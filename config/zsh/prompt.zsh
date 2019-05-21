@@ -2,6 +2,7 @@
 
 # User customizable options
 PR_ARROW_CHAR="%#" # The arrow symbol that is used in the prompt
+PR_TIMER_FILE="/tmp/${USER}_zsh_prompt_timer"
 LIGHT_MODE="false" # lightweight mode with alt colors (no git)
 if [[ "$EUID" == 0 ]]; then
     LIGHT_MODE="true"
@@ -39,17 +40,40 @@ function PR_VIRTENV() {
         echo ""
     else
         shortpath="$(realpath --relative-to=. "$VIRTUAL_ENV")"
-        abspath="$(realpath "$VIRTUAL_ENV")"
-        if [ ${#abspath} -le ${#shortpath} ]; then
-            shortpath="$abspath"
+        homepath="~/$(realpath --relative-to="$HOME" "$VIRTUAL_ENV")"
+        if [ ${#homepath} -le ${#shortpath} ]; then
+            shortpath="$homepath"
         fi
         echo " (%{$fg[grey]%}${shortpath}%{$reset_color%})"
     fi
 }
 
+function PR_USER() {
+    local COLOR="%{$fg[alt_user]%}"
+    if [[ "$EUID" == 0 ]]; then
+        local COLOR="%{$fg[alt_red]%}"
+    fi
+    echo "${COLOR}%n%{$reset_color%}"
+}
+
+function timer_save() {
+    local pr_timer=""
+    if [ $PR_PREV_TIME ]; then
+        local now=$(date "+%s.%N")
+        local elapsd=$(($now-$PR_PREV_TIME))
+        if [[ "${elapsd%.*}" > 0 ]]; then
+            local pr_timer=" (%{$fg[grey]%}$(date -d@$elapsd -u '+%Hh %Mm %Ss')%{$reset_color%})"
+        fi
+    fi
+    echo $pr_timer >"$PR_TIMER_FILE"
+}
+
+function PR_TIMER() {
+    echo "$(cat "$PR_TIMER_FILE")"
+}
+
 function PR_INFO() {
-    local PR_USER="%{$fg[teal]%}%n%{$reset_color%}"
-    echo "${PR_USER}$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
+    echo "$(PR_USER)$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
 }
 
 # The static prompt
@@ -57,10 +81,7 @@ function PCMD() {
     if [[ "${LIGHT_MODE}" == "false" ]]; then
         echo "$(PR_INFO)"$'\n'"$(PR_LINE2) "
     else
-        local PR_USER="%{$fg[alt_user]%}%n%{$reset_color%}"
-        local PR_DIR="%{$fg[alt_path]%}%~%{$reset_color%}"
-        local PR_LINE2="%{$fg[alt_time]%}%D{%H:%M} %{$fg[alt_red]%}${PR_ARROW_CHAR}%{$reset_color%} "
-        echo "${PR_USER}$(PR_HOST): ${PR_DIR}"$'\n'"${PR_LINE2}"
+        echo "$(PR_INFO)$(PR_TIMER)"$'\n'"$(PR_LINE2)"
     fi
 }
 
@@ -149,7 +170,11 @@ function git_prompt_string() {
 
 # The async prompt
 function ACMD() {
-    echo '$(PR_INFO)'"$(git_prompt_string)"$'\n'"$(PR_LINE2) "
+    echo '$(PR_INFO)'"$(git_prompt_string)$(PR_TIMER)"$'\n'"$(PR_LINE2) "
+}
+
+function preexec() {
+    PR_PREV_TIME=$(date "+%s.%N")
 }
 
 ASYNC_PROC=0
@@ -157,6 +182,8 @@ function precmd() {
     if [[ "${LIGHT_MODE}" != "false" ]]; then
         return
     fi
+
+    timer_save
 
     function async() {
         # save to temp file

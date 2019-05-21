@@ -29,18 +29,18 @@ function _symlink {
         (ln -s "$src" "$link" && echo ":: Linked $link")
 }
 
-mkdir -p $HOME/.config/nvim
-echo ":: Directory ~/.config/nvim"
+mkdir -p $HOME/.config/vim
+echo ":: Directory ~/.config/vim"
 
-mkdir -p $HOME/.cache/nvim/{swps,undos,logs}
-echo ":: Directory ~/.cache/nvim/{swps,undos,logs}"
+mkdir -p $HOME/.cache/vim/{swps,undos,logs}
+echo ":: Directory ~/.cache/vim/{swps,undos,logs}"
 
-_symlink config/nvim/base
-_symlink config/nvim/colors
-_symlink config/nvim/autoload
-_symlink config/nvim/init.vim
-_symlink "$SCR_DIR/config/nvim/fallback.vim" $HOME/.vimrc
-_symlink $HOME/.config/nvim $HOME/.vim
+_symlink config/vim/base
+_symlink config/vim/colors
+_symlink config/vim/autoload
+_symlink config/vim/init.vim
+_symlink "$SCR_DIR/config/vim/rc.vim" $HOME/.vimrc
+_symlink $HOME/.config/vim $HOME/.vim
 
 _symlink zshrc
 _symlink config/zsh
@@ -58,7 +58,7 @@ mkdir -p $HOME/.local/bin
 echo ":: Directory ~/.local/bin"
 _symlink local/bin/tmux-preswitch.sh
 
-curl -fLo "$HOME/.config/nvim/autoload/plug.vim" --create-dirs \
+curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 echo $'\n:: Done!'
