@@ -1,4 +1,5 @@
 alias calc='noglob _calc'
+alias date='gdate'
 alias ll='exa -l --git'
 #alias ll='ls -lAh'
 alias ls='exa'
