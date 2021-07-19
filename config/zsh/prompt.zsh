@@ -40,7 +40,7 @@ function PR_VIRTENV() {
         echo ""
     else
         shortpath="$(realpath --relative-to=. "$VIRTUAL_ENV")"
-        homepath="~/$(realpath --relative-to="$HOME" "$VIRTUAL_ENV")"
+        homepath="~/$(realpath --relative-to="$HOME" "$VIRTUAL_ENV" | sed 's#dev/__env/#d/_/#')"
         if [ ${#homepath} -le ${#shortpath} ]; then
             shortpath="$homepath"
         fi
