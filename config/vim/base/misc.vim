@@ -24,11 +24,13 @@ augroup critiq_au
   autocmd FileType netrw nnoremap <buffer> <nowait> q <C-^>
   autocmd FileType qf nnoremap <buffer> <nowait> q <C-w>q | setlocal nonu nornu
   autocmd FileType vim\|pug\|javascript setlocal ts=2 sw=2
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType man\|help\|pydoc\|info
       \ if &bt == "nofile" |
       \   nnoremap <buffer> <nowait> d <C-d> |
       \   nnoremap <buffer> <nowait> u <C-u> |
       \ endif
+  autocmd BufRead,BufNewFile *CIDE.?,*cide.? setlocal ft=text
 augroup END
 " --- Autocommands }}}
 

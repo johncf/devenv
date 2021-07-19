@@ -63,6 +63,4 @@ endif
 
 exe 'source ' . g:critiqjo#rtp0_dir . 'base/misc.vim'
 
-autocmd BufRead,BufNewFile *CIDE.?,*cide.? setlocal ft=text
-
 " vim:fdm=marker:ts=2:sw=2
