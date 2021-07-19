@@ -47,13 +47,3 @@ Many files in this repo were originally written by various authors including:
 * [tpope](https://github.com/tpope/vim-unimpaired)
 
 The rest (authored by me) are released under [MIT License](http://opensource.org/licenses/MIT).
-
-## Rants (out of frustration?)
-
-Until recently, my preferred choice of graphical file manager was PCManFM. Even though it
-had a few pesky bugs that caused occasional crashes, I liked it and hoped that some day the
-developers are gonna clean it right up! However, after waiting many years, I am giving up
-on it especially after it caused multiple freezes due to bad memory leaks (and creeping up
-on swap). So dear reader, **please avoid using PCManFM** if you value your time and unsaved
-works! (Unless, it has been several years from the time of writing this, meanwhile someone
-rewrote it from scratch or something.)
