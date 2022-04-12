@@ -47,7 +47,7 @@ docbook
 docbook-xsl
 dos2unix
 double-conversion
-eksctl
+weaveworks/tap/eksctl
 exiv2
 fftw
 findutils
@@ -153,7 +153,7 @@ python@3.10
 readline
 ruby
 shared-mime-info
-speedtest
+teamookla/speedtest/speedtest
 szip
 tcl-tk
 ufraw
@@ -169,7 +169,7 @@ zlib
 zstd
 
 # --cask
-adoptopenjdk8-jre
+adoptopenjdk/openjdk/adoptopenjdk8-jre
 alacritty
 qlcolorcode
 qlstephen
