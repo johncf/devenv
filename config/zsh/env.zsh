@@ -1,5 +1,7 @@
 alias calc='noglob _calc'
 alias date='gdate'
+alias fd='fd -HI'
+alias k='kubectl'
 alias ll='exa -l'
 #alias ll='ls -lAh'
 alias ls='exa'
@@ -9,10 +11,10 @@ alias tm='tmux'
 alias tree='exa -lTL2'
 alias tree3='exa -lTL3'
 
-#export TERM=xterm-256color
+export TERM=xterm-256color
 export CARGO_HOME=${HOME}/.cache/cargo
 export EDITOR='vim'
-export PATH=$PATH:${HOME}/.local/bin:${CARGO_HOME}/bin
+export PATH=${HOME}/.local/bin:$PATH:${CARGO_HOME}/bin
 export PYTHONSTARTUP=${HOME}/.config/pystartup
 export RUST_NEW_ERROR_FORMAT=true
 export RUSTUP_HOME=${HOME}/.cache/rustup
