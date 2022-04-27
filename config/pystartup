@@ -29,6 +29,8 @@ readline.parse_and_bind('"\eh": history-search-backward')
 readline.parse_and_bind('"\ek": history-search-forward')
 readline.parse_and_bind('"\el": forward-char')
 
+# see https://chrisyeh96.github.io/2020/03/28/terminal-colors.html
+
 class MyPS1(object):
   def __init__(self):
     import datetime
@@ -36,10 +38,10 @@ class MyPS1(object):
   def __repr__(self):
     return "\001\033[96m\002" + \
            self.dt.now().strftime("%H:%M") + \
-           " \001\033[1;30m\002>>\001\033[m\002 "
+           " \001\033[2;37m\002>>\001\033[m\002 "
 
 sys.ps1 = MyPS1()
-sys.ps2 = "      .. "
+sys.ps2 = "      \001\033[2;37m\002..\001\033[m\002 "
 
 del os, sys, atexit, readline, rlcompleter, save_history, history_path, MyPS1
 
