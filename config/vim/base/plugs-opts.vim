@@ -84,9 +84,9 @@ function! MyFileformat()
 endfunction
 
 function! MyFugitive()
-  if exists('*fugitive#head') && winwidth('.') > 75
+  if exists('*FugitiveHead') && winwidth('.') > 75
     let bmark = '┣ '
-    let branch = fugitive#head()
+    let branch = FugitiveHead()
     return strlen(branch) ? bmark . branch : ''
   endif
   return ''
