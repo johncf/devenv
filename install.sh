@@ -57,10 +57,6 @@ _symlink tmux.conf
 mkdir -p $HOME/.local/bin
 echo ":: Directory ~/.local/bin"
 _symlink local/bin/tmux-preswitch.sh
-_symlink local/bin/rand-wall.sh # requires feh
-
-_symlink config/i3
-_symlink config/dunst
 
 if ! [ -e $HOME/.config/machine ]; then
     cp "$SCR_DIR/config/machine.template" $HOME/.config/machine
@@ -68,6 +64,24 @@ if ! [ -e $HOME/.config/machine ]; then
 else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
+
+mkdir -p $HOME/.local/share/applications
+mkdir -p $HOME/.local/share/fonts
+mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
+echo ":: Directory ~/.local/share/{applications,fonts,icons/...}"
+
+curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
+    'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+if [ "$1" != "--full" ]; then
+    echo $'\n:: Skipping UI stuff! Done!'
+    exit
+fi
+
+_symlink local/bin/rand-wall.sh # requires feh
+
+_symlink config/i3
+_symlink config/dunst
 
 # ~/.Xresources
 if ! [ -e $HOME/.Xresources ]; then
@@ -77,19 +91,6 @@ else
     echo ":: Path exists; ignoring ~/.Xresources"
 fi
 _symlink config/Xresources.d
-
-mkdir -p $HOME/.local/share/applications
-mkdir -p $HOME/.local/share/fonts
-mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
-echo ":: Directory ~/.local/share/{applications,fonts,icons/...}"
-
-if [ "$1" != "--full" ]; then
-    echo $'\n:: Skipping downloads! Done!'
-    exit
-fi
-
-curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
-    'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Fonts (requires libotf)
 curl -fLo ~/.local/share/fonts/MonacoB.otf \
