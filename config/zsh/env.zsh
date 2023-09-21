@@ -1,14 +1,14 @@
 alias calc='noglob _calc'
 alias cp='cp --reflink=auto'
-alias df='df -h'
-alias du='du -h'
-#alias ll='exa -l'
-alias ll='ls --color -lAh'
-#alias ls='exa'
+#alias ll='eza -l'
+#alias llg='eza -lg'
+alias ll='ls --color -lAGh'
+alias llg='ls --color -lAh'
+#alias ls='eza'
 alias ls='ls --color'
 alias rg='rg --sort-files'
-alias tree='exa -lTL2'
-alias tree3='exa -lTL3'
+alias tree='eza -lTL2'
+alias tree3='eza -lTL3'
 
 #export TERM=xterm-256color
 export CARGO_HOME=${HOME}/.cache/cargo

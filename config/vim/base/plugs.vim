@@ -23,6 +23,8 @@ Plug 'rust-lang/rust.vim'
 Plug 'PotatoesMaster/i3-vim-syntax', { 'for': 'i3' }
 Plug 'cespare/vim-toml'
 Plug 'digitaltoad/vim-pug'
+Plug 'hashivim/vim-terraform', { 'for': 'tf' }
+Plug 'towolf/vim-helm'
 "Plug 'zaiste/tmux.vim'
 
 " Misc

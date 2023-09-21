@@ -10,6 +10,7 @@ set laststatus=2
 "set linebreak " word-wrap
 set list
 set listchars=tab:»\ ,trail:·
+set mouse=nvi
 set number
 "set relativenumber " Relative line numbering
 set ruler " Show line and column numbers
