@@ -38,7 +38,6 @@ echo ":: Directory ~/.cache/vim/{swps,undos,logs}"
 _symlink config/vim/base
 _symlink config/vim/colors
 _symlink config/vim/autoload
-_symlink config/vim/init.vim
 _symlink "$SCR_DIR/config/vim/rc.vim" $HOME/.vimrc
 _symlink $HOME/.config/vim $HOME/.vim
 
@@ -65,11 +64,6 @@ else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
 
-mkdir -p $HOME/.local/share/applications
-mkdir -p $HOME/.local/share/fonts
-mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
-echo ":: Directory ~/.local/share/{applications,fonts,icons/...}"
-
 curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
@@ -77,6 +71,11 @@ if [ "$1" != "--full" ]; then
     echo $'\n:: Skipping UI stuff! Done!'
     exit
 fi
+
+mkdir -p $HOME/.local/share/applications
+mkdir -p $HOME/.local/share/fonts
+mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
+echo ":: Directory ~/.local/share/{applications,fonts,icons/...}"
 
 _symlink local/bin/rand-wall.sh # requires feh
 

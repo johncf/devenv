@@ -1,5 +1,6 @@
 " Colemak keymaps
 set langmap=kj,jh,hk
+set pastetoggle=<F2>
 
 nnoremap <silent> <M-h> <C-w><Left>
 nnoremap <silent> <M-j> <C-w><Down>

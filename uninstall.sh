@@ -21,7 +21,6 @@ function _unlink {
 _unlink $HOME/.config/vim/base
 _unlink $HOME/.config/vim/colors
 _unlink $HOME/.config/vim/autoload
-_unlink $HOME/.config/vim/init.vim
 _unlink $HOME/.vimrc
 _unlink $HOME/.vim
 
@@ -31,6 +30,7 @@ _unlink $HOME/.zshrc
 _unlink $HOME/.config/pystartup
 _unlink $HOME/.gitconfig
 _unlink $HOME/.tmux.conf
+
 _unlink $HOME/.local/bin/tmux-preswitch.sh
 _unlink $HOME/.local/bin/rand-wall.sh
 
