@@ -67,6 +67,9 @@ fi
 curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+echo ":: TPM installed; Run <prefix>I within tmux to install plugins"
+
 if [ "$1" != "--full" ]; then
     echo $'\n:: Skipping UI stuff! Done!'
     exit
