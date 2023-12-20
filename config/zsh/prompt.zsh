@@ -115,7 +115,7 @@ function parse_git_detached() {
 # Show different symbols as appropriate for various Git repository states
 function parse_git_state() {
     # Compose this value via multiple conditional appends.
-    local GIT_STATE=""
+    local GIT_STATE="" GIT_DIFF=""
 
     local NUM_AHEAD="$(git log --oneline @{u}.. 2> /dev/null | wc -l | tr -d ' ')"
     if [ "$NUM_AHEAD" -gt 0 ]; then
