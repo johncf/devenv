@@ -2,6 +2,9 @@
 set langmap=kj,jh,hk
 set pastetoggle=<F2>
 
+noremap <silent> <Up> g<Up>
+noremap <silent> <Down> g<Down>
+
 nnoremap <silent> <M-h> <C-w><Left>
 nnoremap <silent> <M-j> <C-w><Down>
 nnoremap <silent> <M-k> <C-w><Up>

@@ -30,6 +30,7 @@ set complete-=i " don't scan included files
 set incsearch " incremental search: show results while typing in /
 set ignorecase " of search patterns
 set isfname-==  " so that <C-x><C-f> works when an = is followed by a path
+set nolangremap
 set modeline
 set nrformats-=octal " Disable octal format with <C-a> and <C-x>
 set path=.,./**

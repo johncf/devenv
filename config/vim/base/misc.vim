@@ -35,7 +35,7 @@ augroup END
 " --- Autocommands }}}
 
 " --- Command defs {{{
-command! MouseToggle if &mouse=="" | set mouse=a | else | set mouse= | endif
+command! MouseToggle if &mouse=="" | set mouse=nvi | else | set mouse= | endif
 
 " See the diff between the current buffer and the file on disk.
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
