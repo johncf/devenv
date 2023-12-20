@@ -53,7 +53,8 @@ nnoremap <silent> <leader>cl :set invcursorline<CR>
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>f :find<Space><C-d>
 nnoremap <leader>hh :set nonu nornu nolist conceallevel=2<CR>
-nnoremap <silent> <leader>hl :nohl<CR>
+nnoremap <silent> <leader>hl :HighlightToggle<CR>
+nnoremap <leader>b :ls<CR>:b
 nnoremap <leader>m :MouseToggle<CR>
 nnoremap <leader>n :<C-u>b <C-r>=critiqjo#get_file_buf(v:count, 1)<CR><CR>
 nnoremap <leader>N :<C-u>b <C-r>=critiqjo#get_file_buf(v:count, -1)<CR><CR>
