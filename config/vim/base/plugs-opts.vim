@@ -123,6 +123,12 @@ let g:viewdoc_openempty = 0
 let g:AutoPairsShortcutFastWrap = '<M-s>'
 let g:AutoPairsShortcutBackInsert = '<M-u>'
 
-let g:markdown_enable_spell_checking = 0
-let g:markdown_enable_input_abbreviations = 0
-let g:markdown_mapping_switch_status = '<Leader><Space>'
+let g:markdown_fenced_languages = [
+    \ 'bash=sh',
+    \ 'json',
+    \ 'python',
+    \ 'yaml',
+    \ 'rust',
+\]
+let g:markdown_syntax_conceal = 0
+let g:markdown_minlines = 100

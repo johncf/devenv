@@ -26,7 +26,7 @@ Plug 'cespare/vim-toml'
 Plug 'digitaltoad/vim-pug'
 Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 Plug 'towolf/vim-helm'
-Plug 'gabrielelana/vim-markdown'
+Plug 'tpope/vim-markdown'
 "Plug 'zaiste/tmux.vim'
 
 " Misc
