@@ -26,6 +26,7 @@ nnoremap <silent> gL :call cursor(getpos('.')[1] + (winheight('%')-winline())/2,
 
 inoremap <C-a> <C-o>^
 inoremap <C-e> <C-o>$
+
 " Make <C-u> and <CR> undoable
 inoremap <C-u> <C-g>u<C-u>
 inoremap <CR> <C-g>u<CR>
@@ -67,3 +68,23 @@ nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call critiqjo#only_visible()<CR>
 nnoremap <leader>w :update<CR>
+
+if !has('gui_running')
+  imap <Esc>h <M-h>
+  imap <Esc>j <M-j>
+  imap <Esc>k <M-k>
+  imap <Esc>l <M-l>
+  imap <Esc>o <M-o>
+  imap <Esc>O <M-O>
+  "autopairs mapping
+  imap <Esc>u <M-u>
+  imap <Esc>s <M-s>
+
+  inoremap <nowait> <Esc> <Esc>
+
+  nmap <Esc>h <M-h>
+  nmap <Esc>j <M-j>
+  nmap <Esc>k <M-k>
+  nmap <Esc>l <M-l>
+  nnoremap <nowait> <Esc> <Esc>
+endif

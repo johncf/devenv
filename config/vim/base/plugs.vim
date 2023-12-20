@@ -9,6 +9,7 @@ Plug 'beloglazov/vim-textobj-quotes'
 Plug 'jiangmiao/auto-pairs'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'godlygeek/tabular'
+Plug 'kana/vim-operator-user'
 Plug 'kana/vim-textobj-user'
 Plug 'tpope/vim-surround' "csXX, dsX, ysMX, yssX
 Plug 'tpope/vim-repeat' "tpope plugin repeat
@@ -25,6 +26,7 @@ Plug 'cespare/vim-toml'
 Plug 'digitaltoad/vim-pug'
 Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 Plug 'towolf/vim-helm'
+Plug 'gabrielelana/vim-markdown'
 "Plug 'zaiste/tmux.vim'
 
 " Misc
