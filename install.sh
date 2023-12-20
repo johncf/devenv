@@ -75,24 +75,11 @@ if [ "$1" != "--full" ]; then
     exit
 fi
 
-mkdir -p $HOME/.local/share/applications
 mkdir -p $HOME/.local/share/fonts
-mkdir -p $HOME/.local/share/icons/hicolor/scalable/apps
-echo ":: Directory ~/.local/share/{applications,fonts,icons/...}"
+echo ":: Directory ~/.local/share/fonts"
 
-_symlink local/bin/rand-wall.sh # requires feh
-
-_symlink config/i3
-_symlink config/dunst
-
-# ~/.Xresources
-if ! [ -e $HOME/.Xresources ]; then
-    sed "s:\${HOME}:$HOME:" "$SCR_DIR/Xresources.template" > $HOME/.Xresources
-    echo ":: Created from template: ~/.Xresources"
-else
-    echo ":: Path exists; ignoring ~/.Xresources"
-fi
-_symlink config/Xresources.d
+#_symlink config/i3
+#_symlink config/dunst
 
 # Fonts (requires libotf)
 curl -fLo ~/.local/share/fonts/MonacoB.otf \
