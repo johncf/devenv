@@ -12,7 +12,11 @@ c_nil='\e[0m' # No Color
 user=$1
 tty=$2
 
+echo -e "${c_red}${user}${c_nil} joined from $(tty)">$tty
+
 #echo -ne "${c_gre}> ${c_nil}"
 while read line; do
 	echo -e "${c_red}${user}:${c_nil} ${line}">$tty
 done
+
+echo -e "${c_red}${user}${c_nil} left the room">$tty

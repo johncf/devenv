@@ -55,7 +55,7 @@ _symlink tmux.conf
 
 mkdir -p $HOME/.local/bin
 echo ":: Directory ~/.local/bin"
-_symlink local/bin/tmux-preswitch.sh
+_symlink local/bin/pwgen.sh
 
 if ! [ -e $HOME/.config/machine ]; then
     cp "$SCR_DIR/config/machine.template" $HOME/.config/machine
