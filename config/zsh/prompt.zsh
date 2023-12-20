@@ -86,7 +86,7 @@ function PCMD() {
 }
 
 PROMPT='$(PCMD)' # single quotes to prevent immediate execution
-RPROMPT='$(PR_ERROR)' # set asynchronously and dynamically
+RPROMPT='$(PR_ERROR)'
 
 # git stuff {{{
 DIFF_SYMBOL="-"
@@ -177,7 +177,6 @@ function preexec() {
     PR_PREV_TIME=$(date "+%s.%N")
 }
 
-ASYNC_PROC=0
 function precmd() {
     if [[ "${LIGHT_MODE}" != "false" ]]; then
         return
@@ -185,33 +184,29 @@ function precmd() {
 
     timer_save
 
-    function async() {
-        # save to temp file
-        printf "%s" "$(ACMD)" > "/tmp/${USER}_zsh_prompt"
+    typeset -g _PROMPT_ASYNC_FD
 
-        # signal parent
-        kill -s USR1 $$
-    }
-
-    # kill child if necessary
-    if [[ "${ASYNC_PROC}" != 0 ]]; then
-        kill -s HUP $ASYNC_PROC >/dev/null 2>&1 || true
+    # close last fd, we don't care about the result anymore
+    if [[ -n "$_PROMPT_ASYNC_FD" ]] && { true <&$_PROMPT_ASYNC_FD } 2>/dev/null; then
+        exec {_PROMPT_ASYNC_FD}<&-
     fi
 
-    # start background computation
-    async &!
-    ASYNC_PROC=$!
+    # compute prompt in a background process
+    exec {_PROMPT_ASYNC_FD}< <(printf "%s" "$(ACMD)")
+
+    # when fd is readable, call response handler
+    zle -F "$_PROMPT_ASYNC_FD" async_prompt_complete
 }
 
-function TRAPUSR1() {
-    # read from temp file
+function async_prompt_complete() {
     local PREV_PROMPT="$PROMPT"
-    PROMPT="$(cat /tmp/${USER}_zsh_prompt)"
+    # read from fd
+    PROMPT="$(<&$1)"
 
-    # reset proc number
-    ASYNC_PROC=0
+    # remove the handler and close the fd
+    zle -F "$1"
+    exec {1}<&-
 
-    # redisplay
+    # redisplay if necessary
     [[ "$PROMPT" != "$PREV_PROMPT" ]] && zle && zle reset-prompt
 }
-
