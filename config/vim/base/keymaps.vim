@@ -1,14 +1,28 @@
+" --- Cursor Movements {{{
+
 " Colemak keymaps
 set langmap=kj,jh,hk
-set pastetoggle=<F2>
 
 noremap <silent> <Up> g<Up>
 noremap <silent> <Down> g<Down>
 
-nnoremap <silent> <M-h> <C-w><Left>
-nnoremap <silent> <M-j> <C-w><Down>
-nnoremap <silent> <M-k> <C-w><Up>
-nnoremap <silent> <M-l> <C-w><Right>
+" Alternate between first character and first non-space character
+nnoremap <expr> 0 getpos('.')[2]==1 ? "_" : "0"
+
+nnoremap <C-k> j<C-e>
+nnoremap <C-h> k<C-y>
+
+inoremap <C-a> <C-o>^
+inoremap <C-e> <C-o>$
+
+inoremap <M-h> <Up>
+inoremap <M-j> <Left>
+inoremap <M-k> <Down>
+inoremap <M-l> <Right>
+
+" --- }}}
+
+set pastetoggle=<F2>
 
 if stridx(&rtp, 'smartword') > 0
   map w <Plug>(smartword-w)
@@ -17,33 +31,14 @@ if stridx(&rtp, 'smartword') > 0
   map ge <Plug>(smartword-ge)
 endif
 
-" Don't go to Ex mode, open cmd-line window instead.
-nnoremap Q q:
+" Avoid going to Ex mode
+nnoremap Q <Nop>
+
 nnoremap Y y$
-nnoremap <expr> 0 getpos('.')[2]==1 ? "_" : "0"
-
-nnoremap <C-j> j<C-e>
-nnoremap <C-k> k<C-y>
-nnoremap <silent> gH :call cursor(getpos('.')[1] - winline()/2, 0)<CR>
-nnoremap <silent> gL :call cursor(getpos('.')[1] + (winheight('%')-winline())/2, 0)<CR>
-
-inoremap <C-a> <C-o>^
-inoremap <C-e> <C-o>$
 
 " Make <C-u> and <CR> undoable
 inoremap <C-u> <C-g>u<C-u>
 inoremap <CR> <C-g>u<CR>
-
-inoremap <M-b> <C-o>b
-inoremap <M-d> <C-o>d
-inoremap <M-e> <C-o>e<Right>
-inoremap <M-w> <C-o>w
-inoremap <M-o> <Esc>o
-inoremap <M-O> <Esc>O
-inoremap <M-h> <Left>
-inoremap <M-j> <Down>
-inoremap <M-k> <Up>
-inoremap <M-l> <Right>
 
 let mapleader = "\<Space>"
 noremap <leader> <Nop>
@@ -73,21 +68,17 @@ nnoremap <leader>vo :call critiqjo#only_visible()<CR>
 nnoremap <leader>w :update<CR>
 
 if !has('gui_running')
+  " Fix Meta-key mappings in insert mode
   imap <Esc>h <M-h>
   imap <Esc>j <M-j>
   imap <Esc>k <M-k>
   imap <Esc>l <M-l>
-  imap <Esc>o <M-o>
-  imap <Esc>O <M-O>
-  "autopairs mapping
-  imap <Esc>u <M-u>
-  imap <Esc>s <M-s>
+
+  " Handle arrow keys correctly in insert mode
+  inoremap <Esc>OA <Up>
+  inoremap <Esc>OB <Down>
+  inoremap <Esc>OD <Left>
+  inoremap <Esc>OC <Right>
 
   inoremap <nowait> <Esc> <Esc>
-
-  nmap <Esc>h <M-h>
-  nmap <Esc>j <M-j>
-  nmap <Esc>k <M-k>
-  nmap <Esc>l <M-l>
-  nnoremap <nowait> <Esc> <Esc>
 endif
