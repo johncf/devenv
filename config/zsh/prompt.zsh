@@ -2,10 +2,9 @@
 
 # User customizable options
 PR_ARROW_CHAR="%#" # The arrow symbol that is used in the prompt
-PR_TIMER_FILE="/tmp/${USER}_zsh_prompt_timer"
-LIGHT_MODE="false" # lightweight mode with alt colors (no git)
+PR_NOGIT_MODE="false" # lightweight mode without git info
 if [[ "$EUID" == 0 ]]; then
-    LIGHT_MODE="true"
+    PR_NOGIT_MODE="true"
 fi
 
 # Current directory
@@ -56,33 +55,13 @@ function PR_USER() {
     echo "${COLOR}%n%{$reset_color%}"
 }
 
-function timer_save() {
-    local pr_timer=""
-    if [ $PR_PREV_TIME ]; then
-        local now=$(date "+%s.%N")
-        local elapsd=$(($now-$PR_PREV_TIME))
-        if [[ "${elapsd%.*}" > 0 ]]; then
-            local pr_timer=" (%{$fg[grey]%}$(date -d@$elapsd -u '+%Hh %Mm %Ss')%{$reset_color%})"
-        fi
-    fi
-    echo $pr_timer >"$PR_TIMER_FILE"
-}
-
-function PR_TIMER() {
-    echo "$(cat "$PR_TIMER_FILE")"
-}
-
 function PR_INFO() {
     echo "$(PR_USER)$(PR_HOST)$(PR_VIRTENV): $(PR_DIR)"
 }
 
 # The static prompt
 function PCMD() {
-    if [[ "${LIGHT_MODE}" == "false" ]]; then
-        echo "$(PR_INFO)"$'\n'"$(PR_LINE2) "
-    else
-        echo "$(PR_INFO)$(PR_TIMER)"$'\n'"$(PR_LINE2)"
-    fi
+    echo "$(PR_INFO)"$'\n'"$(PR_LINE2)"
 }
 
 PROMPT='$(PCMD)' # single quotes to prevent immediate execution
@@ -170,19 +149,13 @@ function git_prompt_string() {
 
 # The async prompt
 function ACMD() {
-    echo '$(PR_INFO)'"$(git_prompt_string)$(PR_TIMER)"$'\n'"$(PR_LINE2) "
-}
-
-function preexec() {
-    PR_PREV_TIME=$(date "+%s.%N")
+    echo '$(PR_INFO)'"$(git_prompt_string)"$'\n'"$(PR_LINE2) "
 }
 
 function precmd() {
-    if [[ "${LIGHT_MODE}" != "false" ]]; then
+    if [[ "${PR_NOGIT_MODE}" != "false" ]]; then
         return
     fi
-
-    timer_save
 
     typeset -g _PROMPT_ASYNC_FD
 
