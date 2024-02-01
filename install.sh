@@ -13,6 +13,8 @@ if [ "$1" == "--help" ]; then
 fi
 
 function _symlink {
+    local src
+    local link
     if [ "$#" == 1 ]; then
         src="$SCR_DIR/$1"
         link="$HOME/.$1"
@@ -27,6 +29,28 @@ function _symlink {
     fi
     [ -e "$link" ] && echo ":: Path exists; ignoring $link" || \
         (ln -s "$src" "$link" && echo ":: Linked $link")
+}
+
+function _githubrel {
+    local exe="$1"
+    local ghinfo="$2"
+    local match="$3"
+    local rel_json
+    local rel_ver
+    local dl_url
+    if which jq >/dev/null; then
+        rel_json="$(curl -sSL -H "Accept: application/vnd.github+json" \
+                              -H "X-GitHub-Api-Version: 2022-11-28" \
+                    "https://api.github.com/repos/$ghinfo/releases/latest")"
+        rel_ver="$(echo "$rel_json" | jq -r '.name')"
+        dl_url="$(echo "$rel_json" | jq -r '.assets[] | .browser_download_url' | grep "$match")"
+        curl -fLo ~/.cache/_ghrel.tar.gz "$dl_url"
+        tar -xf ~/.cache/_ghrel.tar.gz -C ~/.local/bin "$exe"
+        rm ~/.cache/_ghrel.tar.gz
+        echo ":: $exe $rel_ver installed"
+    else
+        echo ":: jq not installed; skipping $exe installation"
+    fi
 }
 
 mkdir -p $HOME/.config/vim
@@ -73,6 +97,14 @@ if ! [ -d ~/.tmux/plugins/tpm ]; then
     echo ":: TPM installed; Run <prefix>I within tmux to install plugins"
 else
     echo ":: TPM exists; Run <prefix>U within tmux to update plugins"
+fi
+
+_githubrel fzf junegunn/fzf linux_amd64
+
+if which docker >/dev/null; then
+    _githubrel lazydocker jesseduffield/lazydocker Linux_x86_64
+else
+    echo ":: docker not installed; skipping lazydocker installation"
 fi
 
 if [ "$1" != "--full" ]; then
