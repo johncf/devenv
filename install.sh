@@ -44,8 +44,12 @@ function _githubrel {
                     "https://api.github.com/repos/$ghinfo/releases/latest")"
         rel_ver="$(echo "$rel_json" | jq -r '.name')"
         dl_url="$(echo "$rel_json" | jq -r '.assets[] | .browser_download_url' | grep "$match")"
-        curl -fLo ~/.cache/_ghrel.tar.gz "$dl_url"
-        tar -xf ~/.cache/_ghrel.tar.gz -C ~/.local/bin "$exe"
+        curl -sSfLo ~/.cache/_ghrel.tar.gz "$dl_url"
+        if grep "^$exe$" <(tar tf ~/.cache/_ghrel.tar.gz) >/dev/null; then
+            tar -C ~/.local/bin -xf ~/.cache/_ghrel.tar.gz "$exe"
+        else
+            tar -C ~/.local/bin --wildcards -xf ~/.cache/_ghrel.tar.gz "**/$exe" --transform='s/.*\///'
+        fi
         rm ~/.cache/_ghrel.tar.gz
         echo ":: $exe $rel_ver installed"
     else
@@ -88,7 +92,7 @@ else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
 
-curl -fLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
+curl -sSfLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo ":: plug.vim installed"
 
@@ -107,6 +111,9 @@ else
     echo ":: docker not installed; skipping lazydocker installation"
 fi
 
+_githubrel git-lfs git-lfs/git-lfs linux-amd64
+echo "   :: also see https://packagecloud.io/github/git-lfs/install"
+
 if [ "$1" != "--full" ]; then
     echo $'\n:: Skipping UI stuff! Done!'
     exit
@@ -119,11 +126,11 @@ echo ":: Directory ~/.local/share/fonts"
 #_symlink config/dunst
 
 # Fonts (requires libotf)
-curl -fLo ~/.local/share/fonts/MonacoB.otf \
+curl -sSfLo ~/.local/share/fonts/MonacoB.otf \
     https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB.otf
-curl -fLo ~/.local/share/fonts/MonacoB-Bold.otf \
+curl -sSfLo ~/.local/share/fonts/MonacoB-Bold.otf \
     https://raw.githubusercontent.com/vjpr/monaco-bold/master/MonacoB/MonacoB-Bold.otf
-curl -fLo ~/.local/share/fonts/FontAwesome.otf \
+curl -sSfLo ~/.local/share/fonts/FontAwesome.otf \
     https://raw.githubusercontent.com/FortAwesome/Font-Awesome/master/fonts/FontAwesome.otf
 fc-cache -vf
 echo
