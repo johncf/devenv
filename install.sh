@@ -92,6 +92,11 @@ else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
 
+if [ "$1" == "--minimal" ]; then
+    echo $'\n:: Skipping all downloads! Done!'
+    exit
+fi
+
 curl -sSfLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo ":: plug.vim installed"
@@ -113,6 +118,10 @@ fi
 
 _githubrel git-lfs git-lfs/git-lfs linux-amd64
 echo "   :: also see https://packagecloud.io/github/git-lfs/install"
+
+_githubrel noisetorch noisetorch/NoiseTorch '_x64.*.tgz$'
+echo "   :: noisetorch requires CAP_SYS_RESOURCE permissions..."
+sudo setcap 'CAP_SYS_RESOURCE=+ep' ~/.local/bin/noisetorch
 
 if [ "$1" != "--full" ]; then
     echo $'\n:: Skipping UI stuff! Done!'
