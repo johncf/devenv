@@ -74,8 +74,10 @@ _symlink config/zsh
 
 mkdir -p $HOME/.cache/zsh
 echo ":: Directory ~/.cache/zsh"
+pushd $SCR_DIR
 git submodule init
 git submodule update
+popd
 
 _symlink config/pystartup
 _symlink gitconfig
