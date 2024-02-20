@@ -17,7 +17,7 @@
     ds = diff --find-copies --staged
     dt = diff --find-copies --stat
     dw = diff --find-copies --word-diff
-    dc = diff --find-copies --word-diff-regex=.
+    dmc = diff --name-only --diff-filter=U --relative
     l = log --graph --decorate --oneline --max-count=16
     lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(dim white)(%cr)%Creset by %C(yellow)%an%Creset'
     lt = log --graph --decorate --oneline --stat --max-count=4
