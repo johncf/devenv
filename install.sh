@@ -94,14 +94,14 @@ else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
 
-if [ "$1" == "--minimal" ]; then
-    echo $'\n:: Skipping all downloads! Done!'
-    exit
-fi
-
 curl -sSfLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo ":: plug.vim installed"
+
+if [ "$1" == "--minimal" ]; then
+    echo $'\n:: Skipping most downloads! Done!'
+    exit
+fi
 
 if ! [ -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
