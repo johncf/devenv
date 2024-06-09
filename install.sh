@@ -79,6 +79,12 @@ git submodule init
 git submodule update
 popd
 
+mkdir -p $HOME/.config/mpv
+echo ":: Directory ~/.config/mpv"
+
+_symlink config/mpv/input.conf
+_symlink config/mpv/mpv.conf
+
 _symlink config/pystartup
 _symlink gitconfig
 _symlink tmux.conf
