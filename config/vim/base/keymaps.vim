@@ -33,6 +33,7 @@ endif
 
 " Avoid going to Ex mode
 nnoremap Q <Nop>
+" alternatively, `nnoremap Q q:` to open cmdline-window
 
 nnoremap Y y$
 
@@ -62,7 +63,6 @@ nnoremap <leader>o :Unite fasd:mru -start-insert<CR>
 nnoremap <leader>O :Unite fasd:mru:reload -start-insert<CR>
 nnoremap <leader>q :call critiqjo#buf_close()<CR>
 nnoremap <leader>Q :qall<CR>
-nnoremap <leader>r :<C-u><C-r>='let @'.v:register.' = '.string(getreg(v:register))<CR><C-f><Left>
 nnoremap <leader>s :set invspell<CR>
 nnoremap <leader>u :UndotreeToggle<CR>
 nnoremap <leader>vo :call critiqjo#only_visible()<CR>

@@ -111,9 +111,9 @@ fi
 
 if ! [ -d ~/.tmux/plugins/tpm ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    echo ":: TPM installed; Run <prefix>I within tmux to install plugins"
+    echo ":: TPM installed; Do <prefix>I within tmux to install plugins"
 else
-    echo ":: TPM exists; Run <prefix>U within tmux to update plugins"
+    echo ":: TPM exists; Do <prefix>I (or U) to install (or update) plugins"
 fi
 
 _githubrel fzf junegunn/fzf linux_amd64
