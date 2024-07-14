@@ -85,6 +85,8 @@ echo ":: Directory ~/.config/mpv"
 _symlink config/mpv/input.conf
 _symlink config/mpv/mpv.conf
 
+_symlink config/kitty/kitty.conf
+
 _symlink config/pystartup
 _symlink gitconfig
 _symlink tmux.conf

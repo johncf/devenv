@@ -27,6 +27,7 @@ Plug 'digitaltoad/vim-pug'
 Plug 'hashivim/vim-terraform', { 'for': 'tf' }
 Plug 'towolf/vim-helm'
 Plug 'tpope/vim-markdown'
+Plug 'fladson/vim-kitty'
 "Plug 'zaiste/tmux.vim'
 
 " Misc
