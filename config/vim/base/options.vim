@@ -19,6 +19,8 @@ set showcmd
 set noshowmode
 set showtabline=2
 set splitright
+set title
+set titlestring=vim:%<%t%m
 " disable italics; italics+tmux=insanity!
 set t_ZR=
 set t_ZH=

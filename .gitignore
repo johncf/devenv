@@ -1,2 +1,2 @@
-config/nvim/autoload/plug.vim
+config/vim/autoload/plug.vim
 *.zwc
