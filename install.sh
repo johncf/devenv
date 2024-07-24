@@ -120,6 +120,8 @@ fi
 
 _githubrel fzf junegunn/fzf linux_amd64
 
+_githubrel eza eza-community/eza x86_64-unknown-linux-musl.tar
+
 if which docker >/dev/null; then
     _githubrel lazydocker jesseduffield/lazydocker Linux_x86_64
 else
