@@ -129,9 +129,13 @@ fi
 _githubrel git-lfs git-lfs/git-lfs linux-amd64
 echo "   :: also see https://packagecloud.io/github/git-lfs/install"
 
-_githubrel noisetorch noisetorch/NoiseTorch '_x64.*.tgz$'
-echo "   :: noisetorch requires CAP_SYS_RESOURCE permissions..."
-sudo setcap 'CAP_SYS_RESOURCE=+ep' ~/.local/bin/noisetorch
+if ! [ -f ~/.local/bin/noisetorch ]; then
+    _githubrel noisetorch noisetorch/NoiseTorch '_x64.*.tgz$'
+    echo "   :: noisetorch requires CAP_SYS_RESOURCE permissions..."
+    sudo setcap 'CAP_SYS_RESOURCE=+ep' ~/.local/bin/noisetorch
+else
+    echo ":: noisetorch exists"
+fi
 
 if [ "$1" != "--full" ]; then
     echo $'\n:: Skipping UI stuff! Done!'
