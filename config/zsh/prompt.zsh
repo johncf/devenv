@@ -35,15 +35,17 @@ function PR_HOST() {
 }
 
 function PR_VIRTENV() {
-    if [ -z "$VIRTUAL_ENV" ]; then
-        echo ""
-    else
+    if [ -n "$VIRTUAL_ENV" ]; then
         shortpath="$(realpath --relative-to=. "$VIRTUAL_ENV")"
         homepath="~/$(realpath --relative-to="$HOME" "$VIRTUAL_ENV" | sed 's#dev/__env/#d/_/#')"
         if [ ${#homepath} -le ${#shortpath} ]; then
             shortpath="$homepath"
         fi
         echo " (%{$fg[grey]%}${shortpath}%{$reset_color%})"
+    elif [ -n "$CONDA_DEFAULT_ENV" ]; then
+        echo " (%{$fg[grey]%}conda:${CONDA_DEFAULT_ENV}%{$reset_color%})"
+    else
+        echo ""
     fi
 }
 

@@ -35,26 +35,54 @@ function _githubrel {
     local exe="$1"
     local ghinfo="$2"
     local match="$3"
-    local rel_json
     local rel_ver
     local dl_url
+    local tmp_json=/tmp/_ghrel.json
     if which jq >/dev/null; then
-        rel_json="$(curl -sSL -H "Accept: application/vnd.github+json" \
-                              -H "X-GitHub-Api-Version: 2022-11-28" \
-                    "https://api.github.com/repos/$ghinfo/releases/latest")"
-        rel_ver="$(echo "$rel_json" | jq -r '.name')"
-        dl_url="$(echo "$rel_json" | jq -r '.assets[] | .browser_download_url' | grep "$match")"
-        curl -sSfLo ~/.cache/_ghrel.tar.gz "$dl_url"
-        if grep "^$exe$" <(tar tf ~/.cache/_ghrel.tar.gz) >/dev/null; then
-            tar -C ~/.local/bin -xf ~/.cache/_ghrel.tar.gz "$exe"
-        else
-            tar -C ~/.local/bin --wildcards -xf ~/.cache/_ghrel.tar.gz "**/$exe" --transform='s/.*\///'
-        fi
-        rm ~/.cache/_ghrel.tar.gz
+        curl -sSL -H "Accept: application/vnd.github+json" \
+                  -H "X-GitHub-Api-Version: 2022-11-28" \
+            "https://api.github.com/repos/$ghinfo/releases/latest" > $tmp_json
+        rel_ver="$(cat $tmp_json | jq -r '.name')"
+        dl_url="$(cat $tmp_json | jq -r '.assets[] | .browser_download_url' | grep "$match")"
+        case $dl_url in
+            *.tar.bz2|*.tbz2)
+                _ghrel_untar "$exe" tbz2 "$dl_url" ;;
+            *.tar.gz|*.tgz)
+                _ghrel_untar "$exe" tgz "$dl_url" ;;
+            *.bz2)
+                _ghrel_unzip "$exe" bzip2 "$dl_url" ;;
+            *.gz)
+                _ghrel_unzip "$exe" gzip "$dl_url" ;;
+            *) echo "unsupported file type: $dl_url"; return 1 ;;
+        esac
         echo ":: $exe $rel_ver installed"
     else
         echo ":: jq not installed; skipping $exe installation"
     fi
+}
+
+# helper function to download a github release tar file and extract
+function _ghrel_untar {
+    local exe="$1"
+    local ext="$2"
+    local dl_url="$3"
+    curl -sSfLo ~/.cache/_ghrel.$ext "$dl_url"
+    if grep "^$exe$" <(tar tf ~/.cache/_ghrel.$ext) >/dev/null; then
+        tar -C ~/.local/bin -xf ~/.cache/_ghrel.$ext "$exe"
+    else
+        tar -C ~/.local/bin --wildcards -xf ~/.cache/_ghrel.$ext "**/$exe" --transform='s/.*\///'
+    fi
+    rm ~/.cache/_ghrel.$ext
+}
+
+function _ghrel_unzip {
+    local exe="$1"
+    local cmd="$2"
+    local dl_url="$3"
+    curl -sSfLo ~/.cache/_ghrel "$dl_url"
+    $cmd -d -c ~/.cache/_ghrel > ~/.local/bin/"$exe"
+    chmod +x ~/.local/bin/"$exe"
+    rm ~/.cache/_ghrel
 }
 
 mkdir -p $HOME/.config/vim
@@ -119,6 +147,8 @@ else
 fi
 
 _githubrel fzf junegunn/fzf linux_amd64
+
+_githubrel restic restic/restic linux_amd64
 
 _githubrel eza eza-community/eza x86_64-unknown-linux-musl.tar
 
