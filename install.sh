@@ -113,8 +113,6 @@ echo ":: Directory ~/.config/mpv"
 _symlink config/mpv/input.conf
 _symlink config/mpv/mpv.conf
 
-_symlink config/kitty/kitty.conf
-
 _symlink config/pystartup
 _symlink gitconfig
 _symlink tmux.conf
@@ -130,7 +128,7 @@ else
     echo ":: Path exists; ignoring ~/.config/machine"
 fi
 
-curl -sSfLo "$HOME/.config/vim/autoload/plug.vim" --create-dirs \
+curl -sSfLo "$HOME/.vim/autoload/plug.vim" --create-dirs \
     'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 echo ":: plug.vim installed"
 
@@ -144,6 +142,16 @@ if ! [ -d ~/.tmux/plugins/tpm ]; then
     echo ":: TPM installed; Do <prefix>I within tmux to install plugins"
 else
     echo ":: TPM exists; Do <prefix>I (or U) to install (or update) plugins"
+fi
+
+if [ "$(uname)" != "Linux" ]; then
+    echo ":: not a Linux distribution..."
+
+    if [[ "$(uname)" =~ ^(MSYS|MINGW) ]]; then
+        _githubrel eza.exe eza-community/eza x86_64-pc-windows-gnu.tar
+    fi
+
+    exit
 fi
 
 _githubrel fzf junegunn/fzf linux_amd64
