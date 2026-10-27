@@ -5,10 +5,11 @@ set -e
 SCR_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
 
 if [ "$1" == "--help" ]; then
-    echo "Usage: ./install.sh [--help | --full]"
-    echo "           Create symlinks to configuration files."
-    echo "  --full   Also download fonts and vim-plug."
-    echo "  --help   Display this message"
+    echo "Usage: ./install.sh [--help | --minimal | --full]"
+    echo "           Create symlinks to configuration files and download vim-plug."
+    echo "  --minimal  Only do the above; skip tmux plugin manager and tool downloads."
+    echo "  --full     Also download fonts."
+    echo "  --help     Display this message"
     exit
 fi
 
@@ -147,7 +148,16 @@ fi
 if [ "$(uname)" != "Linux" ]; then
     echo ":: not a Linux distribution..."
 
-    if [[ "$(uname)" =~ ^(MSYS|MINGW) ]]; then
+    if [ "$(uname)" == "Darwin" ]; then
+        # eza publishes no macOS release binaries; use Homebrew
+        if which eza >/dev/null; then
+            echo ":: eza exists"
+        elif which brew >/dev/null; then
+            brew install eza && echo ":: eza installed"
+        else
+            echo ":: brew not installed; skipping eza installation"
+        fi
+    elif [[ "$(uname)" =~ ^(MSYS|MINGW) ]]; then
         _githubrel eza.exe eza-community/eza x86_64-pc-windows-gnu.tar
     fi
 

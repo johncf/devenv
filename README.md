@@ -28,6 +28,8 @@ This is a collection of scripts and config files that make up my development env
 
 ## Installation and removal
 Just run `install.sh` to create relevant directories and links... See `install.sh --help`.
+Use `install.sh --minimal` to skip the tmux plugin manager and tool downloads.
+On Linux and Windows (MSYS) tools such as `eza` are downloaded from GitHub releases; on macOS `eza` is installed with Homebrew.
 Run `uninstall.sh` to remove all symbolic links created by `install.sh`.
 
 ## Screenshot

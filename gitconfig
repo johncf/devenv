@@ -1,31 +1,32 @@
 [user]
-    name = John C
+	name = John C
+	email = john.ch.fr@gmail.com
 [url "https://"]
-    insteadOf = git://
+	insteadOf = git://
 [url "git@github.com:"]
-    pushInsteadOf = https://github.com/
+	pushInsteadOf = https://github.com/
 [url "git@gitlab.com:"]
-    pushInsteadOf = https://gitlab.com/
+	pushInsteadOf = https://gitlab.com/
 [push]
-    default = simple
+	default = simple
 [alias]
-    ca = commit --amend
-    co = checkout
-    contrib = shortlog -sn --no-merges
-    d = diff --find-copies
-    dh = diff --find-copies HEAD
-    ds = diff --find-copies --staged
-    dt = diff --find-copies --stat
-    dw = diff --find-copies --word-diff
-    dmc = diff --name-only --diff-filter=U --relative
-    l = log --graph --decorate --oneline --max-count=16
-    lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(dim white)(%cr)%Creset by %C(yellow)%an%Creset'
-    lt = log --graph --decorate --oneline --stat --max-count=4
-    pf = push --force
+	ca = commit --amend
+	co = checkout
+	contrib = shortlog -sn --no-merges
+	d = diff --find-copies
+	dh = diff --find-copies HEAD
+	ds = diff --find-copies --staged
+	dt = diff --find-copies --stat
+	dw = diff --find-copies --word-diff
+	dmc = diff --name-only --diff-filter=U --relative
+	l = log --graph --decorate --oneline --max-count=16
+	lg = log --graph --pretty=format:'%C(cyan)%h%C(bold cyan)%d%Creset %s %C(dim white)(%cr)%Creset by %C(yellow)%an%Creset'
+	lt = log --graph --decorate --oneline --stat --max-count=4
+	pf = push --force
 [credential "https://github.com"]
-    username = johncf
+	username = johncf
 [filter "lfs"]
-    clean = git-lfs clean -- %f
-    smudge = git-lfs smudge -- %f
-    process = git-lfs filter-process
-    required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
